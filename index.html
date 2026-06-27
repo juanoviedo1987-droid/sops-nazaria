@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Operaciones - Manual de SOPs Oficiales</title>
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS para diseño moderno y adaptativo -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    /* Estructura de fuentes estricta del P-00 para la visualización del documento */
+    .sop-container {
+      font-family: 'Inter', sans-serif !important;
+      line-height: 1.15 !important;
+      color: #262626 !important;
+      font-size: 11pt !important;
+    }
+    .sop-title-1 {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 20pt !important;
+      font-weight: bold !important;
+      color: #000000 !important;
+      margin-top: 0px !important;
+      margin-bottom: 12pt !important;
+      line-height: 1.15 !important;
+    }
+    .sop-title-2 {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 14pt !important;
+      font-weight: bold !important;
+      color: #000000 !important;
+      text-transform: uppercase !important;
+      margin-top: 24pt !important;
+      margin-bottom: 12pt !important;
+      line-height: 1.15 !important;
+    }
+    .sop-title-3 {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 12pt !important;
+      font-weight: bold !important;
+      color: #434343 !important;
+      margin-top: 18pt !important;
+      margin-bottom: 8pt !important;
+      line-height: 1.15 !important;
+    }
+    .sop-text {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 11pt !important;
+      font-weight: normal !important;
+      color: #262626 !important;
+      margin-bottom: 6pt !important;
+      line-height: 1.15 !important;
+    }
+    .sop-list {
+      margin-top: 0px !important;
+      margin-bottom: 6pt !important;
+      padding-left: 20px !important;
+      list-style-type: disc !important;
+    }
+    .sop-list-item {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 11pt !important;
+      color: #262626 !important;
+      line-height: 1.15 !important;
+      margin-bottom: 4pt !important;
+    }
+    .sop-divider {
+      border: 0 !important;
+      border-top: 1px solid #CCCCCC !important;
+      margin-top: 12pt !important;
+      margin-bottom: 12pt !important;
+    }
+    .sop-blockquote {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 11pt !important;
+      font-style: italic !important;
+      color: #555555 !important;
+      margin-left: 20px !important;
+      padding-left: 10px !important;
+      border-left: 3px solid #CCCCCC !important;
+      margin-top: 6pt !important;
+      margin-bottom: 12pt !important;
+      line-height: 1.15 !important;
+    }
+    .sop-warning-list {
+      margin-top: 0px !important;
+      margin-bottom: 6pt !important;
+      padding-left: 0px !important;
+      list-style-type: none !important;
+    }
+    .sop-warning-item {
+      font-family: 'Inter', sans-serif !important;
+      font-size: 11pt !important;
+      color: #262626 !important;
+      line-height: 1.15 !important;
+      margin-bottom: 6pt !important;
+    }
+    /* Estilos personalizados de Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex flex-col font-sans text-slate-800">
+
+  <!-- Cabecera Principal -->
+  <header class="bg-slate-900 text-white shadow-md border-b border-slate-800 shrink-0">
+    <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold tracking-tight">Centro de Operaciones</h1>
+          <p class="text-[10px] sm:text-xs text-slate-400">Manual de SOPs Oficiales y Consulta Interactiva</p>
+        </div>
+      </div>
+      <!-- Botón menú mobile -->
+      <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenido: Sidebar + Área de Visualización + Chatbot -->
+  <div class="flex-1 max-w-7xl w-full mx-auto flex flex-col lg:flex-row relative overflow-hidden">
+    
+    <!-- Sidebar / Selector de SOPs -->
+    <aside id="sidebar-container" class="hidden lg:flex w-full lg:w-72 bg-slate-900 lg:bg-transparent shrink-0 flex-col gap-4 p-4 border-r border-slate-200 lg:border-none z-40 absolute lg:relative inset-y-0 left-0 transition-all duration-200 overflow-y-auto">
+      <div class="bg-slate-850 lg:bg-white rounded-xl shadow-sm border border-slate-800 lg:border-slate-200 p-4">
+        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Manuales de Consulta</h2>
+        <div class="space-y-2" id="sop-selector-container">
+          
+          <!-- Botón P-01 -->
+          <button onclick="switchSop('p01')" id="tab-p01" class="w-full text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-50/10 lg:bg-emerald-50/50 hover:bg-emerald-50/80 transition-all flex items-start gap-3 group">
+            <span class="text-lg mt-0.5">✨</span>
+            <div>
+              <h3 class="font-bold text-slate-200 lg:text-slate-950 text-sm group-hover:text-emerald-700 transition-colors">P-01 · Atención y Ventas</h3>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Imagen de marca y protocolos de venta.</p>
+            </div>
+          </button>
+          
+          <!-- Botón P-02 -->
+          <button onclick="switchSop('p02')" id="tab-p02" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
+            <span class="text-lg mt-0.5">💵</span>
+            <div>
+              <h3 class="font-bold text-slate-300 lg:text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-02 · Caja y Medios</h3>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Operación de caja, arqueos y Dux.</p>
+            </div>
+          </button>
+
+          <!-- Botón P-03 -->
+          <button onclick="switchSop('p03')" id="tab-p03" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
+            <span class="text-lg mt-0.5">🧹</span>
+            <div>
+              <h3 class="font-bold text-slate-300 lg:text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-03 · Orden y Limpieza</h3>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Estética del salón y vidriera.</p>
+            </div>
+          </button>
+
+          <!-- Botón P-04 -->
+          <button onclick="switchSop('p04')" id="tab-p04" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
+            <span class="text-lg mt-0.5">🔄</span>
+            <div>
+              <h3 class="font-bold text-slate-300 lg:text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-04 · Posventa y Cambios</h3>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Condiciones, plazos y fallas.</p>
+            </div>
+          </button>
+
+          <!-- Botón P-05 -->
+          <button onclick="switchSop('p05')" id="tab-p05" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
+            <span class="text-lg mt-0.5">📦</span>
+            <div>
+              <h3 class="font-bold text-slate-300 lg:text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-05 · Recepción y Stock</h3>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Remitos, traspasos y recuentos.</p>
+            </div>
+          </button>
+
+          <!-- Botón P-06 -->
+          <button onclick="switchSop('p06')" id="tab-p06" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
+            <span class="text-lg mt-0.5">🎟️</span>
+            <div>
+              <h3 class="font-bold text-slate-300 lg:text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-06 · Gift Cards</h3>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Emisión, canjes y bloqueo.</p>
+            </div>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Área de Trabajo Principal: Hoja A4 y Chatbot -->
+    <main class="flex-1 flex flex-col overflow-hidden p-4 sm:p-6 gap-6">
+      
+      <!-- Hoja Virtual de Lectura -->
+      <div class="flex-1 bg-slate-200/50 rounded-xl p-3 sm:p-6 border border-slate-300 shadow-inner overflow-y-auto flex justify-center">
+        <!-- Hoja A4 Simulada -->
+        <div class="shadow-xl border border-slate-300 rounded-sm p-6 sm:p-12 md:p-16 bg-white max-w-[21cm] w-full min-h-[29.7cm] h-fit box-border relative">
+          <div id="sop-document" class="sop-container">
+            <!-- Cargado dinámicamente -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel de Chatbot Contextual -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col h-72 sm:h-80 overflow-hidden shrink-0">
+        <div class="bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800 shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400">💬</span>
+            <span class="text-xs sm:text-sm font-bold">Copiloto Operativo: <span class="text-emerald-400" id="chat-active-sop">P-01 · Atención y Ventas</span></span>
+          </div>
+          <button onclick="clearChat()" class="text-[10px] text-slate-400 hover:text-slate-200 bg-slate-800 px-2 py-0.5 rounded transition-colors">Limpiar</button>
+        </div>
+
+        <div id="chat-messages-container" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50 text-xs sm:text-sm">
+          <div class="flex items-start gap-2.5 max-w-[85%]">
+            <div class="bg-emerald-600 text-white p-2.5 rounded-2xl rounded-tl-none font-medium">
+              ¡Hola! Soy tu asistente de operaciones en el local. Contás con todo el manual que ves en pantalla cargado en mi memoria. ¿Qué duda tenés sobre este procedimiento? Preguntame lo que quieras.
+            </div>
+          </div>
+        </div>
+
+        <div class="p-2.5 bg-white border-t border-slate-100 flex items-center gap-2 shrink-0">
+          <input type="text" id="chat-user-input" onkeydown="if(event.key === 'Enter') sendChatMessage()" placeholder="Preguntá al asistente sobre este SOP..." class="flex-grow px-3 py-2.5 border border-slate-200 rounded-lg text-xs sm:text-sm focus:outline-none focus:border-emerald-500">
+          <button onclick="sendChatMessage()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-lg text-xs sm:text-sm transition-colors shadow shrink-0">
+            Preguntar
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Almacén Oculto de Datos de SOPs -->
+  <div id="sop-data-store" class="hidden">
+    
+    <!-- CONTENIDO P-01 -->
+    <div id="data-p01">
+      <h1 class="sop-title-1">P-01 · Atención al Cliente y Ventas</h1>
+      <p class="sop-text"><strong>Objetivo:</strong> Establecer las directrices fundamentales de imagen personal y protocolos de venta.</p>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 1: IMAGEN DE MARCA Y PRESENTACIÓN</h2>
+      <p class="sop-text">El equipo de ventas es la primera conexión visual del cliente con la marca. Se requiere absoluta coherencia con la identidad visual corporativa.</p>
+      <h3 class="sop-title-3">1. Estética y Presencia Profesional</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Vestimenta y Aseo:</strong> Usar prendas profesionales, limpias y planchadas, manteniendo un cuidado personal excelente acorde al retail de moda femenina.</li>
+      </ul>
+      <h3 class="sop-title-3">2. Calzado "Vidriera"</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Mandato:</strong> Es obligatorio usar modelos de la temporada actual como exhibición viviente, demostrando confort. La marca proveerá un par de zapatos por temporada para este uso exclusivo en el local.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 2: PROTOCOLO DE VENTAS (EL ABORDAJE)</h2>
+      <p class="sop-text">El proceso debe ser ágil para maximizar la conversión y el ticket promedio, guiando amablemente a la clienta.</p>
+      <h3 class="sop-title-3">1. Conexión Inicial (Primeros 10 segundos)</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Iniciativa:</strong> No esperar la consulta de la clienta. El saludo debe ser proactivo.</li>
+        <li class="sop-list-item">✨ <strong>Abordaje:</strong> Saludar y realizar un comentario positivo sobre el producto que observa para romper el hielo.</li>
+      </ul>
+      <blockquote class="sop-blockquote">Ejemplo: "¡Hola! Qué buena elección, ese modelo es súper cómodo y combinable".</blockquote>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Acción de Prueba:</strong> Ofrecer inmediatamente el talle para iniciar la experiencia de prueba.</li>
+      </ul>
+      <blockquote class="sop-blockquote">Ejemplo: "Es de lo más buscado de la temporada, ¿querés probarte tu talle?".</blockquote>
+      <h3 class="sop-title-3">2. Indagación y Asesoramiento</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Detección de Necesidad:</strong> Identificar mediante preguntas abiertas el uso para orientar la recomendación técnica.</li>
+      </ul>
+      <blockquote class="sop-blockquote">Ejemplo: "¿Los buscás para usar todos los días o para alguna ocasión especial?".</blockquote>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Venta Asistida:</strong> Actuar como "vidriera viviente" y asesorar sobre los beneficios del modelo (confort y materiales).</li>
+      </ul>
+      <blockquote class="sop-blockquote">Ejemplo: "¿Viste qué livianos son? Yo los tengo puestos hace 6 horas y no cansan nada".</blockquote>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Gestión de Alternativas:</strong> Si no hay stock del modelo inicial, ofrecer siempre una segunda opción similar para evitar la pérdida de la venta.</li>
+      </ul>
+      <blockquote class="sop-blockquote">Ejemplo: "En ese modelo no me quedó tu talle, pero tengo este otro que es muy parecido en diseño y calidad".</blockquote>
+      <h3 class="sop-title-3">3. Cierre y Crecimiento del Ticket</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Venta Cruzada:</strong> Identificar oportunidades para ofrecer un modelo complementario de distinto uso o productos de batea.</li>
+      </ul>
+      <blockquote class="sop-blockquote">Ejemplo: "Como llevás estas botas para salir, ¿no te gustaría aprovechar y ver estas zapatillas para el diario?".</blockquote>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Cierre Proactivo:</strong> Comunicar claramente los beneficios vigentes según la planilla de promociones del mes para facilitar la decisión final.</li>
+      </ul>
+      <blockquote class="sop-blockquote">Ejemplo: "Recordá que si pagás en efectivo tenés un 10% de descuento adicional, o podemos hacerlo en cuotas sin interés".</blockquote>
+      <hr class="sop-divider">
+      <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+      <ul class="sop-warning-list">
+        <li class="sop-warning-item">⚠ <strong>Rol Estratégico Exigido:</strong> El rol de la vendedora es de asesora de imagen. La proactividad en la búsqueda de alternativas es la clave absoluta para alcanzar los objetivos de facturación.</li>
+        <li class="sop-warning-item">⚠ <strong>Uso Obligatorio del Calzado "Vidriera":</strong> Es mandatorio utilizar exclusivamente los calzados vigentes provistos por la marca en horario de atención. Cualquier incumplimiento impacta directamente en las auditorías de punto de venta.</li>
+      </ul>
+    </div>
+
+    <!-- CONTENIDO P-02 -->
+    <div id="data-p02">
+      <h1 class="sop-title-1">P-02 · Operación de Caja y Medios de Pago</h1>
+      <p class="sop-text"><strong>Objetivo:</strong> Estandarizar el cobro para asegurar la trazabilidad de fondos, capturar datos de fidelización y eliminar errores financieros por mal uso de terminales.</p>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 1: APERTURA Y ACTUALIZACIÓN</h2>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Dux como Autoridad:</strong> El sistema es la única fuente de precios. Si hay discrepancias, se cobra lo que dicta Dux y se reporta el error después de la venta.</li>
+        <li class="sop-list-item">📱 <strong>Hoja de Ruta Comercial:</strong> Consultar el canal oficial (WhatsApp/Drive) para validar qué bancos y promociones de shopping aplican hoy. No memorizar; verificar.</li>
+        <li class="sop-list-item">💵 <strong>Fondo de Caja:</strong> Registrar la apertura con el monto físico real al inicio de cada jornada.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 2: PROTOCOLO DE VENTA (EL PASO A PASO)</h2>
+      <h3 class="sop-title-3">1. Identificación de Clienta (Loyalty y Anti-Duplicados)</h3>
+      <p class="sop-text">🖥️ <strong>Búsqueda en Sistema:</strong> Buscar a la clienta en Dux por DNI o CUIT antes de cargar cualquier producto al carrito de facturación.</p>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Si ya existe:</strong> Seleccionar ese perfil de forma directa. Queda prohibido duplicar clientes creando cuentas alternativas.</li>
+        <li class="sop-list-item">🖥️ <strong>Si no existe:</strong> Registrarla desde cero solicitando y completando los datos en este orden de prioridad:</li>
+        <ul class="sop-list" style="list-style-type: circle;">
+          <li class="sop-list-item"><strong>DNI / CUIT:</strong> Mandatorio para la facturación fiscal de AFIP y asignación de puntos.</li>
+          <li class="sop-list-item"><strong>EMAIL:</strong> Crítico para el envío de cupones automáticos de fidelización y despacho de la factura digital.</li>
+          <li class="sop-list-item"><strong>TELÉFONO:</strong> Deseable para agilizar la gestión de cambios y envíos especiales.</li>
+        </ul>
+      </ul>
+      <h3 class="sop-title-3">2. Selección de Pago y Terminal</h3>
+      <p class="sop-text">🖥️ <strong>Asignación de Listas:</strong> Dependiendo del método de pago elegido, seleccionar en Dux la Lista de Precios correspondiente (Efectivo o Tarjeta/General). El sistema procesará los descuentos de manera automática. Queda prohibido aplicar descuentos manuales o modificar precios unitarios.</p>
+      <h3 class="sop-title-3">3. Registro de Trazabilidad en Dux</h3>
+      <p class="sop-text">💳 <strong>Registro de Transacciones:</strong> Al procesar pagos con tarjeta (Payway/Nave/MP), es obligatorio completar el campo "Observaciones" o "Nro Comprobante" con: <strong>Nro de Lote + Nro de Cupón</strong>.</p>
+      <blockquote class="sop-blockquote">Ejemplo: Lote 022 - Cupón 1584 (Este dato es la única forma de auditar la acreditación del dinero en la cuenta bancaria).</blockquote>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 3: CIERRE Y AUDITORÍA</h2>
+      <ul class="sop-list">
+        <li class="sop-list-item">💳 <strong>Cierre de Lote Físico:</strong> Realizar el cierre de lote físico en la terminal Payway al finalizar el turno (indispensable para que los fondos se acrediten efectivamente). Las pasarelas Mercado Pago y Nave no lo requieren.</li>
+        <li class="sop-list-item">🖥️ <strong>Cierre Ciego en Dux:</strong> Dirigirse a <em>Tesorería > Caja Diaria > Cierre de Caja</em>. El sistema desplegará de forma ciega las formas de pago en $0. El cajero debe ingresar de forma manual el monto físico real contado. Al guardar, Dux genera automáticamente el Informe de Cierre de Caja.</li>
+        <li class="sop-list-item">💵 <strong>Control de Diferencias:</strong> Revisar con rigor el campo "Diferencia cierre". Si marca $0, caja correcta. Si marca Diferencia (Sobrante/Faltante), revisar movimientos y, si no se encuentra el origen, guardar adjuntando una observación detallada que justifique el desajuste antes de retirarse.</li>
+        <li class="sop-list-item">🖥️ <strong>Protocolo de Errores:</strong> El sistema cuenta con permisos restringidos y no permite la anulación o borrado directo de comprobantes. Ante cualquier error, la única vía operativa aceptada para corregir la caja y equilibrar el stock es generar la Nota de Crédito correspondiente vinculada de forma estricta al comprobante original.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+      <ul class="sop-warning-list">
+        <li class="sop-warning-item">⚠ <strong>Error de Terminal:</strong> Pasar una promoción de banco por Mercado Pago genera comisiones directas no previstas para la empresa. Es considerado un error de procedimiento grave contra la rentabilidad de la sucursal.</li>
+        <li class="sop-warning-item">⚠ <strong>Integridad de Datos:</strong> Registrar una venta omitiendo el email de la clienta corta de inmediato su trazabilidad, impidiendo la alimentación de la base de datos de fidelización y bloqueando campañas de marketing automáticas.</li>
+      </ul>
+    </div>
+
+    <!-- CONTENIDO P-03 -->
+    <div id="data-p03">
+      <h1 class="sop-title-1">P-03 · Orden, Limpieza y Presentación del Local</h1>
+      <p class="sop-text"><strong>Objetivo:</strong> Mantener la estética del salón y la vidriera en óptimas condiciones durante la jornada laboral, distribuyendo las tareas de forma equitativa entre los turnos para garantizar la atracción de clientes y una experiencia de compra impecable.</p>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 1: RUTINA DIARIA DE APERTURA Y CIERRE (Ambos Turnos)</h2>
+      <p class="sop-text">Las tareas de mantenimiento se realizan con el local abierto aprovechando los momentos de bajo flujo de público, siendo responsabilidad de ambos turnos por igual.</p>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Puesta a punto inicial:</strong> Repaso rápido de polvo en estanterías, mostradores y calzado exhibido.</li>
+        <li class="sop-list-item">✨ <strong>La Vidriera (Filtro de Atracción Crítico):</strong> Es la principal cara del local y el factor decisivo para que la clienta entre. Ambos turnos deben realizar una ronda visual obligatoria para limpiar el polvo de los zapatos expuestos en vidriera, verificar que los exhibidores estén limpios y que la cartelería promocional esté perfectamente recta y vigente según la Hoja de Ruta Comercial.</li>
+        <li class="sop-list-item">✨ <strong>Pisos:</strong> Barrido general del salón y repaso de mopa si la jornada lo requiere (días de lluvia o alto tránsito).</li>
+        <li class="sop-list-item">✨ <strong>Vidrios y Espejos:</strong> Limpieza de marcas de dedos en espejos de piso y vidrios internos.</li>
+        <li class="sop-list-item">✨ <strong>Tecnología e Iluminación:</strong> Encender las pantallas/TVs al abrir. Revisar constantemente que no haya focos quemados en el salón ni en la vidriera; reportar fallas de iluminación de inmediato.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 2: MANTENIMIENTO "VIVO" Y EXHIBICIÓN</h2>
+      <p class="sop-text">El orden visual debe ser constante. El desorden generado por una atención debe resolverse inmediatamente después de que el cliente se retira.</p>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Control de Huecos (Salón y Vidriera):</strong> Regla estricta. Prohibido dejar "baches" o espacios vacíos. Si se vende el último par de exhibición (ya sea de la pared o de la vidriera), el hueco debe cubrirse de inmediato adelantando otro producto o colocando un modelo sustituto.</li>
+        <li class="sop-list-item">🖥️ <strong>Control de Precios:</strong> Cada calzado debe contar con su precio visible y prolijo. El precio expuesto debe coincidir al 100% con lo que dicta el sistema Dux.</li>
+        <li class="sop-list-item">✨ <strong>Zona de Sillones y Salón:</strong> Máximo 10 minutos para guardar las cajas en el depósito y devolver el zapato de muestra a su estante tras una venta. El área de sillones debe quedar libre de papeles seda, hormas o cajas vacías inmediatamente. Los calzadores deben retornar a su lugar asignado.</li>
+        <li class="sop-list-item">📦 <strong>Cierre y Depósito:</strong> Agrupar los residuos en bolsas cerradas y sacarlas en los horarios estipulados. Dejar el depósito organizado, con cajas cerradas y los SKUs legibles hacia el frente para agilizar la atención y el conteo de stock.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+      <ul class="sop-warning-list">
+        <li class="sop-warning-item">⚠ <strong>El "Bache" o Desorden en Vidriera:</strong> Una vidriera con huecos, zapatos torcidos o polvo destruye la imagen de la marca. Se penalizará como una falta grave contra la generación de tráfico del local.</li>
+        <li class="sop-warning-item">⚠ <strong>Cajas en el Salón:</strong> Está prohibido acumular cajas de zapatos vacías o mercadería por guardar en el salón de ventas mientras haya clientes circulando. El salón es área limpia.</li>
+      </ul>
+    </div>
+
+    <!-- CONTENIDO P-04 -->
+    <div id="data-p04">
+      <h1 class="sop-title-1">P-04 · Protocolo de Posventa y Cambios</h1>
+      <p class="sop-text"><strong>Objetivo:</strong> Garantizar una experiencia de posventa ágil, transparente y orientada a la fidelización de la clienta, asegurando el control de los productos en el sistema y el seguimiento detallado de cada caso.</p>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 1: CONDICIONES GENERALES Y PLAZOS</h2>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Cambio por Gusto / Talle / Color:</strong> La clienta dispone de un período máximo de 30 días corridos a partir de la fecha de compra.</li>
+        <li class="sop-list-item">✨ <strong>Reclamo por Falla de Fabricación (Garantía):</strong> Se establece un plazo límite de 45 días corridos desde la fecha de compra para recibir artículos que presenten defectos estructurales de origen.</li>
+        <li class="sop-list-item">🖥️ <strong>Validación de la Compra:</strong> La vendedora debe buscar de forma obligatoria la ficha de la clienta en el Sistema utilizando su DNI, CUIT, Mail o Teléfono para validar la transacción si no se dispone del ticket.</li>
+        <li class="sop-list-item">✨ <strong>Cruce entre Locales:</strong> Los cambios pueden realizarse en las sucursales habilitadas, independientemente de dónde se haya efectuado la compra original (verificar previamente cuáles están vigentes).</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 2: EVALUACIÓN FÍSICA Y CRITERIO DE RECEPTIVIDAD</h2>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Filtro para Cambio Directo:</strong> Es indispensable que el calzado esté completamente limpio y presentable. Se aceptan marcas leves normales de prueba en salón. Quedan excluidos de cambio directo los productos con suelas desgastadas, raspadas o suciedad evidente de la vía pública.</li>
+        <li class="sop-list-item">📦 <strong>Desvío a Fábrica / Taller:</strong> Todo calzado que no apruebe el filtro de cambio directo por presentar uso, pero manifieste un problema de fabricación, se derivará al proceso de reparación y compostura.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 3: GESTIÓN DE SALDOS Y SEGUIMIENTO EN SUCURSAL</h2>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Diferencias de Dinero:</strong> Si el nuevo artículo elegido es de mayor valor, la clienta abona la diferencia. Si es de menor valor, el saldo restante se carga como Nota de Crédito en su cuenta corriente en Dux (con validez de 90 días, no canjeable por efectivo).</li>
+        <li class="sop-list-item">🖥️ <strong>Anexo de Control Interno (Excel):</strong> Es obligatorio registrar el reingreso en el Excel interno de la sucursal para asentar el detalle de la falla, la fecha de envío a fábrica, el estado de la reparación y el seguimiento diario hasta su devolución.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 4: RESOLUCIÓN INMEDIATA Y PLAZOS DE TALLER</h2>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Autonomía de Caja (Resolución Inmediata):</strong> Si el producto presenta una falla de fabricación evidente y prematura, la vendedora tiene autorización de resolver en el acto entregando un par nuevo idéntico. Si no hay stock, debe ofrecer alternativas disponibles en el local.</li>
+        <li class="sop-list-item">📱 <strong>Proceso de Envío a Fábrica:</strong> Si requiere reparación, se recibe el calzado y se envía de forma digital (WhatsApp o Mail) la Constancia de Recepción por Compostura. El plazo máximo de entrega es de 10 días hábiles.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+      <ul class="sop-warning-list">
+        <li class="sop-warning-item">⚠ <strong>Emisión Obligatoria de Constancia:</strong> Está prohibido recibir un artículo para enviar a fábrica sin notificar la constancia digital en el momento, para evitar reclamos sobre plazos (10 días) y estados.</li>
+        <li class="sop-warning-item">⚠ <strong>Control de Stock en Cambios Cruzados:</strong> Al realizar un cambio de un producto de otra sucursal, el egreso del artículo físico debe facturarse y descargarse de Dux de inmediato. Prohibido acumular calzados de cambio sin registrar.</li>
+      </ul>
+    </div>
+
+    <!-- CONTENIDO P-05 -->
+    <div id="data-p05">
+      <h1 class="sop-title-1">P-05 · Protocolo de Recepción, Carga y Auditoría de Stock</h1>
+      <p class="sop-text"><strong>Objetivo:</strong> Garantizar que el sistema Dux Software funcione como la única fuente de información veraz en tiempo real, permitiendo una gestión de inventarios eficiente, la prevención de pérdidas y la toma de decisiones basada en datos precisos.</p>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 1: RECEPCIÓN Y CONTEO DE MERCADERÍA</h2>
+      <p class="sop-text">Este paso es crítico para asegurar que el stock físico coincida con el sistema de inventario de forma exacta desde el primer momento de su ingreso.</p>
+      <h3 class="sop-title-3">1. Procedimiento de Control de Ingresos</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📦 <strong>Conteo Unitario:</strong> Al recibir la mercadería, el personal debe realizar obligatoriamente el conteo físico de Artículo, Color y Talle contra la remisión correspondiente.</li>
+        <li class="sop-list-item">🖥️ <strong>Registro Inmediato:</strong> Cada persona en turno es responsable directa de registrar el ingreso formal en Dux Software en el momento exacto de la recepción física.</li>
+        <li class="sop-list-item">📦 <strong>Protocolo de Discrepancia Inmediata:</strong> Si el conteo físico no coincide con la remisión, el personal no debe procesar la carga. Es obligatorio tomar una foto de la remisión y de los artículos, e informar al grupo oficial de WhatsApp para coordinar la verificación con el depósito central antes de impactar el stock.</li>
+      </ul>
+      <h3 class="sop-title-3">2. Movimiento de Stock entre Locales (Traspasos)</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Emisión (Origen):</strong> Generar la Transferencia de Mercadería en el Sistema antes de que el calzado salga del local. Está prohibido despachar sin este paso.</li>
+        <li class="sop-list-item">📱 <strong>Notificación:</strong> Enviar de inmediato la foto o PDF del comprobante al grupo de WhatsApp oficial aclarando:</li>
+      </ul>
+      <blockquote class="sop-blockquote">"Traspaso emitido desde [Origen] hacia [Destino]"</blockquote>
+      <ul class="sop-list">
+        <li class="sop-list-item">📦 <strong>Recepción (Destino):</strong> Abrir la transferencia en el Sistema y controlar físico contra sistema (Artículo, Color y Talle).</li>
+        <li class="sop-list-item">🖥️ <strong>Confirmación:</strong> Si todo coincide, procesar la aceptación en Dux para dar ingreso al stock.</li>
+        <li class="sop-list-item">📱 <strong>Discrepancias:</strong> Si hay desajustes, aceptar la transferencia igual pero reportar de inmediato con fotos detalladas en WhatsApp para realizar el ajuste manual.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 2: GESTIÓN DE PRECIOS E IDENTIFICACIÓN VISUAL</h2>
+      <h3 class="sop-title-3">1. Sincronización de Precios (Central TOM)</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Actualización Semanal:</strong> Los precios se comunican centralizadamente. La sucursal TOM es la responsable de actualizar estos valores en Dux para que se repliquen en Maschwitz y Champagnat.</li>
+        <li class="sop-list-item">🖥️ <strong>Carga de Fotos en Ficha:</strong> El equipo de TOM debe incorporar obligatoriamente la foto de cada artículo en Dux para que el personal identifique visualmente los modelos.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 3: AUDITORÍA DE STOCK Y REPORTABILIDAD</h2>
+      <h3 class="sop-title-3">1. Cronograma de Recuento Total Semanal</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📦 <strong>Sucursales Maschwitz y Paseo Champagnat:</strong> El recuento se realiza los <strong>Martes</strong>, aprovechando el cambio de turno.</li>
+        <li class="sop-list-item">📦 <strong>Sucursal TOM:</strong> El recuento se realiza los <strong>Jueves por la mañana</strong>, aprovechando el volumen de personal en el depósito principal.</li>
+      </ul>
+      <h3 class="sop-title-3">2. Reporte de Novedades y Análisis de KPIs</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📱 <strong>Notificación Inmediata:</strong> Al finalizar el recuento, se debe informar inmediatamente cualquier faltante o sobrante detectado al grupo oficial de WhatsApp utilizando las plantillas.</li>
+        <li class="sop-list-item">🖥️ <strong>Análisis y Promociones:</strong> Se calculará la valoración monetaria del stock faltante y se identificarán de forma proactiva artículos sin ventas para promociones de rotación.</li>
+      </ul>
+      <h3 class="sop-title-3">3. Formatos de Reporte Oficiales (WhatsApp)</h3>
+      <blockquote class="sop-blockquote">
+        📱 <strong>Reporte de Diferencias - NOVEDADES DETECTADAS:</strong><br>
+        📍 Sucursal: [Nombre]<br>
+        👤 Responsable: [Nombre]<br>
+        ⚠️ DISCREPANCIAS (Sistema vs Físico):<br>
+        [Artículo/Color/Talle]: Sistema [X] / Físico [Y] → Dif: [-1]
+      </blockquote>
+      <blockquote class="sop-blockquote">
+        📊 <strong>Análisis / KPIs:</strong><br>
+        💸 VALORACIÓN ESTIMADA: $[Monto]<br>
+        🔍 ARTÍCULOS SIN VENTA (Para Promos): [Listar modelos y talles]
+      </blockquote>
+      <hr class="sop-divider">
+      <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+      <ul class="sop-warning-list">
+        <li class="sop-warning-item">⚠ <strong>Regla de Exhibición y Venta:</strong> Ningún producto puede ser exhibido en el salón de ventas ni vendido si no ha sido previamente cargado en el sistema Dux Software.</li>
+        <li class="sop-warning-item">⚠ <strong>Responsabilidad de Carga y Registro:</strong> Cada persona en turno es directamente responsable de registrar de forma inmediata el ingreso al momento de la recepción física.</li>
+        <li class="sop-warning-item">⚠ <strong>Sincronización Crítica TOM:</strong> La omisión o demora de actualización de precios por parte de TOM afecta directamente los márgenes de venta en Maschwitz y Champagnat.</li>
+      </ul>
+    </div>
+
+    <!-- CONTENIDO P-06 -->
+    <div id="data-p06">
+      <h1 class="sop-title-1">P-06 · Gestión Digital de Gift Cards</h1>
+      <p class="sop-text"><strong>Objetivo:</strong> Estandarizar la emisión y el canje ágil, blindando el sistema contra fraudes o dobles usos de tarjetas en todos los locales de la empresa.</p>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 1: VENTA Y EMISIÓN DE TARJETAS</h2>
+      <h3 class="sop-title-3">1. Facturación en Sistema (Dux)</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Venta en Dux:</strong> Vender el producto "GIFT CARD" seleccionando el código o ID disponible en stock (Ej: TOM-1 o MAS-5).</li>
+        <li class="sop-list-item">💳 <strong>Medio de Pago Real:</strong> Registrar el medio de pago real utilizado (Efectivo, Débito/Crédito o Transferencia) y cerrar la venta.</li>
+      </ul>
+      <h3 class="sop-title-3">2. Generación en la Nube (Google Forms)</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📱 <strong>Apertura del Formulario:</strong> Ingresar al formulario "Generador Gift Cards" (Link: <a href="https://forms.gle/M5maiw8modNgipmt5" target="_blank" class="text-blue-600 underline">https://forms.gle/M5maiw8modNgipmt5</a>) cargando sucursal, monto, ticket e ID.</li>
+      </ul>
+      <h3 class="sop-title-3">3. Entrega Digital a la Clienta</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📱 <strong>WhatsApp:</strong> Entrar a Google Drive, ingresar a la carpeta "GIFT CARDS GENERADAS", descargar en formato PNG y enviar vía WhatsApp.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 2: AUDITORÍA Y PROTOCOLO DE CANJE</h2>
+      <h3 class="sop-title-3">1. Control de Seguridad (Paso Crítico)</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Búsqueda de Ticket Original:</strong> Buscar el comprobante de la Gift Card original en Dux y revisar el campo "Observaciones":</li>
+        <ul class="sop-list" style="list-style-type: circle;">
+          <li class="sop-list-item">🔴 <strong>Si figura "CANJEADA":</strong> Detener de inmediato la transacción informando cordialmente que el código ya fue utilizado.</li>
+          <li class="sop-list-item">🟢 <strong>Si está Vacío:</strong> Continuar con el canje, validando que coincidan monto e ID con la imagen.</li>
+        </ul>
+      </ul>
+      <h3 class="sop-title-3">2. Cobro en Mostrador y Cierre Financiero</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Facturación General:</strong> Facturar los artículos elegidos y elegir método de cobro "CANJE GIFT CARD".</li>
+        <li class="sop-list-item">💳 <strong>Saldos:</strong> Cobrar diferencias normalmente; si el saldo supera la compra, dejar el saldo a favor en cuenta corriente dentro de Dux (no vuelto en efectivo).</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 3: EL "QUEMADO" DE LA TARJETA</h2>
+      <h3 class="sop-title-3">1. Bloqueo Inmediato en Sistema</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Apertura de Factura de Emisión:</strong> Al entregar la bolsa de compra, abrir de inmediato la factura de emisión original de la Gift Card en Dux e inyectar en Observaciones de forma obligatoria:</li>
+      </ul>
+      <blockquote class="sop-blockquote">"CANJEADA - LOCAL [Nombre de Sucursal] - [Fecha de Canje]"</blockquote>
+      <hr class="sop-divider">
+      <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+      <ul class="sop-warning-list">
+        <li class="sop-warning-item">⚠ <strong>El "Quemado" Obligatorio:</strong> Registrar de forma inmediata la palabra "CANJEADA" en las observaciones de la factura original es el único control absoluto para evitar fraudes de dobles canjes. Omitirlo es una falta grave.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSop = 'p01';
+    let isMobileMenuOpen = false;
+
+    window.onload = function() {
+      switchSop(currentSop);
+    };
+
+    function toggleMobileMenu() {
+      const sidebar = document.getElementById('sidebar-container');
+      isMobileMenuOpen = !isMobileMenuOpen;
+      
+      if (isMobileMenuOpen) {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('flex', 'bg-slate-900', 'w-full');
+      } else {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('flex', 'bg-slate-900', 'w-full');
+      }
+    }
+
+    function switchSop(sopId) {
+      currentSop = sopId;
+      const sourceElement = document.getElementById(`data-${sopId}`);
+      const targetContainer = document.getElementById('sop-document');
+      
+      if (sourceElement && targetContainer) {
+        targetContainer.innerHTML = '';
+        targetContainer.appendChild(sourceElement.cloneNode(true));
+      }
+
+      const sops = ['p01', 'p02', 'p03', 'p04', 'p05', 'p06'];
+      sops.forEach(id => {
+        const btn = document.getElementById(`tab-${id}`);
+        if (!btn) return;
+        if (id === sopId) {
+          btn.classList.add('border-emerald-500', 'bg-emerald-50/10', 'lg:bg-emerald-50/50');
+          btn.classList.remove('border-transparent', 'bg-slate-800', 'lg:bg-slate-50');
+        } else {
+          btn.classList.remove('border-emerald-500', 'bg-emerald-50/10', 'lg:bg-emerald-50/50');
+          btn.classList.add('border-transparent', 'bg-slate-800', 'lg:bg-slate-50');
+        }
+      });
+
+      const sopsNames = {
+        'p01': 'P-01 · Atención y Ventas',
+        'p02': 'P-02 · Caja y Medios',
+        'p03': 'P-03 · Orden y Limpieza',
+        'p04': 'P-04 · Posventa y Cambios',
+        'p05': 'P-05 · Recepción y Stock',
+        'p06': 'P-06 · Gift Cards'
+      };
+      document.getElementById('chat-active-sop').innerText = sopsNames[sopId] || 'SOP Seleccionado';
+
+      if (isMobileMenuOpen) {
+        toggleMobileMenu();
+      }
+
+      const chatContainer = document.getElementById('chat-messages-container');
+      chatContainer.innerHTML = `
+        <div class="flex items-start gap-2.5 max-w-[85%]">
+          <div class="bg-emerald-600 text-white p-2.5 rounded-2xl rounded-tl-none font-medium">
+            He cargado el contexto completo de <strong>${sopsNames[sopId]}</strong>. ¿Qué consulta tenés sobre los procesos de esta sección?
+          </div>
+        </div>
+      `;
+    }
+
+    function clearChat() {
+      const chatContainer = document.getElementById('chat-messages-container');
+      chatContainer.innerHTML = `
+        <div class="flex items-start gap-2.5 max-w-[85%]">
+          <div class="bg-emerald-600 text-white p-2.5 rounded-2xl rounded-tl-none font-medium">
+            Historial de chat restablecido. ¿Tenés alguna consulta o escenario específico que quieras validar sobre el SOP actual? Decime y te ayudo rápido.
+          </div>
+        </div>
+      `;
+    }
+
+    function sendChatMessage() {
+      const inputEl = document.getElementById('chat-user-input');
+      const query = inputEl.value.trim();
+      if (!query) return;
+
+      appendMessage(query, true);
+      inputEl.value = '';
+
+      const chatContainer = document.getElementById('chat-messages-container');
+      const typingIndicator = document.createElement('div');
+      typingIndicator.id = 'typing-indicator';
+      typingIndicator.className = 'flex items-start gap-2.5 max-w-[85%]';
+      typingIndicator.innerHTML = `
+        <div class="bg-slate-200 text-slate-500 p-2.5 rounded-2xl rounded-tl-none font-medium animate-pulse">
+          Analizando manual...
+        </div>
+      `;
+      chatContainer.appendChild(typingIndicator);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      setTimeout(() => {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+        
+        const responseText = getContextualResponse(query, currentSop);
+        appendMessage(responseText, false);
+      }, 700);
+    }
+
+    function appendMessage(text, isUser) {
+      const chatContainer = document.getElementById('chat-messages-container');
+      const messageDiv = document.createElement('div');
+      
+      if (isUser) {
+        messageDiv.className = 'flex items-start justify-end gap-2.5 max-w-[85%] ml-auto';
+        messageDiv.innerHTML = `
+          <div class="bg-slate-800 text-white p-2.5 rounded-2xl rounded-tr-none font-normal">
+            ${text}
+          </div>
+        `;
+      } else {
+        messageDiv.className = 'flex items-start gap-2.5 max-w-[85%]';
+        messageDiv.innerHTML = `
+          <div class="bg-emerald-600 text-white p-2.5 rounded-2xl rounded-tl-none font-normal shadow-sm">
+            ${text}
+          </div>
+        `;
+      }
+      chatContainer.appendChild(messageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // BASE DE CONOCIMIENTO LOCAL CON ESCENARIOS DE CONTINGENCIA
+    function getContextualResponse(query, sopId) {
+      const q = query.toLowerCase();
+
+      if (sopId === 'p01') {
+        if (q.includes('ropa') || q.includes('vestir') || q.includes('calzado') || q.includes('vidriera')) {
+          return "✨ <strong>Norma de Imagen (Fase 1):</strong> Es obligatorio el uso de prendas limpias, planchadas y vestir de forma obligatoria el par de calzados vigente de la temporada que provee la marca. Queda prohibido el uso de calzado fuera de temporada.";
+        }
+        if (q.includes('no hay talle') || q.includes('alternativa') || q.includes('ofrecer')) {
+          return "✨ <strong>Filtro de Venta (Fase 2):</strong> Ante la falta del talle exacto consultado por la clienta, la vendedora debe proponer en el acto un modelo similar de diseño, color y excelente calidad para evitar que se retire sin realizar la compra.";
+        }
+        if (q.includes('efectivo') || q.includes('descuento') || q.includes('promociones')) {
+          return "✨ <strong>Beneficio de Cierre (Fase 2):</strong> Recordá comunicarle a la clienta de forma proactiva que al abonar en efectivo cuenta con un 10% de descuento adicional, o bien ofrecerle los planes de cuotas sin interés vigentes.";
+        }
+        return "De acuerdo con el manual **P-01**, debés abordar a la clienta de forma proactiva dentro de los primeros 10 segundos comentando positivamente el zapato que observa, y actuar siempre como su asesora de imagen.";
+      }
+
+      if (sopId === 'p02') {
+        if (q.includes('dux') || q.includes('precio') || q.includes('discrepancia')) {
+          return "🖥️ <strong>Máxima Autoridad (Fase 1):</strong> Ante cualquier desajuste de valor entre la etiqueta y el sistema, lo que dicta Dux es la verdad oficial de cobro. Se procesa el valor del sistema Dux y el error se reporta inmediatamente después de concretada la transacción.";
+        }
+        if (q.includes('lote') || q.includes('cupon') || q.includes('cupón') || q.includes('tarjeta')) {
+          return "💳 <strong>Trazabilidad Obligatoria (Fase 2):</strong> Al registrar un cobro con tarjeta en Dux, es un paso crítico asentar en Observaciones: <strong>Lote + Cupón</strong> (Ej: Lote 022 - Cupón 1584). Es el único dato que nos permite auditar los cobros en el banco.";
+        }
+        if (q.includes('error') || q.includes('anular') || q.includes('borrar')) {
+          return "🖥️ <strong>Restricción Operativa (Fase 3):</strong> Recordá que los perfiles de caja tienen bloqueado el borrado de facturas ya cerradas. Para subsanar cualquier error en la facturación o el stock, debés emitir obligatoriamente una **Nota de Crédito** vinculada al comprobante original.";
+        }
+        if (q.includes('mercado pago') || q.includes('mp') || q.includes('terminal')) {
+          return "⚠ <strong>REGLA DE ORO (Puntos Críticos):</strong> Pasar cobros con promociones bancarias específicas por Mercado Pago en lugar de usar la terminal oficial (Payway) genera costos en comisiones no previstos y pérdidas financieras directas. ¡Controlá siempre la terminal correcta!";
+        }
+        return "El **P-02** establece la obligatoriedad de registrar la apertura con saldo ciego real contado y auditar la caja al final del turno. Si la diferencia es de $0, la caja se archiva; si hay sobrante o faltante, se asienta la justificación detallada antes de retirarse.";
+      }
+
+      if (sopId === 'p03') {
+        if (q.includes('hueco') || q.includes('bache') || q.includes('vidriera')) {
+          return "⚠ <strong>REGLA DE ORO (Puntos Críticos):</strong> Una vidriera o estantería con 'huecos' destruye de inmediato la estética de la tienda. Si se vende la unidad de muestra de la pared o de la vidriera, debés cubrir ese espacio adelantando otro calzado o colocando un modelo sustituto.";
+        }
+        if (q.includes('cajas') || q.includes('sillones') || q.includes('orden')) {
+          return "✨ <strong>Salón Limpio (Fase 2):</strong> Se cuenta con un tiempo límite de 10 minutos para archivar en el depósito las cajas de zapatos usadas e insumos después de finalizar una atención. El salón debe permanecer libre de cajas vacías y papeles.";
+        }
+        return "El **P-03** divide responsabilidades equitativas entre la apertura y el cierre de ambos turnos. Mantener la vidriera limpia, libre de polvo y con la cartelería promocional recta es un filtro crítico de atracción.";
+      }
+
+      if (sopId === 'p04') {
+        if (q.includes('garantia') || q.includes('garantía') || q.includes('fallas') || q.includes('defecto')) {
+          return "✨ <strong>Plazos de Garantía (Fase 1):</strong> Los cambios por gusto, color o talle disponen de 30 días corridos. Las solicitudes por falla de fabricación (garantía) de origen cuentan con un plazo límite de 45 días corridos a partir de la fecha de la compra.";
+        }
+        if (q.includes('compostura') || q.includes('taller') || q.includes('fabrica') || q.includes('constancia')) {
+          return "⚠ <strong>REGLA DE ORO (Puntos Críticos):</strong> Está prohibido recibir mercadería para compostura sin emitir en el acto la **Constancia de Recepción Digital** al cliente. El plazo oficial de devolución acordado con fábrica es de 10 días hábiles.";
+        }
+        if (q.includes('diferencia') || q.includes('efectivo') || q.includes('saldo')) {
+          return "🖥️ <strong>Gestión de Saldos (Fase 3):</strong> Si el calzado elegido de cambio es de menor valor, se le asienta la diferencia a favor de la clienta como **Nota de Crédito** en su cuenta corriente del sistema (validez de 90 días). Bajo ninguna circunstancia se devuelve dinero en efectivo.";
+        }
+        return "El **P-04** te otorga Autonomía de Caja: si la falla es evidente, prematura y tenés stock de la unidad, podés resolver en el acto entregándole un par nuevo idéntico para garantizar su total satisfacción.";
+      }
+
+      if (sopId === 'p05') {
+        if (q.includes('remito') || q.includes('no coincide') || q.includes('discrepancia')) {
+          return "📦 <strong>Control de Recepción (Fase 1):</strong> Si el conteo físico de Artículo, Color y Talle no coincide con el remito del sistema, **no proceses la carga**. Tomá foto de los artículos, de la remisión e informá en el grupo de WhatsApp para autorizar el ajuste.";
+        }
+        if (q.includes('traspaso') || q.includes('enviar') || q.includes('transferencia')) {
+          return "🖥️ <strong>Trazabilidad de Traspasos (Fase 1):</strong> Está prohibido despachar zapatos hacia otra sucursal sin generar previamente la Transferencia de Mercadería en Dux. Se debe enviar el PDF o foto en el acto al WhatsApp con la aclaración: `Traspaso emitido desde [Origen] hacia [Destino]`. El local destino debe aceptarla al recibir.";
+        }
+        if (q.includes('cuando') || q.includes('dia') || q.includes('recuento') || q.includes('cronograma')) {
+          return "📦 <strong>Días de Recuento (Fase 3):</strong> En Maschwitz y Paseo Champagnat la auditoría de stock obligatoria se rinde los **Martes** (aprovechando el cruce de turnos). En TOM, el depósito principal se audita los **Jueves por la mañana**.";
+        }
+        return "⚠ <strong>REGLA DE ORO:</strong> Queda terminantemente prohibido exhibir o vender un producto físico si no se ha cargado previamente en el sistema Dux. Lo que no está en el sistema, no existe físicamente en tienda.";
+      }
+
+      if (sopId === 'p06') {
+        if (q.includes('seguridad') || q.includes('canje') || q.includes('control')) {
+          return "🖥️ <strong>Paso de Seguridad Crítico (Fase 2):</strong> Antes de canjear una Gift Card, buscá el ticket original de su venta en Dux. Si en Observaciones ya figura 'CANJEADA', suspendé la operación. Si el campo está vacío, procedé con el cobro.";
+        }
+        if (q.includes('quemado') || q.includes('bloqueo') || q.includes('observaciones')) {
+          return "⚠ <strong>REGLA DE ORO (Puntos Críticos):</strong> Al entregar la compra a la clienta que canjeó una Gift Card, debés abrir inmediatamente la factura original de la venta de la tarjeta en Dux y escribir en observaciones: `CANJEADA - LOCAL [Nombre de Sucursal] - [Fecha]`. Omitir este paso se considera una falta grave.";
+        }
+        return "El **P-06** establece el paso a paso: facturar la Gift Card en Dux usando el ID del plástico, cargar los datos en el Google Forms del local, descargar la tarjeta generada de Drive y enviarla al cliente vía WhatsApp.";
+      }
+
+      return "Indícame una pregunta clara sobre los pasos, plazos o reglas críticas de este documento para poder ayudarte.";
+    }
+  </script>
+</body>
+</html>
