@@ -1,804 +1,228 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Central Privada - Administrador de SOPs + Inteligencia Artificial</title>
-  <!-- Google Font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS para la interfaz del visualizador -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <style>
-    .sop-container {
-      font-family: 'Inter', sans-serif !important;
-      line-height: 1.15 !important;
-      color: #262626 !important;
-      font-size: 11pt !important;
-    }
-    .sop-title-1 {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 20pt !important;
-      font-weight: bold !important;
-      color: #000000 !important;
-      margin-top: 0px !important;
-      margin-bottom: 12pt !important;
-      line-height: 1.15 !important;
-    }
-    .sop-title-2 {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 14pt !important;
-      font-weight: bold !important;
-      color: #000000 !important;
-      text-transform: uppercase !important;
-      margin-top: 24pt !important;
-      margin-bottom: 12pt !important;
-      line-height: 1.15 !important;
-    }
-    .sop-title-3 {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 12pt !important;
-      font-weight: bold !important;
-      color: #434343 !important;
-      margin-top: 18pt !important;
-      margin-bottom: 8pt !important;
-      line-height: 1.15 !important;
-    }
-    .sop-text {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 11pt !important;
-      font-weight: normal !important;
-      color: #262626 !important;
-      margin-bottom: 6pt !important;
-      line-height: 1.15 !important;
-    }
-    .sop-list {
-      margin-top: 0px !important;
-      margin-bottom: 6pt !important;
-      padding-left: 20px !important;
-      list-style-type: disc !important;
-    }
-    .sop-list-item {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 11pt !important;
-      color: #262626 !important;
-      line-height: 1.15 !important;
-      margin-bottom: 4pt !important;
-    }
-    .sop-divider {
-      border: 0 !important;
-      border-top: 1px solid #CCCCCC !important;
-      margin-top: 12pt !important;
-      margin-bottom: 12pt !important;
-    }
-    .sop-blockquote {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 11pt !important;
-      font-style: italic !important;
-      color: #555555 !important;
-      margin-left: 20px !important;
-      padding-left: 10px !important;
-      border-left: 3px solid #CCCCCC !important;
-      margin-top: 6pt !important;
-      margin-bottom: 12pt !important;
-      line-height: 1.15 !important;
-    }
-    .sop-warning-list {
-      margin-top: 0px !important;
-      margin-bottom: 6pt !important;
-      padding-left: 0px !important;
-      list-style-type: none !important;
-    }
-    .sop-warning-item {
-      font-family: 'Inter', sans-serif !important;
-      font-size: 11pt !important;
-      color: #262626 !important;
-      line-height: 1.15 !important;
-      margin-bottom: 6pt !important;
-    }
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Desarrollo Privada - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .sop-content h1 { font-size: 20pt; font-weight: bold; color: #000000; margin-bottom: 12px; }
+        .sop-content h2 { font-size: 14pt; font-weight: bold; color: #000000; text-transform: uppercase; margin-top: 24px; margin-bottom: 8px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; }
+        .sop-content h3 { font-size: 12pt; font-weight: bold; color: #434343; margin-top: 16px; margin-bottom: 6px; }
+        .sop-content p, .sop-content li { font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 6px; }
+        .sop-content ul { list-style-type: disc; margin-left: 20px; margin-bottom: 12px; }
+    </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-100 text-slate-800">
-
-  <!-- Header Principal -->
-  <header class="bg-slate-900 text-white shadow-md border-b border-slate-800 shrink-0">
-    <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        </div>
-        <div>
-          <h1 class="text-xl font-bold tracking-tight flex items-center gap-2">
-            Central de Desarrollo Privada
-            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider border border-emerald-500/30">Admin Cloud</span>
-          </h1>
-          <p class="text-xs text-slate-400">Auditoría, Redacción y Copiloto de Consulta automatizados (Gemini inside)</p>
-        </div>
-      </div>
-      
-      <!-- Entrada para API Key de Gemini -->
-      <div class="flex flex-col gap-1 w-full md:w-auto max-w-sm">
-        <div class="flex items-center gap-2 bg-slate-800/80 p-2 rounded-lg border border-slate-700">
-          <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider shrink-0 px-1">Clave API:</span>
-          <input type="password" id="api-key-input" placeholder="Ingresá tu clave Gemini..." oninput="saveApiKey(this.value)" class="bg-slate-950 text-slate-200 text-xs px-2.5 py-1.5 rounded border border-slate-700 focus:outline-none focus:border-emerald-500 w-full placeholder:text-slate-600">
-        </div>
-        <span id="api-status-msg" class="text-[10px] text-right text-emerald-400 font-medium h-3"></span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Contenido Principal -->
-  <div class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-6">
-    
-    <!-- Sidebar / Selector de SOPs -->
-    <aside class="w-full lg:w-80 shrink-0 flex flex-col gap-4">
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
-        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Biblioteca de Desarrollo</h2>
-        <div class="space-y-2 max-h-[360px] overflow-y-auto pr-1" id="sop-selector-container">
-          
-          <button onclick="switchSop('p00')" id="tab-p00" class="w-full text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-50/50 hover:bg-emerald-50/80 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">📋</span>
+<body>
+    <!-- Encabezado -->
+    <header class="bg-[#0b252e] text-white p-4 shadow-md flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="bg-emerald-500 p-2 rounded-lg text-white">⚙️</div>
             <div>
-              <h3 class="font-bold text-slate-900 text-sm group-hover:text-emerald-700 transition-colors">P-00 · Manual de Estilo</h3>
-              <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">Reglas de estilo y tamaños estrictos.</p>
+                <h1 class="text-xl font-bold flex items-center">Central de Desarrollo Privada <span class="ml-2 text-xs bg-emerald-600 px-2 py-0.5 rounded-full">ADMIN CLOUD</span></h1>
+                <p class="text-xs text-slate-400">Auditoría, Redacción y Copiloto de Consulta automatizados (Gemini inside)</p>
             </div>
-          </button>
-          
-          <button onclick="switchSop('p01')" id="tab-p01" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-50 hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">✨</span>
-            <div>
-              <h3 class="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-01 · Atención y Ventas</h3>
-              <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">Imagen personal y abordajes de venta.</p>
-            </div>
-          </button>
-
-          <button onclick="switchSop('p02')" id="tab-p02" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-50 hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">💵</span>
-            <div>
-              <h3 class="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-02 · Caja y Medios</h3>
-              <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">Operación de caja, cierres y arqueos.</p>
-            </div>
-          </button>
-
-          <button onclick="switchSop('p03')" id="tab-p03" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-50 hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">🧹</span>
-            <div>
-              <h3 class="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-03 · Orden y Limpieza</h3>
-              <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">Mantenimiento y baches de vidriera.</p>
-            </div>
-          </button>
-
-          <button onclick="switchSop('p04')" id="tab-p04" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-50 hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">🔄</span>
-            <div>
-              <h3 class="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-04 · Posventa y Cambios</h3>
-              <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">Condiciones, plazos e ingresos.</p>
-            </div>
-          </button>
-
-          <button onclick="switchSop('p05')" id="tab-p05" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-50 hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">📦</span>
-            <div>
-              <h3 class="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-05 · Recepción y Stock</h3>
-              <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">Remisiones, traspasos y recuentos.</p>
-            </div>
-          </button>
-
-          <button onclick="switchSop('p06')" id="tab-p06" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-50 hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">🎟️</span>
-            <div>
-              <h3 class="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-06 · Gift Cards</h3>
-              <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">Emisión, canjes y bloqueo.</p>
-            </div>
-          </button>
-
-          <!-- Botón Dinámico para SOPs creados por IA -->
-          <button onclick="switchSop('custom')" id="tab-custom" class="hidden w-full text-left p-3 rounded-lg border-2 border-purple-500 bg-purple-50/50 hover:bg-purple-50 transition-all flex items-start gap-3 group">
-            <span class="text-xl mt-0.5">🤖</span>
-            <div>
-              <h3 class="font-bold text-purple-900 text-sm">P-CUSTOM · SOP Corregido</h3>
-              <p class="text-xs text-purple-600 mt-0.5 line-clamp-1" id="custom-sop-desc">SOP generado con Inteligencia Artificial.</p>
-            </div>
-          </button>
         </div>
-      </div>
-
-      <!-- Cuadro de Inteligencia Artificial Status -->
-      <div class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-xl p-4 text-xs text-indigo-200 border border-indigo-700/30 shadow-md">
-        <h4 class="font-bold text-indigo-300 flex items-center gap-1.5 mb-2">
-          <span class="animate-pulse">✨</span> Copiloto Operativo:
-        </h4>
-        <p class="text-indigo-200/80 leading-relaxed mb-3">
-          Utilizá las pestañas del espacio de trabajo para formatear nuevos procedimientos, auditar cumplimiento o consultar cada manual.
-        </p>
-        <div class="border-t border-indigo-800/40 pt-2 flex items-center justify-between text-[10px] text-indigo-400">
-          <span>Modelo: gemini-1.5-flash</span>
-          <span class="bg-indigo-950 px-1.5 py-0.5 rounded text-indigo-300">Activo</span>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Área de Trabajo Principal con Pestañas -->
-    <main class="flex-grow flex flex-col gap-4 overflow-hidden">
-      
-      <!-- Pestañas del Sistema -->
-      <div class="bg-white border border-slate-200 p-1.5 rounded-xl flex flex-wrap gap-1 shadow-sm shrink-0">
-        <button onclick="switchTab('document')" id="nav-tab-document" class="flex-1 min-w-[120px] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-150 flex items-center justify-center gap-2 bg-emerald-650 text-white">
-          <span>📄</span> Visor & Copiado
-        </button>
-        <button onclick="switchTab('creator')" id="nav-tab-creator" class="flex-1 min-w-[120px] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-150 flex items-center justify-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100">
-          <span>🤖</span> Redactor AI P-00
-        </button>
-        <button onclick="switchTab('auditor')" id="nav-tab-auditor" class="flex-1 min-w-[120px] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-150 flex items-center justify-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100">
-          <span>🔍</span> Auditor de Cumplimiento
-        </button>
-      </div>
-
-      <!-- CONTENEDOR 1: VISOR DE DOCUMENTO -->
-      <div id="panel-document" class="flex flex-col gap-4">
-        <!-- Acciones Rápidas del Documento -->
-        <div class="bg-white p-3 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-3 shadow-sm">
-          <div class="text-xs text-slate-500">
-            SOP Seleccionado: <strong class="text-slate-800" id="current-sop-label">P-00 · Manual de Estilo</strong>
-          </div>
-          <button onclick="copyToClipboard()" id="btn-copy" class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold py-2 px-5 rounded-lg shadow transition-all duration-150 flex items-center justify-center gap-2 text-xs">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.046-.102.046-.215 0-.317a2.25 2.25 0 0 0-1.243-1.117C14.331 1.611 13.187 1.5 12 1.5c-1.187 0-2.331.111-3.422.327a2.25 2.25 0 0 0-1.243 1.117c-.046.102-.046.215 0 .317m8.495 18.083a2.25 2.25 0 0 1-2.25 2.25h-6a2.25 2.25 0 0 1-2.25-2.25V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.666 3.888A2.247 2.247 0 0 0 13.5 4.75h-3c-1.03 0-1.9-.008-2.166-.102m0 0a2.25 2.25 0 0 1-1.318-1.53" />
-            </svg>
-            <span id="btn-text">Copiar para Google Docs</span>
-          </button>
-        </div>
-
-        <!-- Hoja Virtual -->
-        <div class="w-full bg-slate-200/50 rounded-xl p-4 md:p-8 border border-slate-300 shadow-inner flex justify-center overflow-x-auto">
-          <!-- Hoja A4 Simulada -->
-          <div class="shadow-xl border border-slate-300 rounded-sm p-12 md:p-16 bg-white max-w-[21cm] w-full min-h-[29.7cm] box-border relative">
-            <div id="sop-document" class="sop-container">
-              <!-- Cargado dinámicamente -->
+        <div class="flex items-center space-x-4">
+            <div class="text-right">
+                <span class="text-xs text-slate-400 block">CLAVE API:</span>
+                <input type="password" id="apiKeyInput" placeholder="Ingresá tu API Key" class="bg-[#07161c] text-white text-xs px-2 py-1 rounded border border-slate-700 w-48 text-center">
+                <button onclick="saveApiKey()" class="bg-emerald-600 text-white text-xs px-2 py-1 rounded ml-1 hover:bg-emerald-500">Guardar</button>
             </div>
-          </div>
+            <span id="apiStatus" class="text-xs text-red-400 font-semibold block mt-4">Sin Clave</span>
         </div>
-      </div>
+    </header>
 
-      <!-- CONTENEDOR 2: REDACTOR AUTOMÁTICO AI -->
-      <div id="panel-creator" class="hidden flex flex-col gap-4">
-        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col gap-4">
-          <div>
-            <h3 class="font-bold text-slate-800 text-lg">🤖 Redactá un SOP Automatizado con Formato P-00</h3>
-            <p class="text-xs text-slate-500 mt-1">Escribí tus apuntes o procedimientos sueltos en bruto. Nuestra IA estructurará el texto asignando emojis contextuales, jerarquías, tamaños en puntos e interlineados para que lo pegues directamente en Docs.</p>
-          </div>
-          
-          <div class="flex flex-col gap-2">
-            <label class="text-xs font-bold text-slate-600 uppercase tracking-wider">Notas o Procedimiento en Bruto:</label>
-            <textarea id="ai-input-notes" rows="12" placeholder="Escribe o pega aquí tu texto desordenado. Ejemplo:&#10;P-08 - Limpieza de Vidrios&#10;Objetivo: que los vidrios brillen.&#10;Fase 1: Preparación.&#10;Primero agarrar el limpiavidrios y el trapo azul.&#10;Fase 2: Ejecución.&#10;Limpiar de arriba para abajo en círculos." class="w-full p-4 rounded-lg border border-slate-200 font-mono text-xs focus:outline-none focus:border-emerald-500 bg-slate-50 text-slate-700 placeholder:text-slate-400"></textarea>
-          </div>
-
-          <button onclick="generateSopWithAI()" id="btn-generate-sop" class="bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-md flex items-center justify-center gap-2 text-sm self-start">
-            <span id="generate-sop-spinner" class="hidden animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
-            <span>Estructurar y Formatear SOP</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- CONTENEDOR 3: AUDITOR DE ESTILO P-00 -->
-      <div id="panel-auditor" class="hidden flex flex-col gap-4">
-        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col gap-4">
-          <div>
-            <h3 class="font-bold text-slate-800 text-lg">🔍 Auditor de Cumplimiento de SOPs (Filtro P-00)</h3>
-            <p class="text-xs text-slate-500 mt-1">Pegá el texto de cualquier borrador de procedimiento. La IA analizará la jerarquía de títulos, la presencia de emojis oficiales, los bloques de ejemplos en itálica y que no falten las indispensables "Reglas de Oro".</p>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <label class="text-xs font-bold text-slate-600 uppercase tracking-wider">Texto de tu SOP para Auditar:</label>
-            <textarea id="auditor-input-text" rows="8" placeholder="Escribe o pega aquí el SOP que quieres revisar contra el manual de estilo P-00..." class="w-full p-4 rounded-lg border border-slate-200 font-mono text-xs focus:outline-none focus:border-emerald-500 bg-slate-50 text-slate-700 placeholder:text-slate-400"></textarea>
-          </div>
-
-          <button onclick="auditSopWithAI()" id="btn-audit-sop" class="bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-md flex items-center justify-center gap-2 text-sm self-start">
-            <span id="audit-sop-spinner" class="hidden animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
-            <span>Auditar Cumplimiento</span>
-          </button>
-        </div>
-
-        <!-- Reporte de Auditoría (Inicialmente Oculto) -->
-        <div id="audit-report" class="hidden bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col gap-6">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-            <h4 class="font-bold text-slate-800 text-base flex items-center gap-2">
-              <span>📊</span> Reporte de Análisis Estructural
-            </h4>
-            <div class="flex items-center gap-2">
-              <span class="text-xs text-slate-500">Puntaje de Estilo:</span>
-              <span id="audit-score" class="text-lg font-bold px-3 py-1 rounded bg-emerald-100 text-emerald-800">100%</span>
+    <div class="max-w-[1400px] mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Panel Izquierdo: Librería -->
+        <aside class="space-y-4">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Biblioteca de Desarrollo</h3>
+                <div class="space-y-2">
+                    <button class="w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/50 flex items-start space-x-3">
+                        <span class="text-xl">📄</span>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">Espacio de Trabajo Activo</h4>
+                            <p class="text-xs text-slate-500">Formateá o editá tus procesos operativos aquí.</p>
+                        </div>
+                    </button>
+                </div>
             </div>
-          </div>
+            <div class="bg-slate-900 text-white p-4 rounded-xl shadow-sm">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">🤖 Copiloto Operativo:</h4>
+                <p class="text-xs text-slate-300">Utilizá las pestañas del espacio de trabajo para formatear nuevos procedimientos con el estándar P-00.</p>
+                <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[10px] text-slate-500">
+                    <span>Modelo: gemini-1.5-flash</span>
+                    <span class="text-emerald-400 font-bold">Activo</span>
+                </div>
+            </div>
+        </aside>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Puntos Positivos -->
-            <div class="bg-emerald-50/50 p-4 rounded-lg border border-emerald-100">
-              <h5 class="text-xs font-bold text-emerald-800 uppercase tracking-wider mb-2 flex items-center gap-1">
-                <span>✓</span> Elementos Cumplidos:
-              </h5>
-              <ul id="audit-positives-list" class="text-xs text-emerald-950 space-y-1.5 list-disc pl-4">
-                <!-- Dinámico -->
-              </ul>
+        <!-- Área Central de Trabajo -->
+        <main class="lg:col-span-3 space-y-4">
+            <!-- Selector de Modos -->
+            <div class="bg-slate-100 p-1.5 rounded-xl flex space-x-2 border border-slate-200">
+                <button onclick="switchTab('editor')" id="tab-editor" class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 bg-white text-slate-800 shadow-sm">
+                    <span>🤖 Redactor AI P-00</span>
+                </button>
+                <button onclick="switchTab('visor')" id="tab-visor" class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50">
+                    <span>📝 Visor & Copiado</span>
+                </button>
             </div>
 
-            <!-- Incumplimientos -->
-            <div class="bg-red-50/50 p-4 rounded-lg border border-red-100">
-              <h5 class="text-xs font-bold text-red-800 uppercase tracking-wider mb-2 flex items-center gap-1">
-                <span>⚠️</span> Desvíos Detectados:
-              </h5>
-              <ul id="audit-negatives-list" class="text-xs text-red-950 space-y-1.5 list-disc pl-4">
-                <!-- Dinámico -->
-              </ul>
+            <!-- Pestaña 1: Redactor AI -->
+            <div id="panel-editor" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4">
+                <div class="flex items-center space-x-2 text-slate-800 font-semibold text-lg">
+                    <span>📝</span>
+                    <h2>Redactá un SOP Automatizado con Formato P-00</h2>
+                </div>
+                <p class="text-xs text-slate-500">Escribí tus apuntes sueltos. Nuestra IA estructurará el texto asignando emojis contextuales, jerarquías y tamaños estrictos en puntos para Docs.</p>
+                
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Notas o procedimiento en bruto:</label>
+                    <textarea id="rawInput" rows="12" class="w-full p-4 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner placeholder-slate-400" placeholder="Pegá acá tus anotaciones o reglas sueltas..."></textarea>
+                </div>
+
+                <button onclick="processSOP()" id="btnProcess" class="bg-emerald-600 text-white font-semibold text-sm py-3 px-6 rounded-xl shadow-md hover:bg-emerald-500 transition flex items-center space-x-2">
+                    <span>Estructurar y Formatear SOP</span>
+                </button>
             </div>
-          </div>
 
-          <!-- Recomendaciones -->
-          <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-            <h5 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Recomendaciones para el Autor:</h5>
-            <ul id="audit-recommendations-list" class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-              <!-- Dinámico -->
-            </ul>
-          </div>
-
-          <!-- Sugerencia de Corrección -->
-          <div class="flex flex-col gap-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Versión Sugerida con Formato P-00:</span>
-              <button onclick="loadAuditedToCustom()" class="bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-semibold py-1.5 px-3 rounded-lg transition-colors flex items-center gap-1 shadow">
-                <span>🤖</span> Cargar Versión Corregida en Visor
-              </button>
+            <!-- Pestaña 2: Visor y Copiado -->
+            <div id="panel-visor" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4 hidden">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                    <h3 class="font-bold text-slate-800 text-lg flex items-center space-x-2"><span>✨</span> Vista Previa del Documento</h3>
+                    <button onclick="copyToClipboard()" class="bg-emerald-600 text-white font-semibold text-sm py-2 px-4 rounded-lg shadow hover:bg-emerald-500 transition flex items-center space-x-2">
+                        <span>📋</span> <span>Copiar para Google Docs</span>
+                    </button>
+                </div>
+                <!-- Contenedor editable con los estilos nativos de Word/Docs simulados -->
+                <div id="sopOutput" class="sop-content p-8 border border-slate-200 rounded-xl bg-white shadow-inner max-h-[600px] overflow-y-auto" contenteditable="true">
+                    <p class="text-slate-400 italic">El procedimiento formateado aparecerá acá después de procesarlo en la otra pestaña...</p>
+                </div>
             </div>
-            <div class="border border-slate-200 rounded-lg p-4 bg-slate-900 text-slate-300 font-mono text-xs max-h-[300px] overflow-y-auto whitespace-pre-wrap" id="audit-corrected-container">
-              <!-- Versión corregida -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </main>
-  </div>
-
-  <!-- Template oculto de Datos del SOP para manipulación limpia de copiado enriquecido -->
-  <div id="sop-data-store" class="hidden">
-    
-    <!-- CONTENIDO P-00 FORMATO ESTRICTO -->
-    <div id="data-p00">
-      <h1 class="sop-title-1" style="font-family: 'Inter', sans-serif; font-size: 20pt; font-weight: bold; color: #000000; margin-top: 0px; margin-bottom: 12pt; line-height: 1.15; background-color: transparent !important;">P-00 · Plantilla y Formato de SOPs</h1>
-      <p class="sop-text" style="font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: normal; color: #262626; margin-bottom: 6pt; line-height: 1.15; background-color: transparent !important;"><strong>Objetivo:</strong> Garantizar la homogeneidad visual, claridad tipográfica y scannabilidad absoluta de todos los Procedimientos Operativos Estándar de la empresa.</p>
-      <hr class="sop-divider" style="border: 0; border-top: 1px solid #CCCCCC; margin-top: 12pt; margin-bottom: 12pt;">
-      <h2 class="sop-title-2" style="font-family: 'Inter', sans-serif; font-size: 14pt; font-weight: bold; color: #000000; text-transform: uppercase; margin-top: 24pt; margin-bottom: 12pt; line-height: 1.15; background-color: transparent !important;">FASE 1: PARAMETRIZACIÓN TIPOGRÁFICA (GOOGLE DOCS)</h2>
-      <p class="sop-text" style="font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: normal; color: #262626; margin-bottom: 6pt; line-height: 1.15; background-color: transparent !important;">Todos los documentos de la organización deben configurarse bajo una única tipografía oficial y con las siguientes dimensiones exactas para cada componente:</p>
-      <h3 class="sop-title-3" style="font-family: 'Inter', sans-serif; font-size: 12pt; font-weight: bold; color: #434343; margin-top: 18pt; margin-bottom: 8pt; line-height: 1.15; background-color: transparent !important;">1. Tipografía Única</h3>
-      <p class="sop-text" style="font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: normal; color: #262626; margin-bottom: 6pt; line-height: 1.15; background-color: transparent !important;"><strong>Fuente:</strong> Inter (Instalar desde "Más fuentes" en Google Docs). Queda prohibido el uso de cualquier otra tipografía.</p>
-      <h3 class="sop-title-3" style="font-family: 'Inter', sans-serif; font-size: 12pt; font-weight: bold; color: #434343; margin-top: 18pt; margin-bottom: 8pt; line-height: 1.15; background-color: transparent !important;">2. Jerarquía de Estilos y Tamaños</h3>
-      <ul class="sop-list" style="margin-top: 0px; margin-bottom: 6pt; padding-left: 20px; list-style-type: disc; background-color: transparent !important;">
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;"><strong>Título Principal (Título 1):</strong> Tamaño 20pt, Estilo Negrita, Color Negro Puro (<span style="color: #000000; font-weight: 600; background-color: transparent !important;">#000000</span>), Mayúsculas y Minúsculas.</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;"><strong>Títulos de Fase (Título 2):</strong> Tamaño 14pt, Estilo Negrita, Color Negro Puro (<span style="color: #000000; font-weight: 600; background-color: transparent !important;">#000000</span>), TODO EN MAYÚSCULAS.</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;"><strong>Sub-bloques Operativos (Título 3):</strong> Tamaño 12pt, Estilo Negrita, Color Gris Oscuro (<span style="color: #434343; font-weight: 600; background-color: transparent !important;">#434343</span>), Mayúsculas y Minúsculas.</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;"><strong>Texto Cuerpo y Viñetas:</strong> Tamaño 11pt, Estilo Regular, Color Gris Carbono (<span style="color: #262626; font-weight: 600; background-color: transparent !important;">#262626</span>).</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;"><strong>Interlineado General:</strong> Configurar exactamente en 1.15. Espacio pospárrafo: 6pt.</li>
-      </ul>
-      <hr class="sop-divider" style="border: 0; border-top: 1px solid #CCCCCC; margin-top: 12pt; margin-bottom: 12pt;">
-      <h2 class="sop-title-2" style="font-family: 'Inter', sans-serif; font-size: 14pt; font-weight: bold; color: #000000; text-transform: uppercase; margin-top: 24pt; margin-bottom: 12pt; line-height: 1.15; background-color: transparent !important;">FASE 2: ELEMENTOS DE CONTROL VISUAL E ÍCONOS</h2>
-      <p class="sop-text" style="font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: normal; color: #262626; margin-bottom: 6pt; line-height: 1.15; background-color: transparent !important;">Para agilizar la lectura e identificar las herramientas de un vistazo, se establece el uso obligatorio de separadores y una biblioteca fija de íconos.</p>
-      <h3 class="sop-title-3" style="font-family: 'Inter', sans-serif; font-size: 12pt; font-weight: bold; color: #434343; margin-top: 18pt; margin-bottom: 8pt; line-height: 1.15; background-color: transparent !important;">1. Separadores y Destacados</h3>
-      <p class="sop-text" style="font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: normal; color: #262626; margin-bottom: 6pt; line-height: 1.15; background-color: transparent !important;"><strong>Línea Divisoria:</strong> Se coloca una línea horizontal gris inmediatamente debajo del Objetivo y al finalizar cada Fase.</p>
-      <blockquote class="sop-blockquote" style="font-family: 'Inter', sans-serif; font-size: 11pt; font-style: italic; color: #555555; margin-left: 20px; padding-left: 10px; border-left: 3px solid #CCCCCC; margin-top: 6pt; margin-bottom: 12pt; line-height: 1.15; background-color: transparent !important;">Ejemplo: Todo texto explicativo o mensaje de error debe ir con Sangría Izquierda y en formato Itálica (Cursiva) para diferenciarse de los pasos ejecutables.</blockquote>
-      <h3 class="sop-title-3" style="font-family: 'Inter', sans-serif; font-size: 12pt; font-weight: bold; color: #434343; margin-top: 18pt; margin-bottom: 8pt; line-height: 1.15; background-color: transparent !important;">2. Biblioteca de Íconos Oficiales (Emojis)</h3>
-      <p class="sop-text" style="font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: normal; color: #262626; margin-bottom: 6pt; line-height: 1.15; background-color: transparent !important;">Se deben utilizar exclusivamente los siguientes íconos al inicio de las líneas según el contexto:</p>
-      <ul class="sop-list" style="margin-top: 0px; margin-bottom: 6pt; padding-left: 20px; list-style-type: disc; background-color: transparent !important;">
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;">🖥️ <strong>Pantalla:</strong> Para acciones exclusivas dentro de Dux Software.</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;">📱 <strong>Celular:</strong> Para interacciones en WhatsApp, Google Forms o aplicaciones móviles.</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;">💳 <strong>Tarjeta:</strong> Para operaciones físicas en terminales de pago (Payway / Nave / MP).</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;">💵 <strong>Efectivo:</strong> Para movimientos de billetes físicos o fondo de caja.</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;">📦 <strong>Caja:</strong> Para procesos de depósito, recepción o auditoría de mercadería.</li>
-        <li class="sop-list-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 4pt; background-color: transparent !important;">✨ <strong>Estrella:</strong> Para protocolos de atención, fidelización o imagen personal.</li>
-      </ul>
-      <hr class="sop-divider" style="border: 0; border-top: 1px solid #CCCCCC; margin-top: 12pt; margin-bottom: 12pt;">
-      <h3 class="sop-title-3" style="font-family: 'Inter', sans-serif; font-size: 12pt; font-weight: bold; color: #434343; margin-top: 18pt; margin-bottom: 8pt; line-height: 1.15; background-color: transparent !important;">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
-      <ul class="sop-warning-list" style="margin-top: 0px; margin-bottom: 6pt; padding-left: 0px; list-style-type: none; background-color: transparent !important;">
-        <li class="sop-warning-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 6pt; background-color: transparent !important;">⚠ <strong>Sección de Cierre Obligatoria:</strong> Todo SOP debe finalizar con el título "### ⚠ REGLAS DE ORO (Puntos Críticos de Control)".</li>
-        <li class="sop-warning-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 6pt; background-color: transparent !important;">⚠ Las líneas dentro de esta sección deben iniciar con el emoji de advertencia (⚠).</li>
-        <li class="sop-warning-item" style="font-family: 'Inter', sans-serif; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 6pt; background-color: transparent !important;">⚠ Aquí se listan únicamente las faltas graves que impacten en la caja, el stock o la base de datos.</li>
-      </ul>
+        </main>
     </div>
 
-    <!-- EL RESTO DE LOS SOPS DETALLADOS SE COPIAN DIRECTAMENTE DE LA BASE DE DATOS DE index.html EN TIEMPO DE EJECUCIÓN (CONSERVADOS AQUÍ POR INTEGRIDAD) -->
-    <div id="data-p01"></div>
-    <div id="data-p02"></div>
-    <div id="data-p03"></div>
-    <div id="data-p04"></div>
-    <div id="data-p05"></div>
-    <div id="data-p06"></div>
-    <div id="data-custom"></div>
-
-  </div>
-
-  <script>
-    let currentSop = 'p00';
-    let activeTab = 'document';
-    let customSopContent = '';
-
-    // Datos estáticos cargados desde el Portal (replicados por integridad)
-    const libraryData = {
-      p00: null, // Se lee directo de su elemento HTML estático arriba
-      p01: `<h1>P-01 · Atención al Cliente y Ventas</h1><p><strong>Objetivo:</strong> Establecer las directrices fundamentales de imagen personal y protocolos de venta.</p><hr><h2>FASE 1: IMAGEN DE MARCA Y PRESENTACIÓN</h2><p>El equipo de ventas es la primera conexión visual del cliente con la marca. Se requiere absoluta coherencia con la identidad visual corporativa.</p><h3>1. Estética y Presencia Profesional</h3><ul class="sop-list"><li class="sop-list-item">✨ <strong>Vestimenta y Aseo:</strong> Usar prendas profesionales, limpias y planchadas, manteniendo un cuidado personal excelente acorde al retail de moda femenina.</li></ul><h3>2. Calzado "Vidriera"</h3><ul class="sop-list"><li class="sop-list-item">✨ <strong>Mandato:</strong> Es obligatorio usar modelos de la temporada actual como exhibición viviente, demostrando confort. La marca proveerá un par de zapatos por temporada para este uso exclusivo en el local.</li></ul><hr><h2>FASE 2: PROTOCOLO DE VENTAS (EL ABORDAJE)</h2><p>El proceso debe ser ágil para maximizar la conversión y el ticket promedio, guiando amablemente a la clienta.</p><h3>1. Conexión Inicial (Primeros 10 segundos)</h3><ul class="sop-list"><li class="sop-list-item">✨ <strong>Iniciativa:</strong> No esperar la consulta de la clienta. El saludo debe ser proactivo.</li><li class="sop-list-item">✨ <strong>Abordaje:</strong> Saludar y realizar un comentario positivo sobre el producto que observa para romper el hielo.</li></ul><blockquote class="sop-blockquote">Ejemplo: "¡Hola! Qué buena elección, ese modelo es súper cómodo y combinable".</blockquote><ul class="sop-list"><li class="sop-list-item">✨ <strong>Acción de Prueba:</strong> Ofrecer inmediatamente el talle para iniciar la experiencia de prueba.</li></ul><blockquote class="sop-blockquote">Ejemplo: "Es de lo más buscado de la temporada, ¿querés probarte tu talle?".</blockquote><h3>2. Indagación y Asesoramiento</h3><ul class="sop-list"><li class="sop-list-item">✨ <strong>Detección de Necesidad:</strong> Identificar mediante preguntas abiertas el uso para orientar la recomendación técnica.</li></ul><blockquote class="sop-blockquote">Ejemplo: "¿Los buscás para usar todos los días o para alguna ocasión especial?".</blockquote><ul class="sop-list"><li class="sop-list-item">✨ <strong>Venta Asistida:</strong> Actuar como "vidriera viviente" y asesorar sobre los beneficios del modelo (confort y materiales).</li></ul><blockquote class="sop-blockquote">Ejemplo: "¿Viste qué livianos son? Yo los tengo puestos hace 6 horas y no cansan nada".</blockquote><ul class="sop-list"><li class="sop-list-item">✨ <strong>Gestión de Alternativas:</strong> Si no hay stock del modelo inicial, ofrecer siempre una segunda opción similar para evitar la pérdida de la venta.</li></ul><blockquote class="sop-blockquote">Ejemplo: "En ese modelo no me quedó tu talle, pero tengo este otro que es muy parecido en diseño y calidad".</blockquote><h3>3. Cierre y Crecimiento del Ticket</h3><ul class="sop-list"><li class="sop-list-item">✨ <strong>Venta Cruzada:</strong> Identificar oportunidades para ofrecer un modelo complementario de distinto uso o productos de batea.</li></ul><blockquote class="sop-blockquote">Ejemplo: "Como llevás estas botas para salir, ¿no te gustaría aprovechar y ver estas zapatillas para el diario?".</blockquote><ul class="sop-list"><li class="sop-list-item">✨ <strong>Cierre Proactivo:</strong> Comunicar claramente los beneficios vigentes según la planilla de promociones del mes para facilitar la decisión final.</li></ul><blockquote class="sop-blockquote">Ejemplo: "Recordá que si pagás en efectivo tenés un 10% de descuento adicional, o podemos hacerlo en cuotas sin interés".</blockquote><hr><h3>⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3><ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>Rol Estratégico Exigido:</strong> El rol de la vendedora es de asesora de imagen. La proactividad en la búsqueda de alternativas es la clave absoluta para alcanzar los objetivos de facturación.</li><li class="sop-warning-item">⚠ <strong>Uso Obligatorio del Calzado "Vidriera":</strong> Es mandatorio utilizar exclusivamente los calzados vigentes provistos por la marca en horario de atención. Cualquier incumplimiento impacta directamente en las auditorías de punto de venta.</li></ul>`,
-      
-      p02: `<h1>P-02 · Operación de Caja y Medios de Pago</h1><p><strong>Objetivo:</strong> Estandarizar el cobro para asegurar la trazabilidad de fondos, capturar datos de fidelización y eliminar errores financieros por mal uso de terminales.</p><hr><h2>FASE 1: APERTURA Y ACTUALIZACIÓN</h2><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Dux como Autoridad:</strong> El sistema es la única fuente de precios. Si hay discrepancias, se cobra lo que dicta Dux y se reporta el error después de la venta.</li><li class="sop-list-item">📱 <strong>Hoja de Ruta Comercial:</strong> Consultar el canal oficial (WhatsApp/Drive) para validar qué bancos y promociones de shopping aplican hoy. No memorizar; verificar.</li><li class="sop-list-item">💵 <strong>Fondo de Caja:</strong> Registrar la apertura con el monto físico real al inicio de cada jornada.</li></ul><hr><h2>FASE 2: PROTOCOLO DE VENTA (EL PASO A PASO)</h2><h3>1. Identificación de Clienta (Loyalty y Anti-Duplicados)</h3><p class="sop-text">🖥️ <strong>Búsqueda en Sistema:</strong> Buscar a la clienta en Dux por DNI o CUIT antes de cargar cualquier producto al carrito de facturación.</p><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Si ya existe:</strong> Seleccionar ese perfil de forma directa. Queda prohibido duplicar clientes creando cuentas alternativas.</li><li class="sop-list-item">🖥️ <strong>Si no existe:</strong> Registrarla desde cero solicitando y completando los datos en este orden de prioridad:</li><ul class="sop-list" style="list-style-type: circle;"><li class="sop-list-item"><strong>DNI / CUIT:</strong> Mandatorio para la facturación fiscal de AFIP y asignación de puntos.</li><li class="sop-list-item"><strong>EMAIL:</strong> Crítico para el envío de cupones automáticos de fidelización y despacho de la factura digital.</li><li class="sop-list-item"><strong>TELÉFONO:</strong> Deseable para agilizar la gestión de cambios y envíos especiales.</li></ul></ul><h3>2. Selección de Pago y Terminal</h3><p class="sop-text">🖥️ <strong>Asignación de Listas:</strong> Dependiendo del método de pago elegido, seleccionar en Dux la Lista de Precios correspondiente (Efectivo o Tarjeta/General). El sistema procesará los descuentos de manera automática. Queda prohibido aplicar descuentos manuales o modificar precios unitarios.</p><h3>3. Registro de Trazabilidad en Dux</h3><p class="sop-text">💳 <strong>Registro de Transacciones:</strong> Al procesar pagos con tarjeta (Payway/Nave/MP), es obligatorio completar el campo "Observaciones" o "Nro Comprobante" con: <strong>Nro de Lote + Nro de Cupón</strong>.</p><blockquote class="sop-blockquote">Ejemplo: Lote 022 - Cupón 1584 (Este dato es la única forma de auditar la acreditación del dinero en la cuenta bancaria).</blockquote><hr><h2>FASE 3: CIERRE Y AUDITORÍA</h2><ul class="sop-list"><li class="sop-list-item">💳 <strong>Cierre de Lote Físico:</strong> Realizar el cierre de lote físico en la terminal Payway al finalizar el turno (indispensable para que los fondos se acrediten efectivamente). Las pasarelas Mercado Pago y Nave no lo requieren.</li><li class="sop-list-item">🖥️ <strong>Cierre Ciego en Dux:</strong> Dirigirse a <em>Tesorería > Caja Diaria > Cierre de Caja</em>. El sistema desplegará de forma ciega las formas de pago en $0. El cajero debe ingresar de forma manual el monto físico real contado. Al guardar, Dux genera automáticamente el Informe de Cierre de Caja.</li><li class="sop-list-item">💵 <strong>Control de Diferencias:</strong> Revisar con rigor el campo "Diferencia cierre". Si marca $0, caja correcta. Si marca Diferencia (Sobrante/Faltante), revisar movimientos y, si no se encuentra el origen, guardar adjuntando una observación detallada que justifique el desajuste antes de retirarse.</li><li class="sop-list-item">🖥️ <strong>Protocolo de Errores:</strong> El sistema cuenta con permisos restringidos y no permite la anulación o borrado directo de comprobantes. Ante cualquier error, la única vía operativa aceptada para corregir la caja y equilibrar el stock es generar la Nota de Crédito correspondiente vinculada de forma estricta al comprobante original.</li></ul><hr><h3>⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3><ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>Error de Terminal:</strong> Pasar una promoción de banco por Mercado Pago genera comisiones directas no previstas para la empresa. Es considerado un error de procedimiento grave contra la rentabilidad de la sucursal.</li><li class="sop-warning-item">⚠ <strong>Integridad de Datos:</strong> Registrar una venta omitiendo el email de la clienta corta de inmediato su trazabilidad, impidiendo la alimentación de la base de datos de fidelización y bloqueando campañas de marketing automáticas.</li></ul>`,
-      
-      p03: `<h1>P-03 · Orden, Limpieza y Presentación del Local</h1><p><strong>Objetivo:</strong> Mantener la estética del salón y la vidriera en óptimas condiciones durante la jornada laboral, distribuyendo las tareas de forma equitativa entre los turnos para garantizar la atracción de clientes y una experiencia de compra impecable.</p><hr><h2>FASE 1: RUTINA DIARIA DE APERTURA Y CIERRE (Ambos Turnos)</h2><p class="sop-text">Las tareas de mantenimiento se realizan con el local abierto aprovechando los momentos de bajo flujo de público, siendo responsabilidad de ambos turnos por igual.</p><ul class="sop-list"><li class="sop-list-item">✨ <strong>Puesta a punto inicial:</strong> Repaso rápido de polvo en estanterías, mostradores y calzado exhibido.</li><li class="sop-list-item">✨ <strong>La Vidriera (Filtro de Atracción Crítico):</strong> Es la principal cara del local y el factor decisivo para que la clienta entre. Ambos turnos deben realizar una ronda visual obligatoria para limpiar el polvo de los zapatos expuestos en vidriera, verificar que los exhibidores estén limpios y que la cartelería promocional esté perfectamente recta y vigente según la Hoja de Ruta Comercial.</li><li class="sop-list-item">✨ <strong>Pisos:</strong> Barrido general del salón y repaso de mopa si la jornada lo requiere (días de lluvia o alto tránsito).</li><li class="sop-list-item">✨ <strong>Vidrios y Espejos:</strong> Limpieza de marcas de dedos en espejos de piso y vidrios internos.</li><li class="sop-list-item">✨ <strong>Tecnología e Iluminación:</strong> Encender las pantallas/TVs al abrir. Revisar constantemente que no haya focos quemados en el salón ni en la vidriera; reportar fallas de iluminación de inmediato.</li></ul><hr><h2>FASE 2: MANTENIMIENTO "VIVO" Y EXHIBICIÓN</h2><p class="sop-text">El orden visual debe ser constante. El desorden generado por una atención debe resolverse inmediatamente después de que el cliente se retira.</p><ul class="sop-list"><li class="sop-list-item">✨ <strong>Control de Huecos (Salón y Vidriera):</strong> Regla estricta. Prohibido dejar "baches" o espacios vacíos. Si se vende el último par de exhibición (ya sea de la pared o de la vidriera), el hueco debe cubrirse de inmediato adelantando otro producto o colocando un modelo sustituto.</li><li class="sop-list-item">🖥️ <strong>Control de Precios:</strong> Cada calzado debe contar con su precio visible y prolijo. El precio expuesto debe coincidir al 100% con lo que dicta el sistema Dux.</li><li class="sop-list-item">✨ <strong>Zona de Sillones y Salón:</strong> Máximo 10 minutos para guardar las cajas en el depósito y devolver el zapato de muestra a su estante tras una venta. El área de sillones debe quedar libre de papeles seda, hormas o cajas vacías inmediatamente. Los calzadores deben retornar a su lugar asignado.</li><li class="sop-list-item">📦 <strong>Cierre y Depósito:</strong> Agrupar los residuos en bolsas cerradas y sacarlas en los horarios estipulados. Dejar el depósito organizado, con cajas cerradas y los SKUs legibles hacia el frente para agilizar la atención y el conteo de stock.</li></ul><hr><h3>⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3><ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>El "Bache" o Desorden en Vidriera:</strong> Una vidriera con huecos, zapatos torcidos o polvo destruye la imagen de la marca. Se penalizará como una falta grave contra la generación de tráfico del local.</li><li class="sop-warning-item">⚠ <strong>Cajas en el Salón:</strong> Está prohibido acumular cajas de zapatos vacías o mercadería por guardar en el salón de ventas mientras haya clientes circulando. El salón es área limpia.</li></ul>`,
-
-      p04: `<h1>P-04 · Protocolo de Posventa y Cambios</h1><p><strong>Objetivo:</strong> Garantizar una experiencia de posventa ágil, transparente y orientada a la fidelización de la clienta, asegurando el control de los productos en el sistema y el seguimiento detallado de cada caso.</p><hr><h2>FASE 1: CONDICIONES GENERALES Y PLAZOS</h2><ul class="sop-list"><li class="sop-list-item">✨ <strong>Cambio por Gusto / Talle / Color:</strong> La clienta dispone de un período máximo de 30 días corridos a partir de la fecha de compra.</li><li class="sop-list-item">✨ <strong>Reclamo por Falla de Fabricación (Garantía):</strong> Se establece un plazo límite de 45 días corridos desde la fecha de compra para recibir artículos que presenten defectos estructurales de origen.</li><li class="sop-list-item">🖥️ <strong>Validación de la Compra:</strong> La vendedora debe buscar de forma obligatoria la ficha de la clienta en el Sistema utilizando su DNI, CUIT, Mail o Teléfono para validar la transacción si no se dispone del ticket.</li><li class="sop-list-item">✨ <strong>Cruce entre Locales:</strong> Los cambios pueden realizarse en las sucursales habilitadas, independientemente de dónde se haya efectuado la compra original (verificar previamente cuáles están vigentes).</li></ul><hr><h2>FASE 2: EVALUACIÓN FÍSICA Y CRITERIO DE RECEPTIVIDAD</h2><ul class="sop-list"><li class="sop-list-item">✨ <strong>Filtro para Cambio Directo:</strong> Es indispensable que el calzado esté completamente limpio y presentable. Se aceptan marcas leves normales de prueba en salón. Quedan excluidos de cambio directo los productos con suelas desgastadas, raspadas o suciedad evidente de la vía pública.</li><li class="sop-list-item">📦 <strong>Desvío a Fábrica / Taller:</strong> Todo calzado que no apruebe el filtro de cambio directo por presentar uso, pero manifieste un problema de fabricación, se derivará al proceso de reparación y compostura.</li></ul><hr><h2>FASE 3: GESTIÓN DE SALDOS Y SEGUIMIENTO EN SUCURSAL</h2><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Diferencias de Dinero:</strong> Si el nuevo artículo elegido es de mayor valor, la clienta abona la diferencia. Si es de menor valor, el saldo restante se carga como Nota de Crédito en su cuenta corriente en Dux (con validez de 90 días, no canjeable por efectivo).</li><li class="sop-list-item">🖥️ <strong>Anexo de Control Interno (Excel):</strong> Es obligatorio registrar el reingreso en el Excel interno de la sucursal para asentar el detalle de la falla, la fecha de envío a fábrica, el estado de la reparación y el seguimiento diario hasta su devolución.</li></ul><hr><h2>FASE 4: RESOLUCIÓN INMEDIATA Y PLAZOS DE TALLER</h2><ul class="sop-list"><li class="sop-list-item">✨ <strong>Autonomía de Caja (Resolución Inmediata):</strong> Si el producto presenta una falla de fabricación evidente y prematura, la vendedora tiene autorización de resolver en el acto entregando un par nuevo idéntico. Si no hay stock, debe ofrecer alternativas disponibles en el local.</li><li class="sop-list-item">📱 <strong>Proceso de Envío a Fábrica:</strong> Si requiere reparación, se recibe el calzado y se envía de forma digital (WhatsApp o Mail) la Constancia de Recepción por Compostura. El plazo máximo de entrega es de 10 días hábiles.</li></ul><hr><h3>⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3><ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>Emisión Obligatoria de Constancia:</strong> Está prohibido recibir un artículo para enviar a fábrica sin notificar la constancia digital en el momento, para evitar reclamos sobre plazos (10 días) y estados.</li><li class="sop-warning-item">⚠ <strong>Control de Stock en Cambios Cruzados:</strong> Al realizar un cambio de un producto de otra sucursal, el egreso del artículo físico debe facturarse y descargarse de Dux de inmediato. Prohibido acumular calzados de cambio sin registrar.</li></ul>`,
-
-      p05: `<h1>P-05 · Protocolo de Recepción, Carga y Auditoría de Stock</h1><p><strong>Objetivo:</strong> Garantizar que el sistema Dux Software funcione como la única fuente de información veraz en tiempo real, permitiendo una gestión de inventarios eficiente, la prevención de pérdidas y la toma de decisiones basada en datos precisos.</p><hr><h2>FASE 1: RECEPCIÓN Y CONTEO DE MERCADERÍA</h2><p class="sop-text">Este paso es crítico para asegurar que el stock físico coincida con el sistema de inventario de forma exacta desde el primer momento de su ingreso.</p><h3>1. Procedimiento de Control de Ingresos</h3><ul class="sop-list"><li class="sop-list-item">📦 <strong>Conteo Unitario:</strong> Al recibir la mercadería, el personal debe realizar obligatoriamente el conteo físico de Artículo, Color y Talle contra la remisión correspondiente.</li><li class="sop-list-item">🖥️ <strong>Registro Inmediato:</strong> Cada persona en turno es responsable directa de registrar el ingreso formal en Dux Software en el momento exacto de la recepción física.</li><li class="sop-list-item">📦 <strong>Protocolo de Discrepancia Inmediata:</strong> Si el conteo físico no coincide con la remisión, el personal no debe procesar la carga. Es obligatorio tomar una foto de la remisión y de los artículos, e informar al grupo oficial de WhatsApp para coordinar la verificación con el depósito central antes de impactar el stock.</li></ul><h3>2. Movimiento de Stock entre Locales (Traspasos)</h3><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Emisión (Origen):</strong> Generar la Transferencia de Mercadería en el Sistema antes de que el calzado salga del local. Está prohibido despachar sin este paso.</li><li class="sop-list-item">📱 <strong>Notificación:</strong> Enviar de inmediato la foto o PDF del comprobante al grupo de WhatsApp oficial aclarando:</li></ul><blockquote class="sop-blockquote">"Traspaso emitido desde [Origen] hacia [Destino]"</blockquote><ul class="sop-list"><li class="sop-list-item">📦 <strong>Recepción (Destino):</strong> Abrir la transferencia en el Sistema y controlar físico contra sistema (Artículo, Color y Talle).</li><li class="sop-list-item">🖥️ <strong>Confirmación:</strong> Si todo coincide, procesar la aceptación en Dux para dar ingreso al stock.</li><li class="sop-list-item">📱 <strong>Discrepancias:</strong> Si hay desajustes, aceptar la transferencia igual pero reportar de inmediato con fotos detalladas en WhatsApp para realizar el ajuste manual.</li></ul><hr><h2>FASE 2: GESTIÓN DE PRECIOS E IDENTIFICACIÓN VISUAL</h2><h3>1. Sincronización de Precios (Central TOM)</h3><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Actualización Semanal:</strong> Los precios se comunican centralizadamente. La sucursal TOM es la responsable de actualizar estos valores en Dux para que se repliquen en Maschwitz y Champagnat.</li><li class="sop-list-item">🖥️ <strong>Carga de Fotos en Ficha:</strong> El equipo de TOM debe incorporar obligatoriamente la foto de cada artículo en Dux para que el personal identifique visualmente los modelos.</li></ul><hr><h2>FASE 3: AUDITORÍA DE STOCK Y REPORTABILIDAD</h2><h3>1. Cronograma de Recuento Total Semanal</h3><ul class="sop-list"><li class="sop-list-item">📦 <strong>Sucursales Maschwitz y Paseo Champagnat:</strong> El recuento se realiza los <strong>Martes</strong>, aprovechando el cambio de turno.</li><li class="sop-list-item">📦 <strong>Sucursal TOM:</strong> El recuento se realiza los <strong>Jueves por la mañana</strong>, aprovechando el volumen de personal en el depósito principal.</li></ul><h3>2. Reporte de Novedades y Análisis de KPIs</h3><ul class="sop-list"><li class="sop-list-item">📱 <strong>Notificación Inmediata:</strong> Al finalizar el recuento, se debe informar inmediatamente cualquier faltante o sobrante detectado al grupo oficial de WhatsApp utilizando las plantillas.</li><li class="sop-list-item">🖥️ <strong>Análisis y Promociones:</strong> Se calculará la valoración monetaria del stock faltante y se identificarán de forma proactiva artículos sin ventas para promociones de rotación.</li></ul><h3>3. Formatos de Reporte Oficiales (WhatsApp)</h3><blockquote class="sop-blockquote">📱 <strong>Reporte de Diferencias - NOVEDADES DETECTADAS:</strong><br>📍 Sucursal: [Nombre]<br>👤 Responsable: [Nombre]<br>⚠️ DISCREPANCIAS (Sistema vs Físico):<br>[Artículo/Color/Talle]: Sistema [X] / Físico [Y] → Dif: [-1]</blockquote><blockquote class="sop-blockquote">📊 <strong>Análisis / KPIs:</strong><br>💸 VALORACIÓN ESTIMADA: $[Monto]<br>🔍 ARTÍCULOS SIN VENTA (Para Promos): [Listar modelos y talles]</blockquote><hr><h3>⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3><ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>Regla de Exhibición y Venta:</strong> Ningún producto puede ser exhibido en el salón de ventas ni vendido si no ha sido previamente cargado en el sistema Dux Software.</li><li class="sop-warning-item">⚠ <strong>Responsabilidad de Carga y Registro:</strong> Cada persona en turno es directamente responsable de registrar de forma inmediata el ingreso al momento de la recepción física.</li><li class="sop-warning-item">⚠ <strong>Sincronización Crítica TOM:</strong> La omisión o demora de actualización de precios por parte de TOM afecta directamente los márgenes de venta en Maschwitz y Champagnat.</li></ul>`,
-
-      p06: `<h1>P-06 · Gestión Digital de Gift Cards</h1><p><strong>Objetivo:</strong> Estandarizar la emisión y el canje ágil, blindando el sistema contra fraudes o dobles usos de tarjetas en todos los locales de la empresa.</p><hr><h2>FASE 1: VENTA Y EMISIÓN DE TARJETAS</h2><h3>1. Facturación en Sistema (Dux)</h3><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Venta en Dux:</strong> Vender el producto "GIFT CARD" seleccionando el código o ID disponible en stock (Ej: TOM-1 o MAS-5).</li><li class="sop-list-item">💳 <strong>Medio de Pago Real:</strong> Registrar el medio de pago real utilizado (Efectivo, Débito/Crédito o Transferencia) y cerrar la venta.</li></ul><h3>2. Generación en la Nube (Google Forms)</h3><ul class="sop-list"><li class="sop-list-item">📱 <strong>Apertura del Formulario:</strong> Ingresar al formulario "Generador Gift Cards" (Link: <a href="https://forms.gle/M5maiw8modNgipmt5" target="_blank" class="text-blue-600 underline">https://forms.gle/M5maiw8modNgipmt5</a>) cargando sucursal, monto, ticket e ID.</li></ul><h3>3. Entrega Digital a la Clienta</h3><ul class="sop-list"><li class="sop-list-item">📱 <strong>WhatsApp:</strong> Entrar a Google Drive, ingresar a la carpeta "GIFT CARDS GENERADAS", descargar en formato PNG y enviar vía WhatsApp.</li></ul><hr><h2>FASE 2: AUDITORÍA Y PROTOCOLO DE CANJE</h2><h3>1. Control de Seguridad (Paso Crítico)</h3><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Búsqueda de Ticket Original:</strong> Buscar el comprobante de la Gift Card original en Dux y revisar el campo "Observaciones":</li><ul class="sop-list" style="list-style-type: circle;"><li class="sop-list-item">🔴 <strong>Si figura "CANJEADA":</strong> Detener de inmediato la transacción informando cordialmente que el código ya fue utilizado.</li><li class="sop-list-item">🟢 <strong>Si está Vacío:</strong> Continuar con el canje, validando que coincidan monto e ID con la imagen.</li></ul></ul><h3>2. Cobro en Mostrador y Cierre Financiero</h3><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Facturación General:</strong> Facturar los artículos elegidos y elegir método de cobro "CANJE GIFT CARD".</li><li class="sop-list-item">💳 <strong>Saldos:</strong> Cobrar diferencias normalmente; si el saldo supera la compra, dejar el saldo a favor en cuenta corriente dentro de Dux (no vuelto en efectivo).</li></ul><hr><h2>FASE 3: EL "QUEMADO" DE LA TARJETA</h2><h3>1. Bloqueo Inmediato en Sistema</h3><ul class="sop-list"><li class="sop-list-item">🖥️ <strong>Apertura de Factura de Emisión:</strong> Al entregar la bolsa de compra, abrir de inmediato la factura de emisión original de la Gift Card en Dux e inyectar en Observaciones de forma obligatoria:</li></ul><blockquote class="sop-blockquote">"CANJEADA - LOCAL [Nombre de Sucursal] - [Fecha de Canje]"</blockquote><hr><h3>⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3><ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>El "Quemado" Obligatorio:</strong> Registrar de forma inmediata la palabra "CANJEADA" en las observaciones de la factura original es el único control absoluto para evitar fraudes de dobles canjes. Omitirlo es una falta grave.</li></ul>`
-    };
-
-    window.onload = function() {
-      // Cargar clave guardada de localStorage si existiera
-      const savedKey = localStorage.getItem('gemini_api_key_sop');
-      if (savedKey) {
-        document.getElementById('api-key-input').value = savedKey;
-        validateApiKey(savedKey);
-      }
-      
-      // Mapear elementos del almacén de datos
-      for (const key in libraryData) {
-        if (libraryData[key]) {
-          const container = document.getElementById(`data-${key}`);
-          if (container) container.innerHTML = libraryData[key];
-        }
-      }
-      
-      switchSop('p00');
-    };
-
-    function saveApiKey(val) {
-      localStorage.setItem('gemini_api_key_sop', val.trim());
-      validateApiKey(val.trim());
-    }
-
-    function validateApiKey(key) {
-      const msg = document.getElementById('api-status-msg');
-      if (!key) {
-        msg.innerText = "Falta introducir Clave API";
-        msg.className = "text-[10px] text-right text-red-400 font-medium h-3";
-        return;
-      }
-      msg.innerText = "Clave Cargada en Navegador";
-      msg.className = "text-[10px] text-right text-emerald-400 font-medium h-3";
-    }
-
-    function switchTab(tabId) {
-      activeTab = tabId;
-      document.getElementById('panel-document').classList.add('hidden');
-      document.getElementById('panel-creator').classList.add('hidden');
-      document.getElementById('panel-auditor').classList.add('hidden');
-
-      document.getElementById(`panel-${tabId}`).classList.remove('hidden');
-
-      const tabs = ['document', 'creator', 'auditor'];
-      tabs.forEach(id => {
-        const btn = document.getElementById(`nav-tab-${id}`);
-        if (id === tabId) {
-          btn.className = "flex-1 min-w-[120px] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-150 flex items-center justify-center gap-2 bg-emerald-600 text-white shadow";
-        } else {
-          btn.className = "flex-1 min-w-[120px] px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-150 flex items-center justify-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100";
-        }
-      });
-    }
-
-    function switchSop(sopId) {
-      currentSop = sopId;
-      let content = "";
-      
-      if (sopId === 'p00') {
-        content = document.getElementById('data-p00').innerHTML;
-      } else if (sopId === 'custom') {
-        content = customSopContent;
-      } else {
-        content = libraryData[sopId] || "";
-      }
-
-      document.getElementById('sop-document').innerHTML = content;
-
-      // Actualizar selectores
-      const sops = ['p00', 'p01', 'p02', 'p03', 'p04', 'p05', 'p06', 'custom'];
-      sops.forEach(id => {
-        const btn = document.getElementById(`tab-${id}`);
-        if (!btn) return;
-        if (id === sopId) {
-          btn.classList.add('border-emerald-500', 'bg-emerald-50/50');
-          btn.classList.remove('border-transparent', 'bg-slate-50');
-        } else {
-          btn.classList.remove('border-emerald-500', 'bg-emerald-50/50');
-          btn.classList.add('border-transparent', 'bg-slate-50');
-        }
-      });
-
-      const sopsNames = {
-        'p00': 'P-00 · Manual de Estilo',
-        'p01': 'P-01 · Atención y Ventas',
-        'p02': 'P-02 · Caja y Medios',
-        'p03': 'P-03 · Orden y Limpieza',
-        'p04': 'P-04 · Posventa y Cambios',
-        'p05': 'P-05 · Recepción y Stock',
-        'p06': 'P-06 · Gift Cards',
-        'custom': 'P-CUSTOM · SOP Corregido por AI'
-      };
-      document.getElementById('current-sop-label').innerText = sopsNames[sopId] || 'SOP Seleccionado';
-    }
-
-    // GESTOR DE COPIADO ENRIQUECIDO SIN FONDO GRIS
-    function copyToClipboard() {
-      const container = document.getElementById('sop-document');
-      const tempElement = document.createElement('div');
-      
-      // Clonar los hijos directamente para omitir el encolado de contenedores externos que Docs asume como tablas
-      const children = container.childNodes;
-      for (let i = 0; i < children.length; i++) {
-        tempElement.appendChild(children[i].cloneNode(true));
-      }
-
-      // Inyectar forzado de transparencias inline en cada elemento de texto
-      const allTextElements = tempElement.querySelectorAll('h1, h2, h3, p, li, blockquote, hr, span');
-      allTextElements.forEach(el => {
-        el.style.backgroundColor = 'transparent';
-        el.style.setProperty('background-color', 'transparent', 'important');
-      });
-
-      document.body.appendChild(tempElement);
-
-      const range = document.createRange();
-      range.selectNodeContents(tempElement);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-
-      try {
-        const successful = document.execCommand('copy');
-        const btnText = document.getElementById('btn-text');
-        if (successful) {
-          btnText.innerText = "¡Copiado Exitosamente!";
-          setTimeout(() => btnText.innerText = "Copiar para Google Docs", 2000);
-        } else {
-          btnText.innerText = "Error al Copiar";
-          setTimeout(() => btnText.innerText = "Copiar para Google Docs", 2000);
-        }
-      } catch (err) {
-        console.error('Falla en copiado', err);
-      }
-
-      selection.removeAllRanges();
-      document.body.removeChild(tempElement);
-    }
-
-    // LLAMADAS INTEGRADAS DE IA CON LA API DE GEMINI
-    async function callGemini(promptText) {
-      const apiKey = localStorage.getItem('gemini_api_key_sop');
-      if (!apiKey) {
-        alert("Por favor, introduce tu Clave API de Gemini en el campo superior derecho.");
-        return null;
-      }
-
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-      const payload = {
-        contents: [{
-          parts: [{
-            text: promptText
-          }]
-        }]
-      };
-
-      try {
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+    <script>
+        // Cargar API Key al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('gemini_api_key');
+            if (savedKey) {
+                document.getElementById('apiKeyInput').value = savedKey;
+                document.getElementById('apiStatus').innerText = "Clave Cargada en Navegador";
+                document.getElementById('apiStatus').className = "text-xs text-emerald-400 font-semibold block mt-4";
+            }
         });
-        const data = await response.json();
-        if (data.candidates && data.candidates[0].content.parts[0].text) {
-          return data.candidates[0].content.parts[0].text;
-        } else {
-          console.error("Respuesta no esperada de la API", data);
-          return null;
+
+        function saveApiKey() {
+            const key = document.getElementById('apiKeyInput').value.trim();
+            if (key) {
+                localStorage.setItem('gemini_api_key', key);
+                document.getElementById('apiStatus').innerText = "Clave Cargada en Navegador";
+                document.getElementById('apiStatus').className = "text-xs text-emerald-400 font-semibold block mt-4";
+                alert("API Key guardada correctamente de forma local.");
+            } else {
+                localStorage.removeItem('gemini_api_key');
+                document.getElementById('apiStatus').innerText = "Sin Clave";
+                document.getElementById('apiStatus').className = "text-xs text-red-400 font-semibold block mt-4";
+            }
         }
-      } catch (err) {
-        console.error("Error en conexión con API de Gemini", err);
-        return null;
-      }
-    }
 
-    // REDACTOR DE SOPS CON FORMATO P-00
-    async function generateSopWithAI() {
-      const notes = document.getElementById('ai-input-notes').value.trim();
-      if (!notes) {
-        alert("Por favor ingresa algunas notas o procedimiento en bruto.");
-        return;
-      }
-
-      const spinner = document.getElementById('generate-sop-spinner');
-      const btn = document.getElementById('btn-generate-sop');
-      
-      spinner.classList.remove('hidden');
-      btn.disabled = true;
-
-      const p00Reference = `
-        Jerarquía de Estilos P-00 Obligatoria:
-        - Título Principal (<h1>): Clase CSS 'sop-title-1'. Estilos inline: font-family: 'Inter'; font-size: 20pt; font-weight: bold; color: #000000; margin-bottom: 12pt; line-height: 1.15; background-color: transparent !important;
-        - Títulos de Fase (<h2>): Clase CSS 'sop-title-2'. TODO EN MAYÚSCULAS. Estilos inline: font-family: 'Inter'; font-size: 14pt; font-weight: bold; color: #000000; margin-top: 24pt; margin-bottom: 12pt; line-height: 1.15; background-color: transparent !important;
-        - Sub-bloques (<h3>): Clase CSS 'sop-title-3'. Estilos inline: font-family: 'Inter'; font-size: 12pt; font-weight: bold; color: #434343; margin-top: 18pt; margin-bottom: 8pt; line-height: 1.15; background-color: transparent !important;
-        - Texto Cuerpo (<p>, <li>): Clase CSS 'sop-text' o 'sop-list-item'. Estilos inline: font-family: 'Inter'; font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 6pt; background-color: transparent !important;
-        - Separador (<hr>): Clase CSS 'sop-divider'. Estilos inline: border: 0; border-top: 1px solid #CCCCCC; margin: 12pt 0; background-color: transparent !important; (Colocar después de objetivo y fases).
-        - Diálogos/Ejemplos (<blockquote>): Clase CSS 'sop-blockquote'. Estilos inline: font-family: 'Inter'; font-size: 11pt; font-style: italic; color: #555555; margin-left: 20px; padding-left: 10px; border-left: 3px solid #CCCCCC; line-height: 1.15; background-color: transparent !important;
-        - Reglas de Oro final (<h3>): '### ⚠ REGLAS DE ORO (Puntos Críticos de Control)' - Con viñetas que inicien con ⚠.
-
-        Biblioteca de Emojis Contextuales:
-        - 🖥️ Pantalla (sistemas, Dux Software)
-        - 📱 Celular (WhatsApp, Forms, Drive)
-        - 💳 Tarjeta (Payway, terminales, MP)
-        - 💵 Efectivo (billetes, fondo)
-        - 📦 Caja (depósito, stock, recepción)
-        - ✨ Estrella (atención, ventas, imagen de marca)
-      `;
-
-      const prompt = `
-        Actúa como un estructurador experto de SOPs organizacionales.
-        A partir de las siguientes anotaciones en bruto, genera un documento HTML perfectamente estructurado aplicando estrictamente la jerarquía visual P-00 descrita abajo. 
-        IMPORTANTE: Debes inyectar todas las propiedades de estilo CSS inline indicadas para cada etiqueta de manera exacta, agregando 'background-color: transparent !important;' a cada una de ellas para garantizar un copiado de texto enriquecido limpio.
-
-        Anotaciones en bruto:
-        ---
-        ${notes}
-        ---
-
-        Normativa de estilo P-00 a inyectar inline:
-        ${p00Reference}
-
-        Devuelve UNICAMENTE el fragmento de código HTML estructurado. No agregues introducciones, explicaciones, ni bloques de código externos con triple acento grave. Devuelve código HTML puro que contenga los elementos h1, h2, h3, p, ul, li, blockquote, hr.
-      `;
-
-      const result = await callGemini(prompt);
-      
-      spinner.classList.add('hidden');
-      btn.disabled = false;
-
-      if (result) {
-        // Limpiar el resultado de cualquier envoltura markdown si existiese
-        let cleanHtml = result.replace(/^```html\s*/i, '').replace(/```\s*$/, '').trim();
-        customSopContent = cleanHtml;
-        document.getElementById('data-custom').innerHTML = cleanHtml;
-        
-        // Habilitar botón dinámico de visor
-        document.getElementById('tab-custom').classList.remove('hidden');
-        switchSop('custom');
-        switchTab('document');
-      }
-    }
-
-    // AUDITOR DE CUMPLIMIENTO CON FORMATO ESTRICTO JSON
-    async function auditSopWithAI() {
-      const draft = document.getElementById('auditor-input-text').value.trim();
-      if (!draft) {
-        alert("Por favor introduce el borrador de SOP que deseas auditar.");
-        return;
-      }
-
-      const spinner = document.getElementById('audit-sop-spinner');
-      const btn = document.getElementById('btn-audit-sop');
-
-      spinner.classList.remove('hidden');
-      btn.disabled = true;
-
-      const prompt = `
-        Actúa como un auditor de control de calidad para Procedimientos Operativos Estándar.
-        Debes analizar el siguiente texto de borrador de SOP contra las directrices tipográficas y estructurales del manual de estilo corporativo P-00.
-
-        SOP a auditar:
-        ---
-        ${draft}
-        ---
-
-        Criterios de Evaluación P-00:
-        1. Tipografía: Debe utilizarse 'Inter'.
-        2. Jerarquías: Título principal en 20pt, Fases (mayúsculas) en 14pt, sub-bloques en 12pt, cuerpo en 11pt.
-        3. Emojis oficiales asignados correctamente (🖥️, 📱, 💳, 💵, 📦, ✨).
-        4. Ejemplos de diálogos con sangría e itálica (etiqueta blockquote).
-        5. Línea divisoria (hr) después del Objetivo y fases.
-        6. Presencia obligatoria de la sección final: '### ⚠ REGLAS DE ORO (Puntos Críticos de Control)' con viñetas que comiencen con ⚠.
-
-        Debes responder EXCLUSIVAMENTE en un formato JSON estructurado que contenga las siguientes llaves (no agregues ninguna explicación externa):
-        {
-          "score": 85, // Número entero entre 0 y 100 de cumplimiento estricto
-          "positives": ["Detalle de puntos cumplidos", "Otro elemento correcto"],
-          "negatives": ["Detalle de falla o incumplimiento", "Falta la sección de cierre"],
-          "recommendations": ["Sugerencia de corrección para el autor"],
-          "corrected_html": "<p>Escribe aquí todo el SOP completamente formateado con estilos inline, transparencias e íconos bajo la norma P-00 listo para cargarse en el visor...</p>"
+        function switchTab(tab) {
+            if (tab === 'editor') {
+                document.getElementById('panel-editor').classList.remove('hidden');
+                document.getElementById('panel-visor').classList.add('hidden');
+                document.getElementById('tab-editor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 bg-white text-slate-800 shadow-sm";
+                document.getElementById('tab-visor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
+            } else {
+                document.getElementById('panel-editor').classList.add('hidden');
+                document.getElementById('panel-visor').classList.remove('hidden');
+                document.getElementById('tab-editor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
+                document.getElementById('tab-visor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 bg-white text-slate-800 shadow-sm";
+            }
         }
-      `;
 
-      const result = await callGemini(prompt);
+        async function processSOP() {
+            const apiKey = localStorage.getItem('gemini_api_key');
+            if (!apiKey) {
+                alert("Por favor, ingresá y guardá tu API Key de Gemini arriba a la derecha.");
+                return;
+            }
 
-      spinner.classList.add('hidden');
-      btn.disabled = false;
+            const rawText = document.getElementById('rawInput').value.trim();
+            if (!rawText) {
+                alert("Por favor, escribe o pega algún texto operativo en bruto.");
+                return;
+            }
 
-      if (result) {
-        try {
-          // Limpiar envoltorios markdown del JSON si existiesen
-          let cleanJson = result.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
-          const audit = JSON.parse(cleanJson);
-          
-          document.getElementById('audit-score').innerText = `${audit.score}%`;
-          
-          const posList = document.getElementById('audit-positives-list');
-          posList.innerHTML = "";
-          audit.positives.forEach(item => {
-            const li = document.createElement('li');
-            li.innerText = item;
-            posList.appendChild(li);
-          });
+            const btn = document.getElementById('btnProcess');
+            btn.disabled = true;
+            btn.innerText = "Procesando con IA...";
 
-          const negList = document.getElementById('audit-negatives-list');
-          negList.innerHTML = "";
-          audit.negatives.forEach(item => {
-            const li = document.createElement('li');
-            li.innerText = item;
-            negList.appendChild(li);
-          });
+            const promptSystem = `Actuás como un Ingeniero de Operaciones experto en Retail. Tu tarea es estructurar el texto en bruto provisto por el usuario transformándolo en un Procedimiento Operativo Estándar (SOP) corporativo de alta calidad, aplicando de forma estricta y obligatoria el siguiente formato HTML limpio, sin bloques contenedores grises, markdown o código extra:
+            
+            Reglas de Formato Estricto (Renderizado en HTML directo):
+            - Título del SOP: Debe ir dentro de etiquetas <h1> con un emoji limpio y contextual. Ejemplo: <h1>P-0X · Nombre del Proceso</h1>
+            - Fases del Proceso: Deben estructurarse en bloques lógicos dentro de etiquetas <h2>, en MAYÚSCULAS y precedidas por el término FASE. Ejemplo: <h2>FASE 1: APERTURA Y CONTROL</h2>
+            - Sub-bloques Operativos: Usar etiquetas <h3> en mayúsculas y minúsculas para los pasos o áreas específicas. Ejemplo: <h3>1. Control de Batea y Stock</h3>
+            - Contenido y Listas: El texto explicativo debe ir en etiquetas <p>, y los puntos específicos dentro de listas estructuradas <ul> y <li>.
+            - Estilo tipográfico: No agregues estilos en línea en el HTML; el contenedor ya tiene los tamaños tipográficos en puntos preconfigurados.
+            - Tono: Profesional, directo, imperativo y enfocado en la eficiencia operativa en tienda.
+            
+            Texto en bruto a procesar:\n${rawText}`;
 
-          const recList = document.getElementById('audit-recommendations-list');
-          recList.innerHTML = "";
-          audit.recommendations.forEach(item => {
-            const li = document.createElement('li');
-            li.innerText = item;
-            recList.appendChild(li);
-          });
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: promptSystem }] }]
+                    })
+                });
 
-          document.getElementById('audit-corrected-container').innerText = audit.corrected_html;
-          
-          // Almacenar temporalmente versión corregida
-          customSopContent = audit.corrected_html;
-          document.getElementById('data-custom').innerHTML = audit.corrected_html;
-
-          document.getElementById('audit-report').classList.remove('hidden');
-
-        } catch (e) {
-          console.error("No se pudo interpretar el JSON de la auditoría", e, result);
-          alert("Hubo un problema al procesar la auditoría con Inteligencia Artificial. Inténtalo nuevamente.");
+                const data = await response.json();
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    let formattedHTML = data.candidates[0].content.parts[0].text;
+                    
+                    // Limpiar posibles bloques de código markdown generados por la IA
+                    formattedHTML = formattedHTML.replace(/```html/g, "").replace(/```/g, "").trim();
+                    
+                    document.getElementById('sopOutput').innerHTML = formattedHTML;
+                    btn.disabled = false;
+                    btn.innerText = "Estructurar y Formatear SOP";
+                    switchTab('visor');
+                } else {
+                    throw new Error("Estructura de respuesta inesperada");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Error al procesar con Gemini. Verificá que tu API Key sea correcta y activa.");
+                btn.disabled = false;
+                btn.innerText = "Estructurar y Formatear SOP";
+            }
         }
-      }
-    }
 
-    function loadAuditedToCustom() {
-      if (!customSopContent) {
-        alert("Primero debes realizar una auditoría exitosa.");
-        return;
-      }
-      document.getElementById('tab-custom').classList.remove('hidden');
-      switchSop('custom');
-      switchTab('document');
-    }
-  </script>
+        function copyToClipboard() {
+            const container = document.getElementById('sopOutput');
+            
+            // Crear rango para selección rica (conservando el formato enriquecido)
+            const range = document.createRange();
+            range.selectNodeContents(container);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            try {
+                document.execCommand('copy');
+                alert("¡SOP copiado con formato enriquecido! Ya podés pegarlo (Ctrl+V) limpio en Google Docs.");
+            } catch (err) {
+                alert("No se pudo copiar automáticamente. Por favor, selecciona el texto manualmente y copialo.");
+            }
+            selection.removeAllRanges();
+        }
+    </script>
 </body>
 </html>
