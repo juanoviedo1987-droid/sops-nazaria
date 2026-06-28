@@ -16,7 +16,6 @@
     </style>
 </head>
 <body>
-    <!-- Encabezado -->
     <header class="bg-[#0b252e] text-white p-4 shadow-md flex justify-between items-center">
         <div class="flex items-center space-x-3">
             <div class="bg-emerald-500 p-2 rounded-lg text-white">⚙️</div>
@@ -36,7 +35,6 @@
     </header>
 
     <div class="max-w-[1400px] mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <!-- Panel Izquierdo: Librería -->
         <aside class="space-y-4">
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Biblioteca de Desarrollo</h3>
@@ -54,15 +52,13 @@
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">🤖 Copiloto Operativo:</h4>
                 <p class="text-xs text-slate-300">Utilizá las pestañas del espacio de trabajo para formatear nuevos procedimientos con el estándar P-00.</p>
                 <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[10px] text-slate-500">
-                    <span>Modelo: gemini-2.0-flash</span>
+                    <span>Modelo: gemini-2.5-flash</span>
                     <span class="text-emerald-400 font-bold">Activo</span>
                 </div>
             </div>
         </aside>
 
-        <!-- Área Central de Trabajo -->
         <main class="lg:col-span-3 space-y-4">
-            <!-- Selector de Modos -->
             <div class="bg-slate-100 p-1.5 rounded-xl flex space-x-2 border border-slate-200">
                 <button onclick="switchTab('editor')" id="tab-editor" class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 bg-white text-slate-800 shadow-sm">
                     <span>🤖 Redactor AI P-00</span>
@@ -72,7 +68,6 @@
                 </button>
             </div>
 
-            <!-- Pestaña 1: Redactor AI -->
             <div id="panel-editor" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4">
                 <div class="flex items-center space-x-2 text-slate-800 font-semibold text-lg">
                     <span>📝</span>
@@ -90,7 +85,6 @@
                 </button>
             </div>
 
-            <!-- Pestaña 2: Visor y Copiado -->
             <div id="panel-visor" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4 hidden">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-4">
                     <h3 class="font-bold text-slate-800 text-lg flex items-center space-x-2"><span>✨</span> Vista Previa del Documento</h3>
@@ -115,6 +109,7 @@
             }
         });
 
+        // Guardar API Key localmente
         function saveApiKey() {
             const key = document.getElementById('apiKeyInput').value.trim();
             if (key) {
@@ -171,8 +166,8 @@
             Texto en bruto:\n${rawText}`;
 
             try {
-                // MODELO ACTUALIZADO: gemini-2.0-flash en la ruta v1 oficial
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+                // MOTOR ACTUALIZADO: gemini-2.5-flash sobre canal de producción estable v1
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ contents: [{ parts: [{ text: promptSystem }] }] })
@@ -213,9 +208,9 @@
             selection.addRange(range);
             try {
                 document.execCommand('copy');
-                alert("¡SOP copiado! Ya podés pegarlo limpio en Google Docs.");
+                alert("¡SOP copiado con éxito! Ya podés pegarlo limpio en Google Docs.");
             } catch (err) {
-                alert("Error al copiar. Seleccionalo manualmente.");
+                alert("Error al copiar automáticamente. Seleccionalo manualmente.");
             }
             selection.removeAllRanges();
         }
