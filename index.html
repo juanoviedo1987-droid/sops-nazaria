@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Centro de Operaciones - Manual de SOPs Oficiales</title>
-  <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS para diseño moderno y adaptativo -->
   <script src="https://cdn.tailwindcss.com"></script>
   
   <style>
@@ -118,7 +116,6 @@
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col font-sans text-slate-800">
 
-  <!-- Cabecera Principal -->
   <header class="bg-slate-900 text-white shadow-md border-b border-slate-800 shrink-0">
     <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -132,7 +129,6 @@
           <p class="text-[10px] sm:text-xs text-slate-400">Manual de SOPs Oficiales y Consulta Interactiva</p>
         </div>
       </div>
-      <!-- Botón menú mobile -->
       <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white focus:outline-none">
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -141,25 +137,21 @@
     </div>
   </header>
 
-  <!-- Contenido: Sidebar + Área de Visualización + Chatbot -->
   <div class="flex-1 max-w-7xl w-full mx-auto flex flex-col lg:flex-row relative overflow-hidden">
     
-    <!-- Sidebar / Selector de SOPs -->
     <aside id="sidebar-container" class="hidden lg:flex w-full lg:w-72 bg-slate-900 lg:bg-transparent shrink-0 flex-col gap-4 p-4 border-r border-slate-200 lg:border-none z-40 absolute lg:relative inset-y-0 left-0 transition-all duration-200 overflow-y-auto">
       <div class="bg-slate-850 lg:bg-white rounded-xl shadow-sm border border-slate-800 lg:border-slate-200 p-4">
         <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Manuales de Consulta</h2>
         <div class="space-y-2" id="sop-selector-container">
           
-          <!-- Botón P-01 -->
           <button onclick="switchSop('p01')" id="tab-p01" class="w-full text-left p-3 rounded-lg border-2 border-emerald-500 bg-emerald-50/10 lg:bg-emerald-50/50 hover:bg-emerald-50/80 transition-all flex items-start gap-3 group">
             <span class="text-lg mt-0.5">✨</span>
             <div>
               <h3 class="font-bold text-slate-200 lg:text-slate-950 text-sm group-hover:text-emerald-700 transition-colors">P-01 · Atención y Ventas</h3>
-              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Imagen de marca y protocolos de venta.</p>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Imagen de marca y protocols de venta.</p>
             </div>
           </button>
           
-          <!-- Botón P-02 -->
           <button onclick="switchSop('p02')" id="tab-p02" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
             <span class="text-lg mt-0.5">💵</span>
             <div>
@@ -168,7 +160,6 @@
             </div>
           </button>
 
-          <!-- Botón P-03 -->
           <button onclick="switchSop('p03')" id="tab-p03" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
             <span class="text-lg mt-0.5">🧹</span>
             <div>
@@ -177,7 +168,6 @@
             </div>
           </button>
 
-          <!-- Botón P-04 -->
           <button onclick="switchSop('p04')" id="tab-p04" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
             <span class="text-lg mt-0.5">🔄</span>
             <div>
@@ -186,7 +176,6 @@
             </div>
           </button>
 
-          <!-- Botón P-05 -->
           <button onclick="switchSop('p05')" id="tab-p05" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
             <span class="text-lg mt-0.5">📦</span>
             <div>
@@ -195,7 +184,6 @@
             </div>
           </button>
 
-          <!-- Botón P-06 -->
           <button onclick="switchSop('p06')" id="tab-p06" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
             <span class="text-lg mt-0.5">🎟️</span>
             <div>
@@ -203,24 +191,27 @@
               <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Emisión, canjes y bloqueo.</p>
             </div>
           </button>
+
+          <button onclick="switchSop('p07')" id="tab-p07" class="w-full text-left p-3 rounded-lg border-2 border-transparent bg-slate-800 lg:bg-slate-50 hover:bg-slate-700 lg:hover:bg-slate-100/80 transition-all flex items-start gap-3 group">
+            <span class="text-lg mt-0.5">📱</span>
+            <div>
+              <h3 class="font-bold text-slate-300 lg:text-slate-700 text-sm group-hover:text-slate-900 transition-colors">P-07 · Venta Activa</h3>
+              <p class="text-[10px] text-slate-400 lg:text-slate-500 mt-0.5 line-clamp-1">Venta activa y omnicanalidad.</p>
+            </div>
+          </button>
         </div>
       </div>
     </aside>
 
-    <!-- Área de Trabajo Principal: Hoja A4 y Chatbot -->
     <main class="flex-1 flex flex-col overflow-hidden p-4 sm:p-6 gap-6">
       
-      <!-- Hoja Virtual de Lectura -->
       <div class="flex-1 bg-slate-200/50 rounded-xl p-3 sm:p-6 border border-slate-300 shadow-inner overflow-y-auto flex justify-center">
-        <!-- Hoja A4 Simulada -->
         <div class="shadow-xl border border-slate-300 rounded-sm p-6 sm:p-12 md:p-16 bg-white max-w-[21cm] w-full min-h-[29.7cm] h-fit box-border relative">
           <div id="sop-document" class="sop-container">
-            <!-- Cargado dinámicamente -->
-          </div>
+            </div>
         </div>
       </div>
 
-      <!-- Panel de Chatbot Contextual -->
       <div class="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col h-72 sm:h-80 overflow-hidden shrink-0">
         <div class="bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800 shrink-0">
           <div class="flex items-center gap-2">
@@ -249,10 +240,8 @@
     </main>
   </div>
 
-  <!-- Almacén Oculto de Datos de SOPs -->
   <div id="sop-data-store" class="hidden">
     
-    <!-- CONTENIDO P-01 -->
     <div id="data-p01">
       <h1 class="sop-title-1">P-01 · Atención al Cliente y Ventas</h1>
       <p class="sop-text"><strong>Objetivo:</strong> Establecer las directrices fundamentales de imagen personal y protocolos de venta.</p>
@@ -310,14 +299,13 @@
       </ul>
     </div>
 
-    <!-- CONTENIDO P-02 -->
     <div id="data-p02">
       <h1 class="sop-title-1">P-02 · Operación de Caja y Medios de Pago</h1>
       <p class="sop-text"><strong>Objetivo:</strong> Estandarizar el cobro para asegurar la trazabilidad de fondos, capturar datos de fidelización y eliminar errores financieros por mal uso de terminales.</p>
       <hr class="sop-divider">
       <h2 class="sop-title-2">FASE 1: APERTURA Y ACTUALIZACIÓN</h2>
       <ul class="sop-list">
-        <li class="sop-list-item">🖥️ <strong>Dux como Autoridad:</strong> El sistema es la única fuente de precios. Si hay discrepancias, se cobra lo que dicta Dux y se reporta el error después de la venta.</li>
+        <li class="sop-list-item">🖥️ <strong>Dux como Autoridad:</strong> El sistema es la única fuente de precios. Si hay discrepancies, se cobra lo que dicta Dux y se reporta el error después de la venta.</li>
         <li class="sop-list-item">📱 <strong>Hoja de Ruta Comercial:</strong> Consultar el canal oficial (WhatsApp/Drive) para validar qué bancos y promociones de shopping aplican hoy. No memorizar; verificar.</li>
         <li class="sop-list-item">💵 <strong>Fondo de Caja:</strong> Registrar la apertura con el monto físico real al inicio de cada jornada.</li>
       </ul>
@@ -355,7 +343,6 @@
       </ul>
     </div>
 
-    <!-- CONTENIDO P-03 -->
     <div id="data-p03">
       <h1 class="sop-title-1">P-03 · Orden, Limpieza y Presentación del Local</h1>
       <p class="sop-text"><strong>Objetivo:</strong> Mantener la estética del salón y la vidriera en óptimas condiciones durante la jornada laboral, distribuyendo las tareas de forma equitativa entre los turnos para garantizar la atracción de clientes y una experiencia de compra impecable.</p>
@@ -374,7 +361,7 @@
       <p class="sop-text">El orden visual debe ser constante. El desorden generado por una atención debe resolverse inmediatamente después de que el cliente se retira.</p>
       <ul class="sop-list">
         <li class="sop-list-item">✨ <strong>Control de Huecos (Salón y Vidriera):</strong> Regla estricta. Prohibido dejar "baches" o espacios vacíos. Si se vende el último par de exhibición (ya sea de la pared o de la vidriera), el hueco debe cubrirse de inmediato adelantando otro producto o colocando un modelo sustituto.</li>
-        <li class="sop-list-item">🖥️ <strong>Control de Precios:</strong> Cada calzado debe contar con su precio visible y prolijo. El precio expuesto debe coincidir al 100% con lo que dicta el sistema Dux.</li>
+        <li class="sop-list-item">🖥️ <strong>Control de Precios:</strong> Cada calzado debe contar con su precio visible y prolijo. El precio expuesto debe coincidir al 100% con lo que dicta el sistema Dux Software.</li>
         <li class="sop-list-item">✨ <strong>Zona de Sillones y Salón:</strong> Máximo 10 minutos para guardar las cajas en el depósito y devolver el zapato de muestra a su estante tras una venta. El área de sillones debe quedar libre de papeles seda, hormas o cajas vacías inmediatamente. Los calzadores deben retornar a su lugar asignado.</li>
         <li class="sop-list-item">📦 <strong>Cierre y Depósito:</strong> Agrupar los residuos en bolsas cerradas y sacarlas en los horarios estipulados. Dejar el depósito organizado, con cajas cerradas y los SKUs legibles hacia el frente para agilizar la atención y el conteo de stock.</li>
       </ul>
@@ -386,7 +373,6 @@
       </ul>
     </div>
 
-    <!-- CONTENIDO P-04 -->
     <div id="data-p04">
       <h1 class="sop-title-1">P-04 · Protocolo de Posventa y Cambios</h1>
       <p class="sop-text"><strong>Objetivo:</strong> Garantizar una experiencia de posventa ágil, transparente y orientada a la fidelización de la clienta, asegurando el control de los productos en el sistema y el seguimiento detallado de cada caso.</p>
@@ -424,7 +410,6 @@
       </ul>
     </div>
 
-    <!-- CONTENIDO P-05 -->
     <div id="data-p05">
       <h1 class="sop-title-1">P-05 · Protocolo de Recepción, Carga y Auditoría de Stock</h1>
       <p class="sop-text"><strong>Objetivo:</strong> Garantizar que el sistema Dux Software funcione como la única fuente de información veraz en tiempo real, permitiendo una gestión de inventarios eficiente, la prevención de pérdidas y la toma de decisiones basada en datos precisos.</p>
@@ -484,12 +469,11 @@
       <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
       <ul class="sop-warning-list">
         <li class="sop-warning-item">⚠ <strong>Regla de Exhibición y Venta:</strong> Ningún producto puede ser exhibido en el salón de ventas ni vendido si no ha sido previamente cargado en el sistema Dux Software.</li>
-        <li class="sop-warning-item">⚠ <strong>Responsabilidad de Carga y Registro:</strong> Cada persona en turno es directamente responsable de registrar de forma inmediata el ingreso al momento de la recepción física.</li>
+        <li class="sop-warning-item">⚠ <strong>Uso Obligatorio de Carga y Registro:</strong> Cada persona en turno es directamente responsable de registrar de forma inmediata el ingreso al momento de la recepción física.</li>
         <li class="sop-warning-item">⚠ <strong>Sincronización Crítica TOM:</strong> La omisión o demora de actualización de precios por parte de TOM afecta directamente los márgenes de venta en Maschwitz y Champagnat.</li>
       </ul>
     </div>
 
-    <!-- CONTENIDO P-06 -->
     <div id="data-p06">
       <h1 class="sop-title-1">P-06 · Gestión Digital de Gift Cards</h1>
       <p class="sop-text"><strong>Objetivo:</strong> Estandarizar la emisión y el canje ágil, blindando el sistema contra fraudes o dobles usos de tarjetas en todos los locales de la empresa.</p>
@@ -537,6 +521,65 @@
       </ul>
     </div>
 
+    <div id="data-p07">
+      <h1 class="sop-title-1">P-07 · Protocolo de Venta Activa y Omnicanalidad</h1>
+      <p class="sop-text"><strong>Objetivo:</strong> Transformar el local físico en un centro de venta proactiva, utilizando los canales digitales (WhatsApp, Instagram y TikTok) para salir a buscar a la clienta y complementar la venta tradicional de salón.</p>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 1: RUTINA DE VENTA DIGITAL POR TURNOS (ORDEN EN EL TURNO)</h2>
+      <p class="sop-text">El salón es la prioridad. Ante el ingreso de una clienta, la rutina digital se pausa inmediatamente y se retoma en el siguiente bache de público.</p>
+      <h3 class="sop-title-3">1. Bloque de Tareas: Turno Mañana</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📱 <strong>Filtro y Respuesta Inmediata:</strong> Revisar y responder todas las consultas pendientes de la noche anterior en Instagram, TikTok y WhatsApp. El tiempo máximo de respuesta durante el día es de 15 minutos.</li>
+        <li class="sop-list-item">📱 <strong>Contenido de Apertura:</strong> Producir y subir la primera secuencia de Historias/Estados del día. Mostrar el local abierto, la vidriera impecable o el calzado "vidriera" del turno en acción.</li>
+        <li class="sop-list-item">🖥️ <strong>Prospección de Base de Datos:</strong> Utilizar el Sistema de Gestión para buscar clientas habituales del local. Contactarlas por WhatsApp de forma ultra personalizada (nunca masiva ni invasiva) para avisarles sobre reingresos de su talle o modelos nuevos que se ajusten a sus gustos.</li>
+      </ul>
+      <h3 class="sop-title-3">2. Bloque de Tareas: Turno Tarde</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📱 <strong>Contenido de Alto Impacto (Reels / TikTok / Historias):</strong> Grabar y publicar un video corto (Reel o TikTok) o una secuencia de Historias mostrando el producto real en batea, detalles de materiales, cómo calza o cómo armar un look. La tarde es el momento de mayor visualización y engagement en redes.</li>
+        <li class="sop-list-item">📱 <strong>Cierre de Bandejas de Entrada:</strong> Hacer una ronda final exhaustiva por los mensajes privados de Instagram, comentarios de TikTok y chats de WhatsApp para asegurar que el local cierre sin un solo mensaje pendiente de respuesta.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 2: PROTOCOLO DE ASESORAMIENTO Y VENTA ACTIVA</h2>
+      <h3 class="sop-title-3">1. Gestión Operativa de Canales</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">✨ <strong>Prohibido el "No hay":</strong> Si una clienta consulta digitalmente por un modelo que no está disponible en la sucursal, la vendedora debe enviar en el acto fotos o videos de dos alternativas similares en diseño y talle disponibles en el local.</li>
+        <li class="sop-list-item">✨ <strong>Tono del Chat y Conversión:</strong> El trato debe ser impecable, llamando a la clienta por su nombre desde el primer mensaje y cerrando cada respuesta con una pregunta abierta para mantener el interés y forzar el cierre de la venta.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 3: PROTOCOLO DE COBRO Y CONDICIONES ONLINE</h2>
+      <ul class="sop-list">
+        <li class="sop-list-item">🖥️ <strong>Alineación Comercial:</strong> Se respetan estrictamente los mismos medios de pago, promociones bancarias y descuentos vigentes que aplican en el mostrador físico del local.</li>
+        <li class="sop-list-item">🖥️ <strong>Métodos de Pago Digitales:</strong> Las vendedoras guiarán a la clienta para realizar el pago de forma remota mediante links de cobro oficiales, códigos QR o Transferencia Bancaria Directa.</li>
+        <li class="sop-list-item">⚠ <strong>Validación de Fondos:</strong> Está estrictamente prohibido separar o empaquetar mercadería basándose solo en una captura de pantalla enviada por la clienta. El pago debe estar efectivamente acreditado y registrado en el Sistema de Gestión o la cuenta de la empresa antes de mover el stock.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">FASE 4: CAPTURA DE DATOS Y POLÍTICA DE ENVÍO</h2>
+      <h3 class="sop-title-3">1. Ficha de Cliente Obligatoria</h3>
+      <p class="sop-text">Antes de armar cualquier paquete, es mandatorio registrar a la clienta en el Sistema de Gestión con sus datos completos (DNI, Mail y Teléfono) para alimentar la base de datos de fidelización.</p>
+      <h3 class="sop-title-3">2. Datos Mandatorios de Despacho (Correo Argentino)</h3>
+      <p class="sop-text">Se debe solicitar a la clienta la siguiente plantilla de datos de forma obligatoria por chat:</p>
+      <blockquote class="sop-blockquote">
+        Nombre y Apellido<br>
+        Provincia<br>
+        Localidad<br>
+        Calle y Altura<br>
+        Código Postal (CP)<br>
+        Correo Electrónico<br>
+        Teléfono de contacto
+      </blockquote>
+      <p class="sop-text"><em>Nota: Solicitar cualquier dato adicional que ayude a encontrar la dirección (ej: entre qué calles, piso, departamento).</em></p>
+      <h3 class="sop-title-3">3. Regla Fija de Envío Gratis</h3>
+      <ul class="sop-list">
+        <li class="sop-list-item">📦 <strong>Condición:</strong> El envío a través de Correo Argentino será completamente gratis para la clienta si lleva 2 pares de calzado o más. Si lleva solo un par, el costo del envío se le sumará al total de su cuenta.</li>
+      </ul>
+      <hr class="sop-divider">
+      <h2 class="sop-title-2">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h2>
+      <ul class="sop-warning-list">
+        <li class="sop-warning-item">⚠ <strong>Comisión Equivalente por Venta Omnicanal:</strong> Toda venta cerrada, cobrada y facturada digitalmente a través de los canales del local sumará exactamente igual para los objetivos y comisiones diarias de la vendedora en turno. Atender el celular o las redes es tan importante como atender el mostrador.</li>
+        <li class="sop-warning-item">⚠ <strong>Contenido Real de Stock Físico:</strong> Queda prohibido el uso de imágenes institucionales de catálogo o capturas de otras páginas. El contenido de las redes del local (Instagram, TikTok y WhatsApp) debe ser real y orgánico, mostrando el stock físico disponible en la sucursal para generar confianza inmediata y traccionar la venta del día.</li>
+      </ul>
+    </div>
+
   </div>
 
   <script>
@@ -570,7 +613,7 @@
         targetContainer.appendChild(sourceElement.cloneNode(true));
       }
 
-      const sops = ['p01', 'p02', 'p03', 'p04', 'p05', 'p06'];
+      const sops = ['p01', 'p02', 'p03', 'p04', 'p05', 'p06', 'p07'];
       sops.forEach(id => {
         const btn = document.getElementById(`tab-${id}`);
         if (!btn) return;
@@ -589,7 +632,8 @@
         'p03': 'P-03 · Orden y Limpieza',
         'p04': 'P-04 · Posventa y Cambios',
         'p05': 'P-05 · Recepción y Stock',
-        'p06': 'P-06 · Gift Cards'
+        'p06': 'P-06 · Gift Cards',
+        'p07': 'P-07 · Venta Activa y Omnicanalidad'
       };
       document.getElementById('chat-active-sop').innerText = sopsNames[sopId] || 'SOP Seleccionado';
 
@@ -747,6 +791,22 @@
           return "⚠ <strong>REGLA DE ORO (Puntos Críticos):</strong> Al entregar la compra a la clienta que canjeó una Gift Card, debés abrir inmediatamente la factura original de la venta de la tarjeta en Dux y escribir en observaciones: `CANJEADA - LOCAL [Nombre de Sucursal] - [Fecha]`. Omitir este paso se considera una falta grave.";
         }
         return "El **P-06** establece el paso a paso: facturar la Gift Card en Dux usando el ID del plástico, cargar los datos en el Google Forms del local, descargar la tarjeta generada de Drive y enviarla al cliente vía WhatsApp.";
+      }
+
+      if (sopId === 'p07') {
+        if (q.includes('comision') || q.includes('comisión') || q.includes('vendedora') || q.includes('objetivo')) {
+          return "⚠ <strong>REGLA DE ORO (Puntos Críticos):</strong> Toda venta cerrada digitalmente a través de los canales del local suma exactamente igual para las comisiones y objetivos diarios de la vendedora en turno. Atender las redes es igual de crítico que el mostrador.";
+        }
+        if (q.includes('envio') || q.includes('envío') || q.includes('gratis') || q.includes('correo')) {
+          return "📦 <strong>Política de Despacho (Fase 4):</strong> El envío por Correo Argentino es 100% gratis si la clienta lleva 2 pares o más. Si lleva un solo par, el costo del flete se le carga a su cuenta de forma obligatoria.";
+        }
+        if (q.includes('fotos') || q.includes('stock') || q.includes('real') || q.includes('catalogo')) {
+          return "⚠ <strong>REGLA DE ORO:</strong> Queda prohibido usar imágenes institucionales o de catálogo. Todo el contenido subido a redes debe mostrar el stock físico real disponible en la sucursal para generar confianza inmediata.";
+        }
+        if (q.includes('fondos') || q.includes('captura') || q.includes('bancaria')) {
+          return "⚠ <strong>Validación Estricta (Fase 3):</strong> Prohibido empaquetar o separar mercadería basándose solo en capturas de pantalla. El dinero debe estar efectivamente acreditado en la cuenta de la empresa o sistema de gestión antes de mover stock.";
+        }
+        return "El manual **P-07** define la rutina digital por turnos (mañana de filtro y prospección, tarde de contenido y cierre de bandejas). Recordá que ante la falta de un talle, es mandatorio enviar fotos de 2 alternativas similares.";
       }
 
       return "Indícame una pregunta clara sobre los pasos, plazos o reglas críticas de este documento para poder ayudarte.";
