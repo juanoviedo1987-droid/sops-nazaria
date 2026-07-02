@@ -3,235 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro de Operaciones - Manual de SOPs Oficiales</title>
+    <title>Panel de Control - Desarrollador de SOPs Nazaria</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        /* Estructura de fuentes estricta del P-00 para la visualización del documento */
-        .sop-container {
-            font-family: 'Inter', sans-serif !important;
-            line-height: 1.15 !important;
-            color: #262626 !important;
-            font-size: 11pt !important;
-        }
-        .sop-title-1 {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 20pt !important;
-            font-weight: bold !important;
-            color: #000000 !important;
-            margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-            line-height: 1.15 !important;
-        }
-        .sop-title-2 {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 14pt !important;
-            font-weight: bold !important;
-            color: #000000 !important;
-            text-transform: uppercase !important;
-            margin-top: 24pt !important;
-            margin-bottom: 12pt !important;
-            line-height: 1.15 !important;
-        }
-        .sop-title-3 {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 12pt !important;
-            font-weight: bold !important;
-            color: #404040 !important;
-            margin-top: 18pt !important;
-            margin-bottom: 6pt !important;
-            line-height: 1.15 !important;
-        }
-        .sop-text {
-            margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-            text-align: justify !important;
-        }
-        .sop-list {
-            margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-            padding-left: 20pt !important;
-            list-style-type: none !important;
-        }
-        .sop-list-item {
-            margin-bottom: 6pt !important;
-            position: relative !important;
-        }
-        .sop-divider {
-            border: none !important;
-            border-top: 1px solid #e5e5e5 !important;
-            margin-top: 24pt !important;
-            margin-bottom: 24pt !important;
-        }
-        .sop-blockquote {
-            margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-            margin-left: 0px !important;
-            margin-right: 0px !important;
-            padding-left: 12pt !important;
-            border-left: 3px solid #d4d4d4 !important;
-            font-style: italic !important;
-            color: #525252 !important;
-        }
-        .sop-warning-list {
-            margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-            padding-left: 20pt !important;
-            list-style-type: none !important;
-        }
-        .sop-warning-item {
-            margin-bottom: 8pt !important;
-            color: #b91c1c !important;
-            font-weight: 500 !important;
-        }
-    </style>
 </head>
-<body class="bg-slate-900 font-['Inter'] text-slate-100 min-h-screen flex flex-col">
+<body class="bg-slate-950 font-['Inter'] text-slate-100 min-h-screen flex flex-col">
 
-    <!-- Header Principal -->
-    <header class="bg-slate-950 border-b border-slate-800 px-6 py-4 flex items-center justify-between shadow-lg">
+    <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
         <div class="flex items-center space-x-3">
-            <div class="bg-emerald-500 text-slate-950 p-2 rounded-lg font-bold tracking-wider text-sm shadow-md shadow-emerald-500/20">
-                NZ
+            <div class="bg-emerald-500 text-slate-950 w-9 h-9 flex items-center justify-center rounded-xl font-bold tracking-wider text-sm shadow-lg shadow-emerald-500/20">
+                HQ
             </div>
             <div>
-                <h1 class="text-lg font-bold tracking-tight text-white flex items-center">
-                    NAZARIA <span class="ml-2 text-xs font-semibold bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">CENTRAL</span>
+                <h1 class="text-base font-bold text-white flex items-center tracking-tight">
+                    NAZARIA OPS <span class="ml-2 text-[10px] font-bold bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20">ADMIN CLOUD</span>
                 </h1>
-                <p class="text-xs text-slate-400">Manuales de Procedimientos Operativos Estándar</p>
+                <p class="text-xs text-slate-400">Editor e Inyector Directo de Procesos por API</p>
             </div>
         </div>
-        <div class="text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full flex items-center">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-2"></span> Terminal Sucursal
+
+        <div class="flex flex-wrap items-center gap-2">
+            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:border-emerald-500 text-slate-200 w-44">
+            <input type="password" id="github-token" placeholder="GitHub Personal Token (PAT)" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:border-emerald-500 text-slate-200 w-52">
+            <button onclick="saveKeys()" class="bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs px-3 py-1.5 rounded-lg border border-slate-700 transition">
+                Guardar Llaves
+            </button>
         </div>
     </header>
 
-    <!-- Contenido Principal -->
-    <div class="flex-1 flex overflow-hidden">
+    <div class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Sidebar de Navegación Lateral -->
-        <aside class="w-80 bg-slate-950 border-r border-slate-800 p-4 flex flex-col space-y-2 overflow-y-auto">
-            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Procedimientos Oficiales</div>
-            
-            <button onclick="loadSOP('p01')" id="btn-p01" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
-                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-01</span>
-                <span class="text-sm font-medium truncate">Atención al Cliente y Ventas</span>
-            </button>
+        <div class="lg:col-span-5 flex flex-col space-y-4">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg space-y-4">
+                
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Seleccionar Manual Destino</label>
+                    <select id="sop-selector" onchange="fetchCurrentSOP()" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm focus:outline-none focus:border-emerald-500 text-slate-200">
+                        <option value="">-- Seleccionar SOP a Modificar --</option>
+                        <option value="p01">P-01 · Atención al Cliente y Ventas</option>
+                        <option value="p02">P-02 · Apertura, Cierre y Arqueo de Caja</option>
+                        <option value="p03">P-03 · Gestión de Stock y Depósito</option>
+                        <option value="p04">P-04 · Cambios y Devoluciones</option>
+                        <option value="p05">P-05 · Mantenimiento y Visual Merchandising</option>
+                        <option value="p06">P-06 · Uso de Sistemas y Facturación</option>
+                        <option value="p07">P-07 · Venta Activa y Omnicanalidad</option>
+                    </select>
+                </div>
 
-            <button onclick="loadSOP('p02')" id="btn-p02" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
-                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-02</span>
-                <span class="text-sm font-medium truncate">Apertura, Cierre y Arqueo de Caja</span>
-            </button>
+                <div id="github-status" class="text-xs bg-slate-950 border border-slate-800 p-3 rounded-lg text-slate-400 flex items-center justify-between">
+                    <span>Estado en Repositorio:</span>
+                    <span class="font-semibold text-slate-500" id="status-label">No seleccionado</span>
+                </div>
 
-            <button onclick="loadSOP('p03')" id="btn-p03" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
-                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-03</span>
-                <span class="text-sm font-medium truncate">Gestión de Stock y Depósito</span>
-            </button>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">2. Orden de Modificación (Texto Plano)</label>
+                    <textarea id="instruction-input" rows="6" placeholder="Ej: Cambiá el día de recuento del local TOM a los viernes por la tarde en la Fase 3, y agrega una regla de oro que prohíba transferencias sin autorización..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm focus:outline-none focus:border-emerald-500 text-slate-200 placeholder-slate-600 resize-none font-mono"></textarea>
+                </div>
 
-            <button onclick="loadSOP('p04')" id="btn-p04" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
-                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-04</span>
-                <span class="text-sm font-medium truncate">Cambios y Devoluciones</span>
-            </button>
+                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold text-sm text-slate-950 py-3 rounded-xl transition duration-200 shadow-lg shadow-emerald-600/10 flex items-center justify-center space-x-2">
+                    ⚡ <span>Procesar e Inyectar con IA</span>
+                </button>
+            </div>
 
-            <button onclick="loadSOP('p05')" id="btn-p05" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
-                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-05</span>
-                <span class="text-sm font-medium truncate">Mantenimiento y Visual Merchandising</span>
-            </button>
-
-            <button onclick="loadSOP('p06')" id="btn-p06" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
-                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-06</span>
-                <span class="text-sm font-medium truncate">Uso de Sistemas y Facturación</span>
-            </button>
-
-            <button onclick="loadSOP('p07')" id="btn-p07" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
-                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-07</span>
-                <span class="text-sm font-medium truncate">Venta Activa y Omnicanalidad</span>
-            </button>
-        </aside>
-
-        <!-- Contenedor del Documento -->
-        <main class="flex-1 bg-slate-900 p-8 flex justify-center overflow-y-auto">
-            <!-- Simulación de hoja física A4 en blanco según estándar P-00 -->
-            <div id="sop-view-card" class="bg-white text-neutral-900 w-full max-w-[800px] min-h-[1123px] shadow-2xl rounded-2xl p-[50px] border border-slate-200 hidden transition-opacity duration-200 overflow-hidden relative">
-                <div id="sop-content" class="sop-container">
-                    <!-- El contenido del SOP se inyecta dinámicamente acá -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex-1 flex flex-col min-h-[150px]">
+                <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Consola de Log y Respuestas de API</div>
+                <div id="console-output" class="flex-1 bg-slate-950 rounded-lg p-3 text-[11px] font-mono text-slate-400 overflow-y-auto max-h-[220px] space-y-1 select-text">
+                    > Consola inactiva. Esperando credenciales y selección de SOP.
                 </div>
             </div>
+        </div>
 
-            <!-- Estado Inicial: Pantalla de Bienvenida -->
-            <div id="welcome-card" class="flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-4">
-                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 shadow-xl">
-                    📁
+        <div class="lg:col-span-7 flex flex-col">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 flex-1 flex flex-col shadow-lg overflow-hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Vista Previa de Código Modificado (HTML)</label>
+                    <span class="text-[10px] bg-slate-950 px-2 py-1 rounded text-slate-500 font-mono" id="file-path-indicator">sops/??.html</span>
                 </div>
-                <h2 class="text-xl font-bold text-white">Centro de Operaciones Nazaria</h2>
-                <p class="text-sm text-slate-400 leading-relaxed">Seleccioná un procedimiento de la barra lateral para visualizar el manual técnico oficial de la sucursal.</p>
+                
+                <textarea id="code-output" readonly class="flex-1 w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono text-emerald-400 focus:outline-none resize-none overflow-y-auto select-all" placeholder=""></textarea>
             </div>
+        </div>
 
-            <!-- Loader de carga -->
-            <div id="loader" class="hidden flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-3">
-                <div class="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-                <p class="text-sm text-slate-400">Sincronizando manual desde la nube...</p>
-            </div>
-        </main>
     </div>
 
-    <!-- Script de Lógica Dinámica Asincrónica -->
     <script>
-        let currentSopCode = null;
+        // Configuración rígida de tu repositorio en GitHub
+        const GITHUB_USER = "juanoviedo1987-droid";
+        const GITHUB_REPO = "sops-nazaria";
 
-        async function loadSOP(sopCode) {
-            currentSopCode = sopCode;
-            const welcomeCard = document.getElementById('welcome-card');
-            const sopViewCard = document.getElementById('sop-view-card');
-            const loader = document.getElementById('loader');
-            const sopContent = document.getElementById('sop-content');
+        // Variables de persistencia para el Commit
+        let currentSopSha = null;
+        let currentSopRawContent = "";
 
-            // 1. Resetear UI de botones laterales
-            document.querySelectorAll('aside button').forEach(btn => {
-                btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-500/30');
-                btn.classList.add('bg-slate-900', 'text-slate-300');
-            });
+        // Al iniciar la pantalla, cargar credenciales si existen
+        window.onload = function() {
+            if (localStorage.getItem('gemini_key')) {
+                document.getElementById('gemini-key').value = localStorage.getItem('gemini_key');
+            }
+            if (localStorage.getItem('github_token')) {
+                document.getElementById('github-token').value = localStorage.getItem('github_token');
+            }
+        };
 
-            // 2. Activar botón seleccionado
-            const activeBtn = document.getElementById(`btn-${sopCode}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-slate-900', 'text-slate-300');
-                activeBtn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500/30');
+        function saveKeys() {
+            const geminiKey = document.getElementById('gemini-key').value.trim();
+            const githubToken = document.getElementById('github-token').value.trim();
+            
+            localStorage.setItem('gemini_key', geminiKey);
+            localStorage.setItem('github_token', githubToken);
+            logToConsole("Claves y Tokens guardados de forma segura en LocalStorage.");
+        }
+
+        function logToConsole(msg, isError = false) {
+            const consoleBox = document.getElementById('console-output');
+            const time = new Date().toLocaleTimeString();
+            const colorClass = isError ? "text-red-400" : "text-emerald-500";
+            consoleBox.innerHTML += `<div class="py-0.5"><span class="text-slate-600">[${time}]</span> <span class="${colorClass}">${msg}</span></div>`;
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        // PASO 1: Leer el archivo actual desde la API de GitHub
+        async function fetchCurrentSOP() {
+            const sopCode = document.getElementById('sop-selector').value;
+            const statusLabel = document.getElementById('status-label');
+            const pathIndicator = document.getElementById('file-path-indicator');
+            const codeOutput = document.getElementById('code-output');
+            const token = localStorage.getItem('github_token');
+
+            if (!sopCode) {
+                statusLabel.innerText = "No seleccionado";
+                statusLabel.className = "font-semibold text-slate-500";
+                pathIndicator.innerText = "sops/??.html";
+                codeOutput.value = "";
+                return;
             }
 
-            // 3. Mostrar Loader operativo
-            welcomeCard.classList.add('hidden');
-            sopViewCard.classList.add('hidden');
-            loader.classList.remove('hidden');
+            pathIndicator.innerText = `sops/${sopCode}.html`;
+            statusLabel.innerText = "Sincronizando...";
+            statusLabel.className = "font-semibold text-amber-400";
+            logToConsole(`Consultando sops/${sopCode}.html en GitHub...`);
+
+            if (!token) {
+                logToConsole("Error: No configuraste el Token de GitHub.", true);
+                statusLabel.innerText = "Falta Token";
+                statusLabel.className = "font-semibold text-red-500";
+                return;
+            }
 
             try {
-                // Buscamos el archivo de forma dinámica a la carpeta /sops relativa en el hosting de Netlify
-                const response = await fetch(`./sops/${sopCode}.html?t=${new Date().getTime()}`);
-                
+                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${sopCode}.html`;
+                const response = await fetch(url, {
+                    headers: { "Authorization": `token ${token}` }
+                });
+
                 if (!response.ok) {
-                    throw new Error('SOP no configurado o no disponible en la carpeta /sops.');
+                    if (response.status === 404) {
+                        logToConsole("El archivo no existe en el repositorio. Se creará de cero.", false);
+                        currentSopSha = null;
+                        currentSopRawContent = "";
+                        statusLabel.innerText = "Nuevo Archivo";
+                        statusLabel.className = "font-semibold text-sky-400";
+                        codeOutput.value = "";
+                        return;
+                    }
+                    throw new Error(`Error HTTP: ${response.status}`);
                 }
 
-                const htmlContent = await response.text();
+                const data = await response.json();
+                currentSopSha = data.sha; // Guardamos el SHA para poder sobreescribirlo después
                 
-                // Inyectamos el contenido dentro de la hoja virtual
-                sopContent.innerHTML = htmlContent;
+                // Decodificar Base64 nativo de GitHub (atendiendo UTF-8)
+                currentSopRawContent = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
                 
-                // Mostrar la hoja física
-                loader.classList.add('hidden');
-                sopViewCard.classList.remove('hidden');
+                codeOutput.value = currentSopRawContent;
+                statusLabel.innerText = "Sincronizado (OK)";
+                statusLabel.className = "font-semibold text-emerald-400";
+                logToConsole(`Archivo sops/${sopCode}.html cargado y listo.`);
+
             } catch (error) {
-                console.error(error);
-                loader.classList.add('hidden');
-                sopContent.innerHTML = `
-                    <h1 class="sop-title-1 text-red-600">Error de Sincronización</h1>
-                    <p class="sop-text">No se pudo cargar el manual seleccionado (<b>${sopCode.toUpperCase()}</b>). Es probable que el archivo aún no esté subido en la carpeta <b>/sops</b> del repositorio de GitHub.</p>
-                `;
-                sopViewCard.classList.remove('hidden');
+                logToConsole(`Error al sincronizar desde GitHub: ${error.message}`, true);
+                statusLabel.innerText = "Error API";
+                statusLabel.className = "font-semibold text-red-500";
+            }
+        }
+
+        // PASO 2: Procesar la modificación del HTML usando Gemini 2.5 Flash
+        async function processSOPModification() {
+            const sopCode = document.getElementById('sop-selector').value;
+            const instruction = document.getElementById('instruction-input').value.trim();
+            const geminiKey = localStorage.getItem('gemini_key');
+            const token = localStorage.getItem('github_token');
+            const btn = document.getElementById('btn-process');
+
+            if (!sopCode || !instruction) {
+                alert("Por favor, seleccioná un SOP e ingresá la instrucción de cambio.");
+                return;
+            }
+            if (!geminiKey || !token) {
+                alert("Asegurate de haber configurado y guardado ambas llaves en el header.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "Modificando estructura con IA...";
+            logToConsole("Enviando bloque actual y orden a Gemini 2.5 Flash...");
+
+            // Prompt estricto con el estándar visual P-00 embebido
+            const systemPrompt = `Actuás como un Ingeniero de Operaciones Senior y experto en maquetado HTML puro. Tu único objetivo es tomar un archivo de Procedimiento Operativo Estándar (SOP) escrito en HTML y aplicarle modificaciones estructuradas respetando estrictamente el diseño de tipografías P-00.
+
+REGLAS DE FORMATO OBLIGATORIAS (P-00):
+1. No inventes clases ni uses wrappers externos como <div>. Usá estrictamente estas estructuras de etiquetas limpias:
+   - Título Principal del SOP: <h1 class="sop-title-1">CÓDIGO · Título</h1>
+   - Título de Fase Principal: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE</h2>
+   - Subtítulo de Sección: <h3 class="sop-title-3">X. Nombre de Sección</h3>
+   - Texto de Párrafo normal: <p class="sop-text">Contenido</p>
+   - Listas de Procedimiento: <ul class="sop-list"><li class="sop-list-item">✨ <strong>Palabra clave:</strong> Instrucción detallada.</li></ul>
+   - Bloques de Ejemplo: <blockquote class="sop-blockquote">Ejemplo: "Texto de ejemplo"</blockquote>
+   - Separadores de Fase: <hr class="sop-divider">
+   - Alertas o Reglas de Oro críticas: <ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>Advertencia:</strong> Detalle de punto crítico.</li></ul>
+2. No uses Markdown (como \`\`\`html o asteriscos) en tu respuesta. Devolvé ÚNICAMENTE el código HTML puro modificado listo para producción.
+3. No alteres ni borres las partes del SOP original que no fueron mencionadas en la orden de modificación de cambios. Mantené la integridad de todo el documento.`;
+
+            const promptPayload = {
+                contents: [{
+                    parts: [{
+                        text: `${systemPrompt}\n\nCÓDIGO HTML ACTUAL DEL SOP:\n${currentSopRawContent}\n\nORDEN DE MODIFICACIÓN ESPECÍFICA:\n${instruction}\n\nCódigo HTML Final Modificado:`
+                    }]
+                }]
+            };
+
+            try {
+                const geminiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
+                const response = await fetch(geminiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(promptPayload)
+                });
+
+                if (!response.ok) throw new Error(`Gemini API Error: ${response.status}`);
+
+                const responseData = await response.json();
+                let outputHtml = responseData.candidates[0].content.parts[0].text.trim();
+
+                // Sanitización estricta por si el modelo devuelve wrappers de Markdown
+                if (outputHtml.startsWith("```html")) outputHtml = outputHtml.substring(7);
+                if (outputHtml.endsWith("```")) outputHtml = outputHtml.substring(0, outputHtml.length - 3);
+                outputHtml = outputHtml.trim();
+
+                document.getElementById('code-output').value = outputHtml;
+                logToConsole("Modificación procesada exitosamente por la IA.");
+
+                // PASO 3: Subir e impactar automáticamente a GitHub
+                await pushModifiedSOPToGitHub(sopCode, outputHtml);
+
+            } catch (error) {
+                logToConsole(`Error crítico durante el proceso: ${error.message}`, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "⚡ Procesar e Inyectar con IA";
+            }
+        }
+
+        // PASO 3 (Core API): Empujar los cambios al repositorio de GitHub
+        async function pushModifiedSOPToGitHub(sopCode, newHtmlContent) {
+            const token = localStorage.getItem('github_token');
+            const statusLabel = document.getElementById('status-label');
+            logToConsole(`Iniciando inyección por API en sops/${sopCode}.html...`);
+
+            // Convertir el string UTF-8 a Base64 de forma segura para la API de GitHub
+            const base64Content = btoa(unescape(encodeURIComponent(newHtmlContent)));
+            
+            const payload = {
+                message: `Ops Cloud: Actualización automatizada de sops/${sopCode}.html por IA`,
+                content: base64Content
+            };
+
+            // Si el archivo ya existía, pasamos obligatoriamente el SHA para pisarlo
+            if (currentSopSha) {
+                payload.sha = currentSopSha;
+            }
+
+            try {
+                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${sopCode}.html`;
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error(`GitHub Write Error: ${response.status}`);
+
+                const responseData = await response.json();
+                
+                // Actualizar el SHA local con el nuevo entregado por GitHub para futuras ediciones consecutivas
+                currentSopSha = responseData.content.sha;
+                currentSopRawContent = newHtmlContent;
+
+                statusLabel.innerText = "Actualizado en Servidor";
+                statusLabel.className = "font-semibold text-emerald-400";
+                logToConsole(`¡ÉXITO ABSOLUTO! sops/${sopCode}.html guardado en GitHub.`);
+                logToConsole("Netlify compilará los cambios y estarán en vivo en los locales en 10 segundos.");
+                alert(`¡Procedimiento ${sopCode.toUpperCase()} modificado e inyectado con éxito en las sucursales!`);
+
+                // Limpiar el campo de instrucciones para el próximo cambio
+                document.getElementById('instruction-input').value = "";
+
+            } catch (error) {
+                logToConsole(`Error al escribir el archivo en GitHub: ${error.message}`, true);
+                statusLabel.innerText = "Fallo Guardado";
+                statusLabel.className = "font-semibold text-red-500";
             }
         }
     </script>
