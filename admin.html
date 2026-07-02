@@ -3,217 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Central de Desarrollo Privada - Admin</title>
+    <title>Centro de Operaciones - Manual de SOPs Oficiales</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        <link rel="icon" type="image/png" href="favicon.png">
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .sop-content h1 { font-size: 20pt; font-weight: bold; color: #000000; margin-bottom: 12px; }
-        .sop-content h2 { font-size: 14pt; font-weight: bold; color: #000000; text-transform: uppercase; margin-top: 24px; margin-bottom: 8px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; }
-        .sop-content h3 { font-size: 12pt; font-weight: bold; color: #434343; margin-top: 16px; margin-bottom: 6px; }
-        .sop-content p, .sop-content li { font-size: 11pt; color: #262626; line-height: 1.15; margin-bottom: 6px; }
-        .sop-content ul { list-style-type: disc; margin-left: 20px; margin-bottom: 12px; }
+        /* Estructura de fuentes estricta del P-00 para la visualización del documento */
+        .sop-container {
+            font-family: 'Inter', sans-serif !important;
+            line-height: 1.15 !important;
+            color: #262626 !important;
+            font-size: 11pt !important;
+        }
+        .sop-title-1 {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 20pt !important;
+            font-weight: bold !important;
+            color: #000000 !important;
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            line-height: 1.15 !important;
+        }
+        .sop-title-2 {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 14pt !important;
+            font-weight: bold !important;
+            color: #000000 !important;
+            text-transform: uppercase !important;
+            margin-top: 24pt !important;
+            margin-bottom: 12pt !important;
+            line-height: 1.15 !important;
+        }
+        .sop-title-3 {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 12pt !important;
+            font-weight: bold !important;
+            color: #404040 !important;
+            margin-top: 18pt !important;
+            margin-bottom: 6pt !important;
+            line-height: 1.15 !important;
+        }
+        .sop-text {
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            text-align: justify !important;
+        }
+        .sop-list {
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            padding-left: 20pt !important;
+            list-style-type: none !important;
+        }
+        .sop-list-item {
+            margin-bottom: 6pt !important;
+            position: relative !important;
+        }
+        .sop-divider {
+            border: none !important;
+            border-top: 1px solid #e5e5e5 !important;
+            margin-top: 24pt !important;
+            margin-bottom: 24pt !important;
+        }
+        .sop-blockquote {
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+            padding-left: 12pt !important;
+            border-left: 3px solid #d4d4d4 !important;
+            font-style: italic !important;
+            color: #525252 !important;
+        }
+        .sop-warning-list {
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            padding-left: 20pt !important;
+            list-style-type: none !important;
+        }
+        .sop-warning-item {
+            margin-bottom: 8pt !important;
+            color: #b91c1c !important;
+            font-weight: 500 !important;
+        }
     </style>
 </head>
-<body>
-    <header class="bg-[#0b252e] text-white p-4 shadow-md flex justify-between items-center">
+<body class="bg-slate-900 font-['Inter'] text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Header Principal -->
+    <header class="bg-slate-950 border-b border-slate-800 px-6 py-4 flex items-center justify-between shadow-lg">
         <div class="flex items-center space-x-3">
-            <div class="bg-emerald-500 p-2 rounded-lg text-white">⚙️</div>
+            <div class="bg-emerald-500 text-slate-950 p-2 rounded-lg font-bold tracking-wider text-sm shadow-md shadow-emerald-500/20">
+                NZ
+            </div>
             <div>
-                <h1 class="text-xl font-bold flex items-center">Central de Desarrollo Privada <span class="ml-2 text-xs bg-emerald-600 px-2 py-0.5 rounded-full">ADMIN CLOUD</span></h1>
-                <p class="text-xs text-slate-400">Auditoría, Redacción y Copiloto de Consulta automatizados (Gemini inside)</p>
+                <h1 class="text-lg font-bold tracking-tight text-white flex items-center">
+                    NAZARIA <span class="ml-2 text-xs font-semibold bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">CENTRAL</span>
+                </h1>
+                <p class="text-xs text-slate-400">Manuales de Procedimientos Operativos Estándar</p>
             </div>
         </div>
-        <div class="flex items-center space-x-4">
-            <div class="text-right">
-                <span class="text-xs text-slate-400 block">CLAVE API:</span>
-                <input type="password" id="apiKeyInput" placeholder="Ingresá tu API Key" class="bg-[#07161c] text-white text-xs px-2 py-1 rounded border border-slate-700 w-48 text-center">
-                <button onclick="saveApiKey()" class="bg-emerald-600 text-white text-xs px-2 py-1 rounded ml-1 hover:bg-emerald-500">Guardar</button>
-            </div>
-            <span id="apiStatus" class="text-xs text-red-400 font-semibold block mt-4">Sin Clave</span>
+        <div class="text-xs text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full flex items-center">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-2"></span> Terminal Sucursal
         </div>
     </header>
 
-    <div class="max-w-[1400px] mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <aside class="space-y-4">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Biblioteca de Desarrollo</h3>
-                <div class="space-y-2">
-                    <button class="w-full text-left p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/50 flex items-start space-x-3">
-                        <span class="text-xl">📄</span>
-                        <div>
-                            <h4 class="font-bold text-slate-800 text-sm">Espacio de Trabajo Activo</h4>
-                            <p class="text-xs text-slate-500">Formateá o editá tus procesos operativos aquí.</p>
-                        </div>
-                    </button>
-                </div>
-            </div>
-            <div class="bg-slate-900 text-white p-4 rounded-xl shadow-sm">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">🤖 Copiloto Operativo:</h4>
-                <p class="text-xs text-slate-300">Utilizá las pestañas del espacio de trabajo para formatear nuevos procedimientos con el estándar P-00.</p>
-                <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between text-[10px] text-slate-500">
-                    <span>Modelo: gemini-2.5-flash</span>
-                    <span class="text-emerald-400 font-bold">Activo</span>
-                </div>
-            </div>
+    <!-- Contenido Principal -->
+    <div class="flex-1 flex overflow-hidden">
+        
+        <!-- Sidebar de Navegación Lateral -->
+        <aside class="w-80 bg-slate-950 border-r border-slate-800 p-4 flex flex-col space-y-2 overflow-y-auto">
+            <div class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-2">Procedimientos Oficiales</div>
+            
+            <button onclick="loadSOP('p01')" id="btn-p01" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
+                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-01</span>
+                <span class="text-sm font-medium truncate">Atención al Cliente y Ventas</span>
+            </button>
+
+            <button onclick="loadSOP('p02')" id="btn-p02" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
+                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-02</span>
+                <span class="text-sm font-medium truncate">Apertura, Cierre y Arqueo de Caja</span>
+            </button>
+
+            <button onclick="loadSOP('p03')" id="btn-p03" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
+                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-03</span>
+                <span class="text-sm font-medium truncate">Gestión de Stock y Depósito</span>
+            </button>
+
+            <button onclick="loadSOP('p04')" id="btn-p04" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
+                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-04</span>
+                <span class="text-sm font-medium truncate">Cambios y Devoluciones</span>
+            </button>
+
+            <button onclick="loadSOP('p05')" id="btn-p05" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
+                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-05</span>
+                <span class="text-sm font-medium truncate">Mantenimiento y Visual Merchandising</span>
+            </button>
+
+            <button onclick="loadSOP('p06')" id="btn-p06" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
+                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-06</span>
+                <span class="text-sm font-medium truncate">Uso de Sistemas y Facturación</span>
+            </button>
+
+            <button onclick="loadSOP('p07')" id="btn-p07" class="w-full text-left px-4 py-3 rounded-xl transition duration-200 border border-transparent bg-slate-900 text-slate-300 hover:bg-slate-800/60 hover:text-white flex items-center space-x-3">
+                <span class="font-bold text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/10">P-07</span>
+                <span class="text-sm font-medium truncate">Venta Activa y Omnicanalidad</span>
+            </button>
         </aside>
 
-        <main class="lg:col-span-3 space-y-4">
-            <div class="bg-slate-100 p-1.5 rounded-xl flex space-x-2 border border-slate-200">
-                <button onclick="switchTab('editor')" id="tab-editor" class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 bg-white text-slate-800 shadow-sm">
-                    <span>🤖 Redactor AI P-00</span>
-                </button>
-                <button onclick="switchTab('visor')" id="tab-visor" class="flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50">
-                    <span>📝 Visor & Copiado</span>
-                </button>
+        <!-- Contenedor del Documento -->
+        <main class="flex-1 bg-slate-900 p-8 flex justify-center overflow-y-auto">
+            <!-- Simulación de hoja física A4 en blanco según estándar P-00 -->
+            <div id="sop-view-card" class="bg-white text-neutral-900 w-full max-w-[800px] min-h-[1123px] shadow-2xl rounded-2xl p-[50px] border border-slate-200 hidden transition-opacity duration-200 overflow-hidden relative">
+                <div id="sop-content" class="sop-container">
+                    <!-- El contenido del SOP se inyecta dinámicamente acá -->
+                </div>
             </div>
 
-            <div id="panel-editor" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4">
-                <div class="flex items-center space-x-2 text-slate-800 font-semibold text-lg">
-                    <span>📝</span>
-                    <h2>Redactá un SOP Automatizado con Formato P-00</h2>
+            <!-- Estado Inicial: Pantalla de Bienvenida -->
+            <div id="welcome-card" class="flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-4">
+                <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 shadow-xl">
+                    📁
                 </div>
-                <p class="text-xs text-slate-500">Escribí tus apuntes sueltos. Nuestra IA estructurará el texto asignando emojis contextuales, jerarquías y tamaños estrictos en puntos para Docs.</p>
-                
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Notas o procedimiento en bruto:</label>
-                    <textarea id="rawInput" rows="12" class="w-full p-4 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner placeholder-slate-400" placeholder="Pegá acá tus anotaciones o reglas sueltas..."></textarea>
-                </div>
-
-                <button onclick="processSOP()" id="btnProcess" class="bg-emerald-600 text-white font-semibold text-sm py-3 px-6 rounded-xl shadow-md hover:bg-emerald-500 transition flex items-center space-x-2">
-                    <span>Estructurar y Formatear SOP</span>
-                </button>
+                <h2 class="text-xl font-bold text-white">Centro de Operaciones Nazaria</h2>
+                <p class="text-sm text-slate-400 leading-relaxed">Seleccioná un procedimiento de la barra lateral para visualizar el manual técnico oficial de la sucursal.</p>
             </div>
 
-            <div id="panel-visor" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4 hidden">
-                <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                    <h3 class="font-bold text-slate-800 text-lg flex items-center space-x-2"><span>✨</span> Vista Previa del Documento</h3>
-                    <button onclick="copyToClipboard()" class="bg-emerald-600 text-white font-semibold text-sm py-2 px-4 rounded-lg shadow hover:bg-emerald-500 transition flex items-center space-x-2">
-                        <span>📋</span> <span>Copiar para Google Docs</span>
-                    </button>
-                </div>
-                <div id="sopOutput" class="sop-content p-8 border border-slate-200 rounded-xl bg-white shadow-inner max-h-[600px] overflow-y-auto" contenteditable="true">
-                    <p class="text-slate-400 italic">El procedimiento formateado aparecerá acá después de procesarlo en la otra pestaña...</p>
-                </div>
+            <!-- Loader de carga -->
+            <div id="loader" class="hidden flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-3">
+                <div class="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-sm text-slate-400">Sincronizando manual desde la nube...</p>
             </div>
         </main>
     </div>
 
+    <!-- Script de Lógica Dinámica Asincrónica -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedKey = localStorage.getItem('gemini_api_key');
-            if (savedKey) {
-                document.getElementById('apiKeyInput').value = savedKey;
-                document.getElementById('apiStatus').innerText = "Clave Cargada en Navegador";
-                document.getElementById('apiStatus').className = "text-xs text-emerald-400 font-semibold block mt-4";
-            }
-        });
+        let currentSopCode = null;
 
-        // Guardar API Key localmente
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyInput').value.trim();
-            if (key) {
-                localStorage.setItem('gemini_api_key', key);
-                document.getElementById('apiStatus').innerText = "Clave Cargada en Navegador";
-                document.getElementById('apiStatus').className = "text-xs text-emerald-400 font-semibold block mt-4";
-                alert("API Key guardada correctamente.");
-            } else {
-                localStorage.removeItem('gemini_api_key');
-                document.getElementById('apiStatus').innerText = "Sin Clave";
-                document.getElementById('apiStatus').className = "text-xs text-red-400 font-semibold block mt-4";
-            }
-        }
+        async function loadSOP(sopCode) {
+            currentSopCode = sopCode;
+            const welcomeCard = document.getElementById('welcome-card');
+            const sopViewCard = document.getElementById('sop-view-card');
+            const loader = document.getElementById('loader');
+            const sopContent = document.getElementById('sop-content');
 
-        function switchTab(tab) {
-            if (tab === 'editor') {
-                document.getElementById('panel-editor').classList.remove('hidden');
-                document.getElementById('panel-visor').classList.add('hidden');
-                document.getElementById('tab-editor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 bg-white text-slate-800 shadow-sm";
-                document.getElementById('tab-visor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
-            } else {
-                document.getElementById('panel-editor').classList.add('hidden');
-                document.getElementById('panel-visor').classList.remove('hidden');
-                document.getElementById('tab-editor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
-                document.getElementById('tab-visor').className = "flex-1 py-2 px-4 rounded-lg text-sm font-medium transition flex items-center justify-center space-x-2 bg-white text-slate-800 shadow-sm";
-            }
-        }
+            // 1. Resetear UI de botones laterales
+            document.querySelectorAll('aside button').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-500/30');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+            });
 
-        async function processSOP() {
-            const apiKey = localStorage.getItem('gemini_api_key');
-            if (!apiKey) {
-                alert("Por favor, ingresá tu API Key de Gemini.");
-                return;
+            // 2. Activar botón seleccionado
+            const activeBtn = document.getElementById(`btn-${sopCode}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-900', 'text-slate-300');
+                activeBtn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500/30');
             }
 
-            const rawText = document.getElementById('rawInput').value.trim();
-            if (!rawText) {
-                alert("Por favor, escribe algún texto en bruto.");
-                return;
-            }
-
-            const btn = document.getElementById('btnProcess');
-            btn.disabled = true;
-            btn.innerText = "Procesando con IA...";
-
-            const promptSystem = `Actuás como un Ingeniero de Operaciones experto en Retail. Tu tarea es estructurar el texto en bruto provisto por el usuario transformándolo en un Procedimiento Operativo Estándar (SOP) corporativo de alta calidad, aplicando de forma estricta y obligatoria el siguiente formato HTML limpio, sin bloques contenedores grises, markdown o código extra:
-            
-            Reglas de Formato Estricto:
-            - Título del SOP: <h1>P-0X · Nombre del Proceso</h1>
-            - Fases del Proceso: <h2>FASE X: NOMBRE DE LA FASE</h2> (En mayúsculas)
-            - Sub-bloques: <h3>X. Nombre del sub-bloque</h3>
-            - Contenido: <p> e incrustar listas con <ul> y <li>.
-            
-            Texto en bruto:\n${rawText}`;
+            // 3. Mostrar Loader operativo
+            welcomeCard.classList.add('hidden');
+            sopViewCard.classList.add('hidden');
+            loader.classList.remove('hidden');
 
             try {
-                // MOTOR ACTUALIZADO: gemini-2.5-flash sobre canal de producción estable v1
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: promptSystem }] }] })
-                });
-
-                const data = await response.json();
+                // Buscamos el archivo de forma dinámica a la carpeta /sops relativa en el hosting de Netlify
+                const response = await fetch(`./sops/${sopCode}.html?t=${new Date().getTime()}`);
                 
                 if (!response.ok) {
-                    const detailedError = data.error ? data.error.message : `Status ${response.status}`;
-                    throw new Error(detailedError);
+                    throw new Error('SOP no configurado o no disponible en la carpeta /sops.');
                 }
 
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    let formattedHTML = data.candidates[0].content.parts[0].text;
-                    formattedHTML = formattedHTML.replace(/```html/g, "").replace(/```/g, "").trim();
-                    
-                    document.getElementById('sopOutput').innerHTML = formattedHTML;
-                    btn.disabled = false;
-                    btn.innerText = "Estructurar y Formatear SOP";
-                    switchTab('visor');
-                } else {
-                    throw new Error("Estructura de respuesta inesperada.");
-                }
+                const htmlContent = await response.text();
+                
+                // Inyectamos el contenido dentro de la hoja virtual
+                sopContent.innerHTML = htmlContent;
+                
+                // Mostrar la hoja física
+                loader.classList.add('hidden');
+                sopViewCard.classList.remove('hidden');
             } catch (error) {
                 console.error(error);
-                alert("Error de Google Gemini: " + error.message);
-                btn.disabled = false;
-                btn.innerText = "Estructurar y Formatear SOP";
+                loader.classList.add('hidden');
+                sopContent.innerHTML = `
+                    <h1 class="sop-title-1 text-red-600">Error de Sincronización</h1>
+                    <p class="sop-text">No se pudo cargar el manual seleccionado (<b>${sopCode.toUpperCase()}</b>). Es probable que el archivo aún no esté subido en la carpeta <b>/sops</b> del repositorio de GitHub.</p>
+                `;
+                sopViewCard.classList.remove('hidden');
             }
-        }
-
-        function copyToClipboard() {
-            const container = document.getElementById('sopOutput');
-            const range = document.createRange();
-            range.selectNodeContents(container);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                alert("¡SOP copiado con éxito! Ya podés pegarlo limpio en Google Docs.");
-            } catch (err) {
-                alert("Error al copiar automáticamente. Seleccionalo manualmente.");
-            }
-            selection.removeAllRanges();
         }
     </script>
 </body>
