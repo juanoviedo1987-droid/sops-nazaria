@@ -9,44 +9,105 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Estilos estrictos del estándar P-00 para el editor interactivo */
+        .sop-editor-sheet {
+            font-family: 'Inter', sans-serif !important;
+            line-height: 1.25 !important;
+            color: #1A1A1A !important;
+            font-size: 11pt !important;
+            outline: none;
+        }
+        .sop-editor-sheet h1, .sop-editor-sheet .sop-title-1 {
+            font-size: 22pt !important;
+            font-weight: 700 !important;
+            color: #000000 !important;
+            margin-top: 0px !important;
+            margin-bottom: 14pt !important;
+            line-height: 1.25 !important;
+            letter-spacing: -0.02em !important;
+        }
+        .sop-editor-sheet h2, .sop-editor-sheet .sop-title-2 {
+            font-size: 13pt !important;
+            font-weight: 700 !important;
+            color: #000000 !important;
+            text-transform: uppercase !important;
+            margin-top: 26pt !important;
+            margin-bottom: 12pt !important;
+            line-height: 1.25 !important;
+            letter-spacing: 0.05em !important;
+            border-bottom: 2px solid #1A1A1A;
+            padding-bottom: 4px;
+        }
+        .sop-editor-sheet h3, .sop-editor-sheet .sop-title-3 {
+            font-size: 11pt !important;
+            font-weight: 700 !important;
+            color: #404040 !important;
+            margin-top: 18pt !important;
+            margin-bottom: 6pt !important;
+            line-height: 1.25 !important;
+        }
+        .sop-editor-sheet p, .sop-editor-sheet .sop-text {
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            text-align: justify !important;
+        }
+        .sop-editor-sheet ul, .sop-editor-sheet .sop-list {
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            padding-left: 15pt !important;
+            list-style-type: none !important;
+        }
+        .sop-editor-sheet li, .sop-editor-sheet .sop-list-item {
+            margin-bottom: 6pt !important;
+        }
+        .sop-editor-sheet hr, .sop-editor-sheet .sop-divider {
+            border: none !important;
+            border-top: 1px solid #E5E5E5 !important;
+            margin-top: 24pt !important;
+            margin-bottom: 24pt !important;
+        }
+        .sop-editor-sheet blockquote, .sop-editor-sheet .sop-blockquote {
+            margin-top: 0px !important;
+            margin-bottom: 12pt !important;
+            padding-left: 12pt !important;
+            border-left: 2px solid #A3A3A3 !important;
+            font-style: italic !important;
+            color: #525252 !important;
+        }
+    </style>
 </head>
 <body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col">
 
-    <!-- Header Operativo Minimalista -->
+    <!-- Header Operativo -->
     <header class="bg-white border-b border-neutral-200 px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
         <div class="flex items-center space-x-3">
-            <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold tracking-wider text-xs">
-                HQ
-            </div>
+            <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
             <div>
-                <h1 class="text-sm font-bold text-black tracking-widest uppercase">
-                    NAZARIA OPS <span class="ml-2 text-[9px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">ADMIN CONTROL</span>
-                </h1>
-                <p class="text-[11px] text-neutral-500">Consola de Actualización Automatizada por API</p>
+                <h1 class="text-sm font-bold text-black tracking-widest uppercase">NAZARIA OPS <span class="ml-2 text-[9px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">ADMIN CONTROL</span></h1>
+                <p class="text-[11px] text-neutral-500">Editor Visual Directo con Pre-visualización Real</p>
             </div>
         </div>
 
         <!-- Inputs de Credenciales -->
         <div class="flex flex-wrap items-center gap-2">
-            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs focus:outline-none focus:border-neutral-900 text-neutral-800 w-44">
-            <input type="password" id="github-token" placeholder="GitHub Personal Token (PAT)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs focus:outline-none focus:border-neutral-900 text-neutral-800 w-52">
-            <button onclick="saveKeys()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">
-                Guardar Llaves
-            </button>
+            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs focus:outline-none text-neutral-800 w-44">
+            <input type="password" id="github-token" placeholder="GitHub Personal Token (PAT)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs focus:outline-none text-neutral-800 w-52">
+            <button onclick="saveKeys()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llaves</button>
         </div>
     </header>
 
-    <!-- Workspace Principal -->
-    <div class="flex-1 max-w-7xl w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
+    <!-- Workspace en Tres Columnas -->
+    <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Formulario (Izquierda) -->
-        <div class="lg:col-span-5 flex flex-col space-y-4">
+        <!-- Columna 1: Panel de Control de IA (Izquierda) -->
+        <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
-                
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">1. Seleccionar Manual Destino</label>
-                    <select id="sop-selector" onchange="fetchCurrentSOP()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs focus:outline-none focus:border-neutral-900 text-neutral-800 font-medium">
-                        <option value="">-- Seleccionar SOP a Modificar --</option>
+                    <select id="sop-selector" onchange="fetchCurrentSOP()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs focus:outline-none text-neutral-800 font-medium">
+                        <option value="">-- Seleccionar SOP --</option>
                         <option value="p01">P-01 · Atención al Cliente y Ventas</option>
                         <option value="p02">P-02 · Operación de Caja y Pagos</option>
                         <option value="p03">P-03 · Orden y Estética del Local</option>
@@ -63,44 +124,63 @@
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">2. Orden de Modificación (Texto Plano)</label>
-                    <textarea id="instruction-input" rows="6" placeholder="Escribí acá el cambio en lenguaje natural. Ej: Cambiá el día de recuento de stock en TOM a los viernes por la mañana..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs focus:outline-none focus:border-neutral-900 text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed"></textarea>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">2. Orden de Modificación para la IA</label>
+                    <textarea id="instruction-input" rows="5" placeholder="Escribí acá qué querés cambiar. Ej: Agrega en la Fase 2 que las transferencias solo se validan si el dinero impactó en la cuenta..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs focus:outline-none text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed"></textarea>
                 </div>
 
-                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-black hover:bg-neutral-800 font-bold text-xs text-white py-3 rounded uppercase tracking-widest transition shadow-sm flex items-center justify-center space-x-2">
-                    <span>Ejecutar Modificación e Inyectar</span>
+                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-700 py-3 rounded uppercase tracking-widest transition shadow-sm">
+                    ✨ Generar Vista Previa con IA
                 </button>
             </div>
 
-            <!-- Consola -->
-            <div class="bg-white border border-neutral-200 rounded p-4 flex-1 flex flex-col min-h-[160px] shadow-sm">
+            <!-- Consola de Logs -->
+            <div class="bg-white border border-neutral-200 rounded p-4 flex-1 flex flex-col min-h-[140px] shadow-sm">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Registro de Eventos API</div>
-                <div id="console-output" class="flex-1 bg-neutral-50 border border-neutral-100 rounded p-3 text-[11px] font-mono text-neutral-600 overflow-y-auto max-h-[200px] space-y-1 select-text">
-                    > Consola lista. Esperando selección de procedimiento.
+                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-500 overflow-y-auto max-h-[180px] space-y-1">
+                    > Consola lista. Esperando acción.
                 </div>
             </div>
         </div>
 
-        <!-- Código Resultante (Derecha) -->
-        <div class="lg:col-span-7 flex flex-col">
-            <div class="bg-white border border-neutral-200 rounded p-5 flex-1 flex flex-col shadow-sm overflow-hidden relative">
+        <!-- Columna 2: Simulador de Hoja Real / Editor de Texto Tipo Word (Centro) -->
+        <div class="lg:col-span-6 flex flex-col">
+            <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
-                <div class="flex items-center justify-between mb-3 mt-1">
-                    <label class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Código HTML Técnico Resultante</label>
-                    <span class="text-[10px] bg-neutral-100 px-2 py-0.5 rounded text-neutral-500 font-mono" id="file-path-indicator">sops/??.html</span>
+                <div class="flex items-center justify-between mb-3 border-b border-neutral-100 pb-2">
+                    <label class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Vista Previa Real Interactiva (Editable tipo Word)</label>
+                    <span id="editor-indicator" class="text-[10px] text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">Modo Lectura</span>
                 </div>
-                <textarea id="code-output" readonly class="flex-1 w-full bg-neutral-50 border border-neutral-100 rounded p-4 text-xs font-mono text-neutral-700 focus:outline-none resize-none overflow-y-auto select-all" placeholder="<!-- El código estructurado final se generará acá automáticamente -->"></textarea>
+                
+                <!-- ESTE ES EL EDITOR VISUAL DIRECTO -->
+                <div id="visual-editor" contenteditable="true" oninput="syncVisualToCode()" class="flex-1 bg-white border border-neutral-100 rounded p-8 overflow-y-auto max-h-[680px] text-neutral-900 shadow-inner sop-editor-sheet" placeholder="Seleccioná un procedimiento para empezar a editar visualmente...">
+                    <!-- El documento real formateado se renderiza acá adentro y podés escribir encima -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna 3: Confirmación y Envío (Derecha) -->
+        <div class="lg:col-span-2 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm">
+            <div class="space-y-4">
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">3. Guardar Cambios</div>
+                <p class="text-xs text-neutral-500 leading-relaxed">Revisá la hoja del centro. Podés hacer clic adentro del texto y corregir cualquier detalle manualmente antes de enviar.</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="text-[10px] font-mono text-neutral-400 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
+                <button onclick="pushToGitHub()" id="btn-save" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-4 rounded uppercase tracking-widest transition shadow-md flex items-center justify-center">
+                    💾 Publicar en Locales
+                </button>
             </div>
         </div>
 
     </div>
 
-    <!-- Script de Automatización Estricta -->
+    <!-- Script de Automatización Avanzada -->
     <script>
         const GITHUB_USER = "juanoviedo1987-droid";
         const GITHUB_REPO = "sops-nazaria";
         let currentSopSha = null;
-        let currentSopRawContent = "";
+        let currentSopCode = null;
 
         window.onload = function() {
             if (localStorage.getItem('gemini_key')) document.getElementById('gemini-key').value = localStorage.getItem('gemini_key');
@@ -110,87 +190,84 @@
         function saveKeys() {
             localStorage.setItem('gemini_key', document.getElementById('gemini-key').value.trim());
             localStorage.setItem('github_token', document.getElementById('github-token').value.trim());
-            logToConsole("Credenciales operativas guardadas localmente.");
+            logToConsole("Credenciales operativas guardadas localments.");
         }
 
         function logToConsole(msg, isError = false) {
             const consoleBox = document.getElementById('console-output');
             const time = new Date().toLocaleTimeString();
-            const colorClass = isError ? "text-red-600" : "text-neutral-900 font-medium";
+            const colorClass = isError ? "text-red-600" : "text-neutral-800 font-medium";
             consoleBox.innerHTML += `<div class="py-0.5"><span class="text-neutral-400">[${time}]</span> <span class="${colorClass}">${msg}</span></div>`;
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
         async function fetchCurrentSOP() {
-            const sopCode = document.getElementById('sop-selector').value;
+            currentSopCode = document.getElementById('sop-selector').value;
             const statusLabel = document.getElementById('status-label');
             const pathIndicator = document.getElementById('file-path-indicator');
-            const codeOutput = document.getElementById('code-output');
+            const editor = document.getElementById('visual-editor');
+            const indicator = document.getElementById('editor-indicator');
             const token = localStorage.getItem('github_token');
 
-            if (!sopCode) {
+            if (!currentSopCode) {
                 statusLabel.innerText = "No seleccionado";
-                statusLabel.className = "font-bold text-neutral-400 text-xs";
                 pathIndicator.innerText = "sops/??.html";
-                codeOutput.value = "";
+                editor.innerHTML = "";
+                indicator.innerText = "Modo Lectura";
                 return;
             }
 
-            pathIndicator.innerText = `sops/${sopCode}.html`;
+            pathIndicator.innerText = `sops/${currentSopCode}.html`;
             statusLabel.innerText = "Sincronizando...";
             statusLabel.className = "font-bold text-amber-600 text-xs";
-            logToConsole(`Buscando sops/${sopCode}.html en servidor...`);
-
-            if (!token) {
-                logToConsole("Error: Falta configurar Token de GitHub.", true);
-                statusLabel.innerText = "Falta Token";
-                statusLabel.className = "font-bold text-red-600 text-xs";
-                return;
-            }
 
             try {
-                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${sopCode}.html`;
+                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`;
                 const response = await fetch(url, { headers: { "Authorization": `token ${token}` } });
 
                 if (!response.ok) {
                     if (response.status === 404) {
-                        logToConsole("Archivo nuevo. Se creará al procesar.");
+                        editor.innerHTML = "<h1>Nuevo Documento</h1><p>Escribí el proceso o pedile a la IA que lo redacte por vos.</p>";
                         currentSopSha = null;
-                        currentSopRawContent = "";
                         statusLabel.innerText = "Nuevo Archivo";
-                        statusLabel.className = "font-bold text-blue-600 text-xs";
                         return;
                     }
-                    throw new Error(`Error API: ${response.status}`);
+                    throw new Error("Error de conexión con GitHub.");
                 }
 
                 const data = await response.json();
                 currentSopSha = data.sha;
-                currentSopRawContent = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
-                codeOutput.value = currentSopRawContent;
+                const htmlContent = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
+                
+                // Inyectamos el HTML directamente en el editor visual para que sea editable como Word
+                editor.innerHTML = htmlContent;
+                
                 statusLabel.innerText = "Sincronizado (OK)";
                 statusLabel.className = "font-bold text-neutral-900 text-xs";
-                logToConsole(`SOP ${sopCode.toUpperCase()} cargado con éxito.`);
+                indicator.innerText = "Editor Activo";
+                logToConsole(`SOP ${currentSopCode.toUpperCase()} cargado visualmente.`);
             } catch (error) {
                 logToConsole(error.message, true);
-                statusLabel.innerText = "Error Sincro";
-                statusLabel.className = "font-bold text-red-600 text-xs";
+                statusLabel.innerText = "Error";
             }
         }
 
         async function processSOPModification() {
-            const sopCode = document.getElementById('sop-selector').value;
             const instruction = document.getElementById('instruction-input').value.trim();
             const geminiKey = localStorage.getItem('gemini_key');
-            const token = localStorage.getItem('github_token');
             const btn = document.getElementById('btn-process');
+            const editor = document.getElementById('visual-editor');
 
-            if (!sopCode || !instruction) {
-                alert("Por favor, completá la selección y la orden de cambio.");
+            if (!currentSopCode || !instruction) {
+                alert("Seleccioná un SOP e ingresá la orden de cambio.");
                 return;
             }
             btn.disabled = true;
-            btn.innerText = "Procesando Estructura Con IA...";
+            btn.innerText = "IA Procesando Cambios...";
+            logToConsole("Enviando diseño visual a Gemini 2.5 Flash...");
+
+            // Obtenemos el contenido del editor de texto actual
+            const currentVisualHtml = editor.innerHTML;
 
             const systemPrompt = `Actuás como un Ingeniero de Operaciones Senior. Tu objetivo es modificar un archivo de procedimiento HTML respetando estrictamente el formato corporativo minimalista P-00.
 REGLAS DE DISEÑO EXIGIDAS (P-00):
@@ -202,14 +279,14 @@ REGLAS DE DISEÑO EXIGIDAS (P-00):
 - Ejemplos concretos: <blockquote class="sop-blockquote">Ejemplo: "Texto descriptivo"</blockquote>
 - Separadores visuales: <hr class="sop-divider">
 - Alertas críticas de caja/control: <ul class="sop-warning-list"><li class="sop-warning-item">⚠ <strong>Advertencia:</strong> Regla de oro estricta.</li></ul>
-No agregues bloques markdown ni wrappers externos <div>. Devolvé solo el código HTML limpio. Manténer la integridad de las secciones que no fueron alteradas por la orden.`;
+No agregues bloques markdown (\`\`\`html) ni wrappers externos <div>. Devolvé solo el código HTML interno limpio de las etiquetas. Manténer la integridad de las secciones que no fueron alteradas por la orden.`;
 
             try {
                 const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `${systemPrompt}\n\nHTML ACTUAL:\n${currentSopRawContent}\n\nORDEN DE CAMBIO:\n${instruction}\n\nHTML MODIFICADO:` }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `${systemPrompt}\n\nHTML ACTUAL:\n${currentVisualHtml}\n\nORDEN DE CAMBIO:\n${instruction}\n\nHTML MODIFICADO:` }] }] })
                 });
 
                 if (!response.ok) throw new Error("Error en motor de IA Gemini.");
@@ -220,42 +297,62 @@ No agregues bloques markdown ni wrappers externos <div>. Devolvé solo el códig
                 if (outputHtml.endsWith("```")) outputHtml = outputHtml.substring(0, outputHtml.length - 3);
                 outputHtml = outputHtml.trim();
 
-                document.getElementById('code-output').value = outputHtml;
-                logToConsole("Estructura de cambios aprobada por la IA.");
-
-                await pushToGitHub(sopCode, outputHtml);
+                // Impactamos los cambios de la IA directo en el Word del centro para que el usuario los revise
+                editor.innerHTML = outputHtml;
+                logToConsole("Vista previa actualizada en pantalla. Revisá el texto en el centro.");
+                document.getElementById('instruction-input').value = "";
             } catch (error) {
                 logToConsole(error.message, true);
             } finally {
                 btn.disabled = false;
-                btn.innerText = "Ejecutar Modificación e Inyectar";
+                btn.innerText = "✨ Generar Vista Previa con IA";
             }
         }
 
-        async function pushToGitHub(sopCode, content) {
+        async function pushToGitHub() {
             const token = localStorage.getItem('github_token');
-            const base64Content = btoa(unescape(encodeURIComponent(content)));
-            const payload = { message: `Ops Engine: Modificación automatizada en sops/${sopCode}.html`, content: base64Content };
+            const editor = document.getElementById('visual-editor');
+            const btn = document.getElementById('btn-save');
+
+            if (!currentSopCode) {
+                alert("No hay ningún procedimiento activo para guardar.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "Subiendo...";
+            logToConsole(`Extrayendo texto del editor visual y empaquetando para sops/${currentSopCode}.html...`);
+
+            // Levantamos el HTML exactamente como quedó editado por el usuario en el Word
+            const finalContent = editor.innerHTML;
+            const base64Content = btoa(unescape(encodeURIComponent(finalContent)));
+            
+            const payload = { 
+                message: `Ops Control: Actualización visual manual/IA de sops/${currentSopCode}.html`, 
+                content: base64Content 
+            };
             if (currentSopSha) payload.sha = currentSopSha;
 
             try {
-                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${sopCode}.html`;
+                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`;
                 const response = await fetch(url, { method: 'PUT', headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(payload) });
 
-                if (!response.ok) throw new Error("Error de escritura por API en GitHub.");
+                if (!response.ok) throw new Error("Error al escribir cambios en la API de GitHub.");
                 const resData = await response.json();
                 
                 currentSopSha = resData.content.sha;
-                currentSopRawContent = content;
-
-                document.getElementById('status-label').innerText = "Actualizado en Servidor";
-                document.getElementById('status-label').className = "font-bold text-neutral-950 text-xs";
-                logToConsole(`¡Éxito! Cambios guardados e impactados en locales.`);
-                document.getElementById('instruction-input').value = "";
-                alert("¡Procedimiento modificado y distribuido de forma exitosa!");
+                logToConsole(`¡Publicado con éxito! El local ya lee la versión actualizada.`);
+                alert("¡Procedimiento guardado y distribuido exitosamente a las sucursales!");
             } catch (error) {
                 logToConsole(error.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "💾 Publicar en Locales";
             }
+        }
+
+        function syncVisualToCode() {
+            // Función testigo por si se requiere capturar eventos en vivo del teclado
         }
     </script>
 </body>
