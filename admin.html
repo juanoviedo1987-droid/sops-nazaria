@@ -9,83 +9,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
-        /* Estilos estrictos del estándar P-00 para el editor interactivo */
-        .sop-editor-sheet {
-            font-family: 'Inter', sans-serif !important;
-            line-height: 1.15 !important;
-            color: #262626 !important;
-            font-size: 11pt !important;
-            outline: none;
-        }
-        .sop-editor-sheet h1, .sop-editor-sheet .sop-title-1 {
-            font-size: 20pt !important;
-            font-weight: 700 !important;
-            color: #000000 !important;
-            margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-        }
-        .sop-editor-sheet h2, .sop-editor-sheet .sop-title-2 {
-            font-size: 14pt !important;
-            font-weight: 700 !important;
-            color: #000000 !important;
-            text-transform: uppercase !important;
-            margin-top: 24pt !important;
-            margin-bottom: 10pt !important;
-            border-bottom: 1px solid #434343;
-            padding-bottom: 4px;
-        }
-        .sop-editor-sheet h3, .sop-editor-sheet .sop-title-3 {
-            font-size: 12pt !important;
-            font-weight: 700 !important;
-            color: #434343 !important;
-            margin-top: 16pt !important;
-            margin-bottom: 6pt !important;
-        }
-        .sop-editor-sheet p, .sop-editor-sheet .sop-text {
-            margin-top: 0px !important;
-            margin-bottom: 6pt !important;
-            text-align: justify !important;
-        }
-        .sop-editor-sheet ul, .sop-editor-sheet .sop-list {
-            margin-top: 0px !important;
-            margin-bottom: 6pt !important;
-            padding-left: 15pt !important;
-            list-style-type: none !important;
-        }
-        .sop-editor-sheet li, .sop-editor-sheet .sop-list-item {
-            margin-bottom: 6pt !important;
-        }
-        .sop-editor-sheet hr, .sop-editor-sheet .sop-divider {
-            border: none !important;
-            border-top: 1px solid #E5E5E5 !important;
-            margin-top: 18pt !important;
-            margin-bottom: 18pt !important;
-        }
-        .sop-editor-sheet blockquote, .sop-editor-sheet .sop-blockquote {
-            margin-top: 0px !important;
-            margin-bottom: 6pt !important;
-            padding-left: 12pt !important;
-            border-left: 2px solid #434343 !important;
-            font-style: italic !important;
-            color: #434343 !important;
-        }
+        .sop-editor-sheet { font-family: 'Inter', sans-serif !important; line-height: 1.15 !important; color: #262626 !important; font-size: 11pt !important; outline: none; }
+        .sop-editor-sheet h1 { font-size: 20pt !important; font-weight: 700 !important; color: #000000 !important; margin-bottom: 12pt !important; }
+        .sop-editor-sheet h2 { font-size: 14pt !important; font-weight: 700 !important; color: #000000 !important; text-transform: uppercase !important; margin-top: 24pt !important; margin-bottom: 10pt !important; border-bottom: 1px solid #434343; padding-bottom: 4px; }
+        .sop-editor-sheet h3 { font-size: 12pt !important; font-weight: 700 !important; color: #434343 !important; margin-top: 16pt !important; margin-bottom: 6pt !important; }
+        .sop-editor-sheet p { margin-bottom: 6pt !important; text-align: justify !important; }
+        .sop-editor-sheet ul { margin-bottom: 6pt !important; padding-left: 15pt !important; list-style-type: none !important; }
+        .sop-editor-sheet li { margin-bottom: 6pt !important; }
+        .sop-editor-sheet hr { border: none !important; border-top: 1px solid #E5E5E5 !important; margin: 18pt 0 !important; }
+        .sop-editor-sheet blockquote { margin-bottom: 6pt !important; padding-left: 12pt !important; border-left: 2px solid #434343 !important; font-style: italic !important; color: #434343 !important; }
     </style>
 </head>
 <body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col">
 
-    <!-- Header Operativo -->
     <header class="bg-white border-b border-neutral-200 px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
         <div class="flex items-center space-x-3">
             <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
             <div>
                 <h1 class="text-sm font-bold text-black tracking-widest uppercase">NAZARIA OPS <span class="ml-2 text-[9px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">ADMIN CONTROL</span></h1>
-                <p class="text-[11px] text-neutral-500">Editor Visual Directo con Pre-visualización Real</p>
+                <p class="text-[11px] text-neutral-500">Creador y Editor Dinámico de SOPs</p>
             </div>
         </div>
-
-        <!-- Credenciales -->
         <div class="flex flex-wrap items-center gap-2">
             <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-44">
             <input type="password" id="github-token" placeholder="GitHub Personal Token (PAT)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52">
@@ -93,44 +38,46 @@
         </div>
     </header>
 
-    <!-- Workspace -->
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Columna 1: Controles (Izquierda) -->
+        <!-- Controles -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">1. Seleccionar Manual Destino</label>
-                    <select id="sop-selector" onchange="fetchCurrentSOP()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 font-medium">
-                        <option value="">-- Seleccionar SOP --</option>
-                        <option value="p01">P-01 · Atención al Cliente y Ventas</option>
-                        <option value="p02">P-02 · Operación de Caja y Pagos</option>
-                        <option value="p03">P-03 · Orden y Estética del Local</option>
-                        <option value="p04">P-04 · Posventa y Cambios</option>
-                        <option value="p05">P-05 · Recepción y Stock</option>
-                        <option value="p06">P-06 · Gestión de Gift Cards</option>
-                        <option value="p07">P-07 · Venta Activa y Omnicanalidad</option>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">1. Seleccionar o Crear Manual</label>
+                    <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 font-medium">
+                        <option value="">-- Cargando menú... --</option>
                     </select>
                 </div>
 
-                <!-- SELECTOR DE MODO (IMPLEMENTACIÓN SOLICITADA) -->
+                <!-- Campos ocultos para nuevos SOPs -->
+                <div id="new-sop-fields" class="hidden bg-amber-50/50 border border-amber-200 p-4 rounded space-y-3">
+                    <div class="text-[10px] font-bold text-amber-800 uppercase tracking-widest">Datos del Nuevo Procedimiento</div>
+                    <div>
+                        <input type="text" id="new-id" placeholder="id del archivo (ej: p08)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none">
+                    </div>
+                    <div>
+                        <input type="text" id="new-title" placeholder="Título Completo (ej: P-08 · Gestión Omnicanal)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none">
+                    </div>
+                </div>
+
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">2. Tipo de Operación</label>
                     <div class="flex flex-col space-y-2 text-xs font-medium bg-neutral-50 border border-neutral-200 p-3 rounded">
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
-                            <input type="radio" name="operation-mode" value="modify" checked class="accent-black">
+                            <input type="radio" name="operation-mode" id="mode-modify" value="modify" checked class="accent-black">
                             <span>Modificar sobre el archivo existente</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
-                            <input type="radio" name="operation-mode" value="scratch" class="accent-black">
+                            <input type="radio" name="operation-mode" id="mode-scratch" value="scratch" class="accent-black">
                             <span>Formatear texto bruto desde cero (Reemplazar)</span>
                         </label>
                     </div>
                 </div>
 
                 <div>
-                    <label id="instruction-label" class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">3. Orden de Modificación / Pegar Texto Bruto</label>
-                    <textarea id="instruction-input" rows="5" placeholder="Escribí acá tu instrucción o pegá el borrador completo en texto plano..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed"></textarea>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">3. Instrucción o Texto Borrador</label>
+                    <textarea id="instruction-input" rows="5" placeholder="Escribí la orden de cambio o pegá el texto crudo acá..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed"></textarea>
                 </div>
 
                 <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-700 py-3 rounded uppercase tracking-widest transition shadow-sm">
@@ -138,37 +85,30 @@
                 </button>
             </div>
 
-            <!-- Consola -->
             <div class="bg-white border border-neutral-200 rounded p-4 flex-1 flex flex-col min-h-[120px] shadow-sm">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Registro de Eventos API</div>
-                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-500 overflow-y-auto max-h-[150px] space-y-1">
-                    > Consola lista.
-                </div>
+                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-500 overflow-y-auto max-h-[150px] space-y-1">> Listo.</div>
             </div>
         </div>
 
-        <!-- Columna 2: Simulador Hoja Word (Centro) -->
+        <!-- Vista Previa Visual -->
         <div class="lg:col-span-6 flex flex-col">
             <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
                 <div class="flex items-center justify-between mb-3 border-b border-neutral-100 pb-2">
-                    <label class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Vista Previa Real Interactiva (Editable tipo Word)</label>
-                    <span id="editor-indicator" class="text-[10px] text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">Modo Lectura</span>
+                    <label class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Vista Previa Real Interactiva (Editable)</label>
+                    <span id="editor-indicator" class="text-[10px] text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">Editor Activo</span>
                 </div>
-                
-                <div id="visual-editor" contenteditable="true" class="flex-1 bg-white border border-neutral-100 rounded p-8 overflow-y-auto max-h-[680px] text-neutral-900 shadow-inner sop-editor-sheet">
-                    <!-- Contenido editable -->
-                </div>
+                <div id="visual-editor" contenteditable="true" class="flex-1 bg-white border border-neutral-100 rounded p-8 overflow-y-auto max-h-[680px] text-neutral-900 shadow-inner sop-editor-sheet"></div>
             </div>
         </div>
 
-        <!-- Columna 3: Publicar (Derecha) -->
+        <!-- Enviar -->
         <div class="lg:col-span-2 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm">
             <div class="space-y-4">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Guardar Cambios</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">Revisá el resultado en el centro. Podés corregir cualquier cosa escribiendo directo en la hoja antes de publicar.</p>
+                <p class="text-xs text-neutral-500 leading-relaxed">Al crear un SOP nuevo, el sistema generará el archivo e impactará el nuevo botón automáticamente en la app de las vendedoras.</p>
             </div>
-            
             <div class="space-y-3">
                 <div class="text-[10px] font-mono text-neutral-400 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
                 <button onclick="pushToGitHub()" id="btn-save" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-4 rounded uppercase tracking-widest transition shadow-md">
@@ -176,7 +116,6 @@
                 </button>
             </div>
         </div>
-
     </div>
 
     <script>
@@ -184,59 +123,85 @@
         const GITHUB_REPO = "sops-nazaria";
         let currentSopSha = null;
         let currentSopCode = null;
+        let menuSha = null;
+        let fullMenuData = [];
 
         window.onload = function() {
             if (localStorage.getItem('gemini_key')) document.getElementById('gemini-key').value = localStorage.getItem('gemini_key');
             if (localStorage.getItem('github_token')) document.getElementById('github-token').value = localStorage.getItem('github_token');
+            loadMenuFromGitHub();
         };
 
         function saveKeys() {
             localStorage.setItem('gemini_key', document.getElementById('gemini-key').value.trim());
             localStorage.setItem('github_token', document.getElementById('github-token').value.trim());
-            logToConsole("Credenciales operativas guardadas.");
+            logToConsole("Credenciales guardadas.");
+            loadMenuFromGitHub();
         }
 
         function logToConsole(msg, isError = false) {
             const consoleBox = document.getElementById('console-output');
-            const colorClass = isError ? "text-red-600" : "text-neutral-800 font-medium";
-            consoleBox.innerHTML += `<div class="py-0.5"><span class="text-neutral-400">[${new Date().toLocaleTimeString()}]</span> <span class="${colorClass}">${msg}</span></div>`;
+            consoleBox.innerHTML += `<div class="py-0.5"><span class="text-neutral-400">[${new Date().toLocaleTimeString()}]</span> <span class="${isError ? 'text-red-600':'text-neutral-800'}">${msg}</span></div>`;
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
-        async function fetchCurrentSOP() {
-            currentSopCode = document.getElementById('sop-selector').value;
-            const pathIndicator = document.getElementById('file-path-indicator');
-            const editor = document.getElementById('visual-editor');
+        async function loadMenuFromGitHub() {
             const token = localStorage.getItem('github_token');
-
-            if (!currentSopCode) {
-                editor.innerHTML = "";
-                return;
-            }
-
-            pathIndicator.innerText = `sops/${currentSopCode}.html`;
-            logToConsole(`Buscando sops/${currentSopCode}.html...`);
-
+            if(!token) return;
             try {
-                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`;
-                const response = await fetch(url, { headers: { "Authorization": `token ${token}` } });
-
-                if (!response.ok) {
-                    if (response.status === 404) {
-                        editor.innerHTML = "<h1>Nuevo Documento</h1><p>Pegá tu borrador en la izquierda y poné 'Formatear desde cero'.</p>";
-                        currentSopSha = null;
-                        return;
-                    }
-                    throw new Error("Error de conexión.");
-                }
-
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
+                    headers: { "Authorization": `token ${token}` }
+                });
+                if(!response.ok) throw new Error("No se pudo cargar el menu.json");
                 const data = await response.json();
-                currentSopSha = data.sha;
-                editor.innerHTML = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
-                logToConsole(`SOP cargado.`);
+                menuSha = data.sha;
+                fullMenuData = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
+                
+                const selector = document.getElementById('sop-selector');
+                selector.innerHTML = '<option value="">-- Seleccionar SOP --</option>';
+                fullMenuData.forEach(item => {
+                    selector.innerHTML += `<option value="${item.id}">${item.title}</option>`;
+                });
+                selector.innerHTML += `<option value="NEW_SOP">➕ [CREAR NUEVO PROCEDIMIENTO]</option>`;
+                logToConsole("Menú dinámico cargado desde GitHub.");
             } catch (error) {
                 logToConsole(error.message, true);
             }
+        }
+
+        function handleSopSelection() {
+            const selector = document.getElementById('sop-selector');
+            const newFields = document.getElementById('new-sop-fields');
+            const pathIndicator = document.getElementById('file-path-indicator');
+            
+            if (selector.value === "NEW_SOP") {
+                newFields.classList.remove('hidden');
+                document.getElementById('mode-scratch').checked = true;
+                pathIndicator.innerText = "sops/nuevo.html";
+                document.getElementById('visual-editor').innerHTML = "<h1>P-XX · Título</h1><p>Borrador inicial...</p>";
+                currentSopSha = null;
+                currentSopCode = "NEW";
+            } else {
+                newFields.classList.add('hidden');
+                document.getElementById('mode-modify').checked = true;
+                currentSopCode = selector.value;
+                if(currentSopCode) fetchCurrentSOP();
+            }
+        }
+
+        async function fetchCurrentSOP() {
+            const token = localStorage.getItem('github_token');
+            document.getElementById('file-path-indicator').innerText = `sops/${currentSopCode}.html`;
+            try {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`, {
+                    headers: { "Authorization": `token ${token}` }
+                });
+                if (!response.ok) { currentSopSha = null; return; }
+                const data = await response.json();
+                currentSopSha = data.sha;
+                document.getElementById('visual-editor').innerHTML = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
+                logToConsole(`SOP ${currentSopCode.toUpperCase()} cargado.`);
+            } catch (error) { logToConsole(error.message, true); }
         }
 
         async function processSOPModification() {
@@ -246,101 +211,86 @@
             const editor = document.getElementById('visual-editor');
             const mode = document.querySelector('input[name="operation-mode"]:checked').value;
 
-            if (!currentSopCode || !instruction) {
-                alert("Seleccioná un SOP e ingresá la orden o texto.");
-                return;
-            }
+            if (!currentSopCode || !instruction) { alert("Faltan datos."); return; }
             btn.disabled = true;
-            btn.innerText = "IA Procesando...";
 
             const systemPrompt = `Actuás como un Ingeniero de Operaciones Senior experto en el estándar P-00 de Nazaria. Tu objetivo es procesar la entrada del usuario y devolver código HTML interno limpio que respete exactamente estas reglas de maquetado:
 - Título Principal (Código y Nombre): <h1 class="sop-title-1">P-XX · Nombre de Manual</h1> (Color #000000, 20pt)
 - Títulos de Fase Principal: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE</h2> (Color #000000, 14pt, TODO MAYÚSCULAS)
-- Sub-bloques Operativos: <h3 class="sop-title-3">X. Nombre de Sección</h3> (Color #434343, 12pt, Mayúsculas/Minúsculas)
-- Texto normal y Viñetas: <p class="sop-text">Contenido</p> o ítems dentro de listas (Color #262626, 11pt)
+- Sub-bloques Operativos: <h3 class="sop-title-3">X. Nombre de Sección</h3> (Color #434343, 12pt)
+- Texto normal y Viñetas: <p class="sop-text">Contenido</p> (Color #262626, 11pt)
 - Listas de tareas: <ul class="sop-list"><li class="sop-list-item">[Emoji] <strong>Título:</strong> Detalle.</li></ul>
-- Ejemplos o textos de error: <blockquote class="sop-blockquote">Ejemplo: "Texto descriptivo"</blockquote> (Con sangría e itálica nativa del CSS)
-- Separadores visuales: <hr class="sop-divider"> (Colocar una línea horizontal inmediatamente debajo del Objetivo del SOP y al finalizar cada Fase).
+- Ejemplos o textos de error: <blockquote class="sop-blockquote">Ejemplo: "Texto"</blockquote>
+- Separadores visuales: <hr class="sop-divider"> (Colocar debajo del Objetivo y al finalizar cada Fase).
 
-BIBLIOTECA OBLIGATORIA DE EMOJIS (Mapear estrictamente según el contexto de cada paso):
-🖥️ -> Acciones dentro de Dux Software.
-📱 -> Uso de WhatsApp, Google Forms o apps móviles.
-💳 -> Operaciones en terminales físicas de pago (Payway, Nave, MP).
-💵 -> Movimientos de billetes físicos, cobros en efectivo o arqueos.
-📦 -> Procesos de depósito, stock, recepción o auditoría de mercadería.
-✨ -> Protocolos de atención, fidelización o imagen personal.
+BIBLIOTECA OBLIGATORIA DE EMOJIS (Asignar automáticamente según contexto):
+🖥️ -> Dux Software. 📱 -> WhatsApp/Forms/Celular. 💳 -> Payway/Nave/MP. 💵 -> Efectivo/Caja. 📦 -> Depósito/Stock. ✨ -> Atención/Fidelización.
 
 SECCIÓN DE CIERRE OBLIGATORIA:
-Todo SOP debe finalizar exactamente con este bloque si se crea desde cero o si se modifica la estructura:
-<hr class="sop-divider">
-<h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
-<ul class="sop-list">
-  <li class="sop-list-item">⚠ <strong>[Regla grave de caja, stock o base de datos]</strong></li>
-</ul>
-Todas las líneas dentro de esta sección de cierre deben iniciar estrictamente con el emoji de advertencia (⚠).
+<hr class="sop-divider"><h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3><ul class="sop-list"><li class="sop-list-item">⚠ <strong>[Regla]</strong></li></ul> (Todo con ⚠).`;
 
-No devuelvas bloques markdown (\`\`\`html) ni wrappers <div> externos. Solo el HTML plano de las etiquetas internas.`;
-
-            let userContentPayload = "";
-            if (mode === "scratch") {
-                userContentPayload = `ENTRADA: EL USUARIO ADJUNTA UN BORRADOR DESDE CERO EN TEXTO PLANO bruto. Transformalo por completo al estándar P-00 aplicando la jerarquía y los emojis contextuales correctos:\n\n${instruction}`;
-            } else {
-                userContentPayload = `ENTRADA: MODIFICACIÓN SOBRE ARCHIVO EXISTENTE.\n\nHTML ACTUAL:\n${editor.innerHTML}\n\nORDEN DE CAMBIOespecífica:\n${instruction}`;
-            }
+            let userContentPayload = mode === "scratch" ? `TEXTO BRUTO DESDE CERO:\n${instruction}` : `HTML ACTUAL:\n${editor.innerHTML}\n\nORDEN:\n${instruction}`;
 
             try {
-                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
-                const response = await fetch(url, {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `${systemPrompt}\n\n${userContentPayload}\n\nHTML RESULTANTE:` }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `${systemPrompt}\n\n${userContentPayload}` }] }] })
                 });
-
-                if (!response.ok) throw new Error("Error en Gemini.");
                 const resData = await response.json();
                 let outputHtml = resData.candidates[0].content.parts[0].text.trim();
-
                 if (outputHtml.startsWith("```html")) outputHtml = outputHtml.substring(7);
                 if (outputHtml.endsWith("```")) outputHtml = outputHtml.substring(0, outputHtml.length - 3);
-                outputHtml = outputHtml.trim();
-
-                editor.innerHTML = outputHtml;
-                logToConsole("Vista previa generada. Revisá el texto en el centro.");
-            } catch (error) {
-                logToConsole(error.message, true);
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "✨ Generar Vista Previa con IA";
-            }
+                editor.innerHTML = outputHtml.trim();
+                logToConsole("Vista previa procesada.");
+            } catch (error) { logToConsole(error.message, true); }
+            finally { btn.disabled = false; }
         }
 
         async function pushToGitHub() {
             const token = localStorage.getItem('github_token');
             const editor = document.getElementById('visual-editor');
-            const btn = document.getElementById('btn-save');
+            const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
+            
+            let finalId = currentSopCode;
+            let finalTitle = "";
 
-            if (!currentSopCode) return;
-            btn.disabled = true;
+            if (isNew) {
+                finalId = document.getElementById('new-id').value.trim().toLowerCase();
+                finalTitle = document.getElementById('new-title').value.trim();
+                if(!finalId || !finalTitle) { alert("Completá ID y Título del nuevo SOP."); return; }
+            }
 
             const finalContent = editor.innerHTML;
             const base64Content = btoa(unescape(encodeURIComponent(finalContent)));
-            const payload = { message: `Ops Control: Actualización P-00 de sops/${currentSopCode}.html`, content: base64Content };
-            if (currentSopSha) payload.sha = currentSopSha;
-
+            
             try {
-                const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`;
-                const response = await fetch(url, { method: 'PUT', headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-                if (!response.ok) throw new Error("Error en GitHub.");
-                const resData = await response.json();
-                currentSopSha = resData.content.sha;
-                logToConsole(`¡Publicado con éxito en GitHub Pages!`);
-                alert("Procedimiento guardado y distribuido.");
-            } catch (error) {
-                logToConsole(error.message, true);
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "💾 Publicar en Locales";
-            }
+                // 1. Guardar el archivo HTML del procedimiento
+                const urlHtml = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
+                const payloadHtml = { message: `Ops Control: Guardar sops/${finalId}.html`, content: base64Content };
+                if (currentSopSha && !isNew) payloadHtml.sha = currentSopSha;
+                
+                const resHtml = await fetch(urlHtml, { method: 'PUT', headers: { "Authorization": `token ${token}` }, body: JSON.stringify(payloadHtml) });
+                if(!resHtml.ok) throw new Error("Error guardando el HTML.");
+
+                // 2. Si es nuevo, actualizar el menú central menu.json
+                if (isNew) {
+                    fullMenuData.push({ id: finalId, title: finalTitle });
+                    const base64Menu = btoa(unescape(encodeURIComponent(JSON.stringify(fullMenuData, null, 2))));
+                    const payloadMenu = { message: `Ops Control: Registrar ${finalId} en menu.json`, content: base64Menu, typeof: "json", sha: menuSha };
+                    
+                    const resMenu = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
+                        method: 'PUT',
+                        headers: { "Authorization": `token ${token}` },
+                        body: JSON.stringify(payloadMenu)
+                    });
+                    if(!resMenu.ok) throw new Error("Error actualizando menu.json");
+                }
+
+                logToConsole("¡Publicado y sincronizado exitosamente!");
+                alert("Procedimiento guardado y menú actualizado en locales.");
+                location.reload();
+            } catch (error) { logToConsole(error.message, true); }
         }
     </script>
 </body>
