@@ -1,0 +1,9 @@
+[
+  {"id": "p01", "title": "P-01 · Atención al Cliente y Ventas"},
+  {"id": "p02", "title": "P-02 · Operación de Caja y Pagos"},
+  {"id": "p03", "title": "P-03 · Orden y Estética del Local"},
+  {"id": "p04", "title": "P-04 · Posventa y Cambios"},
+  {"id": "p05", "title": "P-05 · Recepción y Stock"},
+  {"id": "p06", "title": "P-06 · Gestión de Gift Cards"},
+  {"id": "p07", "title": "P-07 · Venta Activa y Omnicanalidad"}
+]
