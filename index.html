@@ -100,7 +100,6 @@
 </head>
 <body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col">
 
-    <!-- Header Principal Minimalista -->
     <header class="bg-white border-b border-neutral-200 px-8 py-5 flex items-center justify-between shadow-sm">
         <div class="flex items-center space-x-4">
             <div class="bg-black text-white px-3 py-1.5 rounded font-bold tracking-widest text-xs">
@@ -118,68 +117,28 @@
         </div>
     </header>
 
-    <!-- Contenido Principal -->
     <div class="flex-1 flex overflow-hidden">
         
-        <!-- Sidebar de Navegación Lateral Sutil -->
         <aside class="w-80 bg-white border-r border-neutral-200 p-4 flex flex-col space-y-1.5 overflow-y-auto">
             <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-3 mb-3 mt-1">Manuales de Proceso</div>
             
-            <button onclick="loadSOP('p01')" id="btn-p01" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded">P-01</span>
-                <span class="text-xs truncate tracking-wide">Atención al Cliente y Ventas</span>
-            </button>
-
-            <button onclick="loadSOP('p02')" id="btn-p02" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded">P-02</span>
-                <span class="text-xs truncate tracking-wide">Operación de Caja y Pagos</span>
-            </button>
-
-            <button onclick="loadSOP('p03')" id="btn-p03" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded">P-03</span>
-                <span class="text-xs truncate tracking-wide">Orden y Estética del Local</span>
-            </button>
-
-            <button onclick="loadSOP('p04')" id="btn-p04" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded">P-04</span>
-                <span class="text-xs truncate tracking-wide">Posventa y Cambios</span>
-            </button>
-
-            <button onclick="loadSOP('p05')" id="btn-p05" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded">P-05</span>
-                <span class="text-xs truncate tracking-wide">Recepción y Stock</span>
-            </button>
-
-            <button onclick="loadSOP('p06')" id="btn-p06" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded">P-06</span>
-                <span class="text-xs truncate tracking-wide">Gestión de Gift Cards</span>
-            </button>
-
-            <button onclick="loadSOP('p07')" id="btn-p07" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded">P-07</span>
-                <span class="text-xs truncate tracking-wide">Venta Activa y Omnicanalidad</span>
-            </button>
+            <div id="sop-menu-container" class="flex flex-col space-y-1.5">
+                </div>
         </aside>
 
-        <!-- Contenedor del Documento -->
         <main class="flex-1 bg-[#FAF9F6] p-8 flex justify-center overflow-y-auto">
-            <!-- Simulación de hoja física corporativa premium -->
             <div id="sop-view-card" class="bg-white text-neutral-900 w-full max-w-[820px] min-h-[1123px] shadow-sm rounded border border-neutral-200 p-[60px] hidden relative">
-                <!-- Sutil acento superior color madera clara que simula la terminación del local -->
                 <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
                 <div id="sop-content" class="sop-container">
-                    <!-- Contenido dinámico -->
-                </div>
+                    </div>
             </div>
 
-            <!-- Estado Inicial -->
             <div id="welcome-card" class="flex flex-col items-center justify-center text-center max-w-sm mx-auto space-y-3">
                 <div class="text-neutral-300 text-4xl">▪</div>
                 <h2 class="text-sm font-bold text-black tracking-wider uppercase">Portal Operativo Nazaria</h2>
                 <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento operativo desde el panel lateral para consultar el estándar oficial vigente.</p>
             </div>
 
-            <!-- Loader de carga -->
             <div id="loader" class="hidden flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-2">
                 <div class="w-5 h-5 border-2 border-neutral-900 border-t-transparent rounded-full animate-spin"></div>
                 <p class="text-[11px] text-neutral-500 tracking-wide">Sincronizando con base central...</p>
@@ -190,6 +149,39 @@
     <script>
         let currentSopCode = null;
 
+        window.onload = function() {
+            loadDynamicMenu();
+        };
+
+        // LÓGICA CORE: Leer manifiesto menu.json e inyectar botones en sidebar
+        async function loadDynamicMenu() {
+            const container = document.getElementById('sop-menu-container');
+            try {
+                const response = await fetch(`./menu.json?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error("Falta archivo menu.json central.");
+                
+                const menuItems = await response.json();
+                container.innerHTML = ""; // Limpiar contenedor
+
+                menuItems.forEach(item => {
+                    // Separamos el código (P-01) del nombre para el formateo del badge
+                    const titleParts = item.title.split(' · ');
+                    const badgeText = titleParts[0] || item.id.toUpperCase();
+                    const nameText = titleParts[1] || item.title;
+
+                    container.innerHTML += `
+                        <button onclick="loadSOP('${item.id}')" id="btn-${item.id}" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
+                            <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded shrink-0">${badgeText}</span>
+                            <span class="text-xs truncate tracking-wide">${nameText}</span>
+                        </button>
+                    `;
+                });
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `<p class="text-xs text-red-600 px-3">Error al inicializar menú central.</p>`;
+            }
+        }
+
         async function loadSOP(sopCode) {
             currentSopCode = sopCode;
             const welcomeCard = document.getElementById('welcome-card');
@@ -197,7 +189,8 @@
             const loader = document.getElementById('loader');
             const sopContent = document.getElementById('sop-content');
 
-            document.querySelectorAll('aside button').forEach(btn => {
+            // Resetear estados visuales en la barra lateral dinámica
+            document.querySelectorAll('#sop-menu-container button').forEach(btn => {
                 btn.classList.remove('bg-black', 'text-white', 'border-black');
                 btn.classList.add('bg-neutral-50', 'text-neutral-700');
             });
@@ -225,7 +218,7 @@
                 loader.classList.add('hidden');
                 sopContent.innerHTML = `
                     <h1 class="sop-title-1 text-neutral-900">Documento en Actualización</h1>
-                    <p class="sop-text">El archivo <b>${sopCode.toUpperCase()}</b> está siendo migrado a la nueva base de datos estructurada. Consultar al administrador central.</p>
+                    <p class="sop-text">El archivo técnico <b>${sopCode.toUpperCase()}</b> está siendo procesado o modificado en la consola de control de la empresa.</p>
                 `;
                 sopViewCard.classList.remove('hidden');
             }
