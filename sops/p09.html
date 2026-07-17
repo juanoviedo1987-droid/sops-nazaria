@@ -5,62 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>P-09 · Promociones Activas</title>
     <style>
-        /* Reset body para permitir escalado y centrado limpio */
         body, html {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
             background-color: transparent;
         }
-
-        /* Target standard layout containers to allow centered content expansion */
-        [class*="container"], [class*="card"], .content, main {
-            max-width: 100% !important;
-            width: 100% !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            box-shadow: none !important;
-            background: transparent !important;
-            display: flex;
-            justify-content: center; /* Centramos el bloque de contenido */
-            align-items: flex-start; /* Alineación a top */
-        }
-
-        /* Contenedor apaisado y centrado para esta página específica */
-        .promos-apaisada-centrada {
-            position: relative;
-            /* Definimos una visual apaisada fija (más ancha que A4, más chica que full-width) */
-            width: 1100px; 
-            height: calc(100vh - 100px); /* Ocupamos la mayor parte del alto */
-            max-width: 90%; /* Evitamos que sea más grande que la pantalla si es chica */
+        
+        /* Contenedor con márgenes ampliados para no invadir los menús */
+        .wrapper-promos {
+            position: fixed;
+            top: 110px;      /* Bajamos la hoja para que no pise la barra superior */
+            left: 315px;     /* Desplazamos la hoja a la derecha para liberar el menú lateral */
+            right: 20px;      /* Margen de seguridad derecho */
+            bottom: 20px;     /* Margen de seguridad inferior */
             background-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-top: 20px; /* Margen de seguridad con la barra superior */
-            border: 1px solid #ddd;
-            overflow: hidden; /* Para limpiar el hack visual de escalado */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #cccccc;
             border-radius: 4px;
+            overflow: auto;   /* Permite scroll de la tabla si el monitor es muy chico */
         }
 
-        /* HACK VISUAL DE ESCALADO DIRECTO AL IFRAME */
+        /* Tabla al 100% de su tamaño nativo, sin alteraciones */
         iframe {
-            /* Hacemos que el iframe se renderice internamente con más espacio
-               para que no se corten las columnas al escalarlo. */
-            width: calc(100% / 0.9); /* Ancho base interno compensado */
-            height: calc(100% / 0.9); /* Alto base interno compensado */
+            width: 100%;
+            height: 100%;
             border: none;
             display: block;
-
-            /* HACK VISUAL: escalamos y reposicionamos */
-            transform-origin: top left; /* Escalamiento desde la esquina superior izquierda */
-            transform: scale(0.9); /* ESCALA VISUAL: ACHICAMOS TODO AL 90% */
         }
-
     </style>
 </head>
 <body>
-    <div class="promos-apaisada-centrada">
+    <div class="wrapper-promos">
         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQkz7Ir_NGsJ3GYgxB1VT-690Za3piPy0CCBTdGJhnWR3e-t6kKF0XBHWH_vN4ac3oDf_GV-ywZaXq2/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
     </div>
 </body>
