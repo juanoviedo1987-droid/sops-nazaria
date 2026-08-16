@@ -1,24 +1,335 @@
+
+Gemini
+
+Chat
+
+Spark
+beta
+New chat
+Search chats
+Images
+Videos
+Library
+Gems
+New notebook
+Guía de práctica para los 3 retakes de micro1
+HubSpot - Inbound Certification
+Video de Entrevista: Correcciones y Sugerencias
+Simulación de Entrevista de Operaciones
+Notificación de Denuncia al Consumidor DAM
+conectar GIUSEPPA a Tienda Nube y ML
+Agenda Operativa Giuseppa y Nazaria
+Dux ERP API: Problemas de Datos
+Análisis de Costos y Precios ML GIUSEPPA
+ver Nexum web
+Allergy Test Results and Recommendations
+Arquitectura y Estándares SOP Nazaria
+Gem vs. Chat para Generar Código
+Plan Semanal de Contenidos Digitales
+SOPs: Carga, Uso y Necesidad
+Mejores Herramientas para MTG Arena
+Universo Avatar: Series y Películas
+Problema Cuenta Debrid, No Torrent
+¿Qué Es la Pasión?
+Sufrimiento: ¿Necesario o Evitable?
+Brecha Salarial de Género en Argentina
+Gemini 3.7 Flash: Novedades y Mejoras
+Liquidación de Stock: Estrategia y Datos
+Evitar pago de licencias musicales comerciales
+Propuesta de Negociación TOM
+Análisis Financiero Shopping TOM
+Análisis Deuda Cuenta Corriente TOM
+Análisis de Job Description para Operaciones
+Extraer Datos De Tabla Visible
+Singer 4432: Caja Bobina Trabada
+Ayuda con Reseña de Google Maps
+Series Recomendadas para Parejas
+Terremotos: Imposibles de Predecir o Prevenir
+Cómo Ajustar el Pretál Waggs
+Shepa: Contexto Emprendimiento Hogar
+Mazo Spider-Man: Diagnóstico y Mejora
+Solicitud de Datos para Liquidación de Sueldos
+Registro de Aire: Control de Combustión
+Control de Efectivo por Turno del Tom OBJECTIVE: Compare physical cash counts per shift with system records to identify discrepancies. DATA: - `
+Reparación Heladera Whirlpool WRM41D1
+Revisión y Proyección de Objetivos Mensuales
+Conectar Apps Personalizadas a Gemini Spark
+Personalizando tu Asistente IA
+Gemini Spark Limitations for Automation
+SOPS, AUTOMATIZACIONES - REPORTES
+Estrategia Financiera para Negocio en Crisis
+Red Nazaria: Informe Ejecutivo Financiero
+A
+Arquitecto SOPs Nazaria
+Name
+Arquitecto SOPs Nazaria
+Description
+Describe your Gem and explain what it does
+
+Instructions
+Sos el Arquitecto de Software y Lead Operations Engineer del sistema centralizado de manuales de procedimiento (SOPs) de Nazaria.
+
+
+
+### 1. ARQUITECTURA DEL SISTEMA Y RECURSOS
+
+- Repositorio GitHub: `juanoviedo1987-droid/sops-nazaria` (Alojamiento estático en GitHub Pages).
+
+- Visor de Locales (`/index.html`): Interfaz pública de consulta para sucursales. Renderiza dinámicamente `/menu.json` con bypass anti-caché (`?t=timestamp`) en una hoja A4 centrada (max-w-[820px], padding 60px).
+
+- Consola de Control (`/admin.html`): Panel de maquetación interactivo (contenteditable) con integración a Gemini 2.5 Flash (`v1beta`) y panel desplegable de guía operativa.
+
+- Manifiesto Central (`/menu.json`): Estructura `[{"id": "p01", "title": "P-01 · Título"}]`.
+
+- Directorio de Manuales (`/sops/`): Carpeta física donde se alojan los archivos `pXX.html`.
+
+
+
+### 2. ESTÁNDAR STRICTO DE MAQUETADO (P-00)
+
+Existen dos tipos de archivos dentro del directorio `/sops/`:
+
+
+
+TIPO A: MANUALES ESTÁNDAR (Ej: p01.html a p08.html, p10.html)
+
+Deben ser FRAGMENTOS HTML LIMPIOS. JAMÁS incluir <!DOCTYPE html>, <html>, <head>, <body> ni delimitadores markdown (```html o ```).
+
+Jerarquía y clases CSS obligatorias:
+
+- Título Principal: <h1 class="sop-title-1">P-XX · Nombre de Manual</h1> (22pt, bold, #000000)
+
+- Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE EN MAYÚSCULAS</h2> (13pt, bold, #000000, border-bottom: 2px solid #1A1A1A)
+
+- Sub-bloque: <h3 class="sop-title-3">X. Nombre de Sección</h3> (11pt, bold, #404040)
+
+- Párrafo / Texto Corrido: <p class="sop-text">Texto justificado</p> (11pt, #1A1A1A)
+
+- Listas de Tareas: <ul class="sop-list"><li class="sop-list-item">[Emoji] <strong>Título del Paso:</strong> Detalle operativo.</li></ul>
+
+- Ejemplos / Citas: <blockquote class="sop-blockquote">Ejemplo: "Texto de referencia"</blockquote>
+
+- Separadores: <hr class="sop-divider"> (Colocar tras el Objetivo y al finalizar cada Fase).
+
+- Tablas Operativas: <table> con encabezados <th> en fondo #F5F5F5 y bordes #E5E5E5.
+
+- Cierre Obligatorio (Reglas de Oro):
+
+  <hr class="sop-divider">
+
+  <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+
+  <ul class="sop-warning-list">
+
+    <li class="sop-warning-item">⚠ <strong>[Punto Crítico]:</strong> Descripción obligatoria de la falta grave.</li>
+
+  </ul>
+
+
+
+TIPO B: PLANILLAS E IFRAMES (Ej: p09.html)
+
+Documentos HTML completos con contenedor fijo responsivo:
+
+`.wrapper-promos { position: fixed; top: 110px; left: 345px; right: 20px; bottom: 20px; z-index: 10; overflow: auto; }`
+
+
+
+### 3. BIBLIOTECA OPERATIVA DE EMOJIS
+
+Asignación estricta y automática según el contexto operativo:
+
+- 🖥️ Dux Software / Sistemas / Reportes / Consultas en PC
+
+- 📱 WhatsApp / Redes Sociales / Formularios Google / Celulares
+
+- 💳 Pagos Digitales / Tarjetas / Terminales Payway / Nave / Mercado Pago
+
+- 💵 Efectivo / Caja Chica / Arqueos de Turno
+
+- 📦 Stock / Mercadería / Depósito / Correo Argentino / Auditorías
+
+- ✨ Atención al Cliente / Fidelización / Asesoramiento / Estética del Salón
+
+
+
+### 4. FLUJO DE TRABAJO OFICIAL (DESACOPLADO)
+
+1. Concepción (Gemini Gem): Redacción de borradores, análisis de procesos y definición de directivas.
+
+2. Maquetación (admin.html): Generación y vista previa en hoja de 820px mediante API de Gemini 2.5 Flash (`v1beta`). Retoque directo en DOM.
+
+3. Persistencia (GitHub Web): Copiado de código limpio con el botón de la consola y commit directo en `sops/pXX.html` (y actualización de `menu.json` si es un manual nuevo).
+
+4. Visualización (index.html): Consulta en tiendas sin recargas de servidor.
+
+
+
+### 5. REGLAS DE RESPUESTA
+
+- Respuestas directas, técnicas, analíticas y ejecutivas, sin introducciones ni cierres de cortesía.
+
+- Si se solicita redactar o corregir un procedimiento, entregar ÚNICAMENTE el fragmento HTML puro bajo estándar P-00.
+
+- Si se solicita modificar código (`admin.html` o `index.html`), respetar el layout de hoja A4 de 820px con scroll fluido y llamadas a `v1beta`.
+
+Sos el Arquitecto de Software y Lead Operations Engineer del sistema centralizado de manuales de procedimiento (SOPs) de Nazaria.
+
+
+
+### 1. ARQUITECTURA DEL SISTEMA Y RECURSOS
+
+- Repositorio GitHub: `juanoviedo1987-droid/sops-nazaria` (Alojamiento estático en GitHub Pages).
+
+- Visor de Locales (`/index.html`): Interfaz pública de consulta para sucursales. Renderiza dinámicamente `/menu.json` con bypass anti-caché (`?t=timestamp`) en una hoja A4 centrada (max-w-[820px], padding 60px).
+
+- Consola de Control (`/admin.html`): Panel de maquetación interactivo (contenteditable) con integración a Gemini 2.5 Flash (`v1beta`) y panel desplegable de guía operativa.
+
+- Manifiesto Central (`/menu.json`): Estructura `[{"id": "p01", "title": "P-01 · Título"}]`.
+
+- Directorio de Manuales (`/sops/`): Carpeta física donde se alojan los archivos `pXX.html`.
+
+
+
+### 2. ESTÁNDAR STRICTO DE MAQUETADO (P-00)
+
+Existen dos tipos de archivos dentro del directorio `/sops/`:
+
+
+
+TIPO A: MANUALES ESTÁNDAR (Ej: p01.html a p08.html, p10.html)
+
+Deben ser FRAGMENTOS HTML LIMPIOS. JAMÁS incluir <!DOCTYPE html>, <html>, <head>, <body> ni delimitadores markdown (```html o ```).
+
+Jerarquía y clases CSS obligatorias:
+
+- Título Principal: <h1 class="sop-title-1">P-XX · Nombre de Manual</h1> (22pt, bold, #000000)
+
+- Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE EN MAYÚSCULAS</h2> (13pt, bold, #000000, border-bottom: 2px solid #1A1A1A)
+
+- Sub-bloque: <h3 class="sop-title-3">X. Nombre de Sección</h3> (11pt, bold, #404040)
+
+- Párrafo / Texto Corrido: <p class="sop-text">Texto justificado</p> (11pt, #1A1A1A)
+
+- Listas de Tareas: <ul class="sop-list"><li class="sop-list-item">[Emoji] <strong>Título del Paso:</strong> Detalle operativo.</li></ul>
+
+- Ejemplos / Citas: <blockquote class="sop-blockquote">Ejemplo: "Texto de referencia"</blockquote>
+
+- Separadores: <hr class="sop-divider"> (Colocar tras el Objetivo y al finalizar cada Fase).
+
+- Tablas Operativas: <table> con encabezados <th> en fondo #F5F5F5 y bordes #E5E5E5.
+
+- Cierre Obligatorio (Reglas de Oro):
+
+  <hr class="sop-divider">
+
+  <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+
+  <ul class="sop-warning-list">
+
+    <li class="sop-warning-item">⚠ <strong>[Punto Crítico]:</strong> Descripción obligatoria de la falta grave.</li>
+
+  </ul>
+
+
+
+TIPO B: PLANILLAS E IFRAMES (Ej: p09.html)
+
+Documentos HTML completos con contenedor fijo responsivo:
+
+`.wrapper-promos { position: fixed; top: 110px; left: 345px; right: 20px; bottom: 20px; z-index: 10; overflow: auto; }`
+
+
+
+### 3. BIBLIOTECA OPERATIVA DE EMOJIS
+
+Asignación estricta y automática según el contexto operativo:
+
+- 🖥️ Dux Software / Sistemas / Reportes / Consultas en PC
+
+- 📱 WhatsApp / Redes Sociales / Formularios Google / Celulares
+
+- 💳 Pagos Digitales / Tarjetas / Terminales Payway / Nave / Mercado Pago
+
+- 💵 Efectivo / Caja Chica / Arqueos de Turno
+
+- 📦 Stock / Mercadería / Depósito / Correo Argentino / Auditorías
+
+- ✨ Atención al Cliente / Fidelización / Asesoramiento / Estética del Salón
+
+
+
+### 4. FLUJO DE TRABAJO OFICIAL (DESACOPLADO)
+
+1. Concepción (Gemini Gem): Redacción de borradores, análisis de procesos y definición de directivas.
+
+2. Maquetación (admin.html): Generación y vista previa en hoja de 820px mediante API de Gemini 2.5 Flash (`v1beta`). Retoque directo en DOM.
+
+3. Persistencia (GitHub Web): Copiado de código limpio con el botón de la consola y commit directo en `sops/pXX.html` (y actualización de `menu.json` si es un manual nuevo).
+
+4. Visualización (index.html): Consulta en tiendas sin recargas de servidor.
+
+
+
+### 5. REGLAS DE RESPUESTA
+
+- Respuestas directas, técnicas, analíticas y ejecutivas, sin introducciones ni cierres de cortesía.
+
+- Si se solicita redactar o corregir un procedimiento, entregar ÚNICAMENTE el fragmento HTML puro bajo estándar P-00.
+
+- Si se solicita modificar código (`admin.html` o `index.html`), respetar el layout de hoja A4 de 820px con scroll fluido y llamadas a `v1beta`.
+
+Default tool
+Knowledge
+
+
+HTML icon
+index
+HTML
+
+JSON icon
+menu
+JSON
+
+MD icon
+CONTEXT
+MD
+
+
+
+Disable Knowledge Citations
+Preview
+Conversation with Gemini
+A
+Arquitecto SOPs Nazaria
+
+
+
+
+
+Gem not saved
+ Gemini can make mistakes, so double-check responses. Your custom Gems will also be visible in Gemini for Workspace (learn moreOpens in a new window). Create Gems responsiblyOpens in a new window.
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control - Desarrollador de SOPs Nazaria</title>
+    <title>Centro de Operaciones - Manual de SOPs Oficiales</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* Paridad CSS exacta con el visor oficial P-00 (index.html) */
+        /* Estructura de fuentes estricta del P-00 para la visualización del documento */
         .sop-container {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
             color: #1A1A1A !important;
             font-size: 11pt !important;
-            outline: none;
         }
-        .sop-container .sop-title-1, .sop-container h1 {
+        .sop-title-1 {
             font-family: 'Inter', sans-serif !important;
             font-size: 22pt !important;
             font-weight: 700 !important;
@@ -28,7 +339,7 @@
             line-height: 1.25 !important;
             letter-spacing: -0.02em !important;
         }
-        .sop-container .sop-title-2, .sop-container h2 {
+        .sop-title-2 {
             font-family: 'Inter', sans-serif !important;
             font-size: 13pt !important;
             font-weight: 700 !important;
@@ -38,10 +349,10 @@
             margin-bottom: 12pt !important;
             line-height: 1.25 !important;
             letter-spacing: 0.05em !important;
-            border-bottom: 2px solid #1A1A1A !important;
-            padding-bottom: 4px !important;
+            border-bottom: 2px solid #1A1A1A;
+            padding-bottom: 4px;
         }
-        .sop-container .sop-title-3, .sop-container h3 {
+        .sop-title-3 {
             font-family: 'Inter', sans-serif !important;
             font-size: 11pt !important;
             font-weight: 700 !important;
@@ -50,28 +361,28 @@
             margin-bottom: 6pt !important;
             line-height: 1.25 !important;
         }
-        .sop-container .sop-text, .sop-container p {
+        .sop-text {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             text-align: justify !important;
         }
-        .sop-container .sop-list, .sop-container ul {
+        .sop-list {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             padding-left: 15pt !important;
             list-style-type: none !important;
         }
-        .sop-container .sop-list-item, .sop-container li {
+        .sop-list-item {
             margin-bottom: 6pt !important;
             position: relative !important;
         }
-        .sop-container .sop-divider, .sop-container hr {
+        .sop-divider {
             border: none !important;
             border-top: 1px solid #E5E5E5 !important;
             margin-top: 24pt !important;
             margin-bottom: 24pt !important;
         }
-        .sop-container .sop-blockquote, .sop-container blockquote {
+        .sop-blockquote {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             margin-left: 0px !important;
@@ -81,486 +392,150 @@
             font-style: italic !important;
             color: #525252 !important;
         }
-        .sop-container .sop-warning-list {
+        .sop-warning-list {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             padding-left: 15pt !important;
             list-style-type: none !important;
         }
-        .sop-container .sop-warning-item {
+        .sop-warning-item {
             margin-bottom: 8pt !important;
             color: #000000 !important;
             font-weight: 600 !important;
-            background-color: #F5F5F5 !important;
-            padding: 10px 14px !important;
-            border-left: 3px solid #000000 !important;
-            border-radius: 4px !important;
-        }
-        .sop-container table {
-            width: 100% !important;
-            border-collapse: collapse !important;
-            margin-top: 14pt !important;
-            margin-bottom: 18pt !important;
-            font-size: 10pt !important;
-            text-align: left !important;
-        }
-        .sop-container th {
-            padding: 10px !important;
-            font-weight: 700 !important;
-            background-color: #F5F5F5 !important;
-            border: 1px solid #E5E5E5 !important;
-            color: #000000 !important;
-        }
-        .sop-container td {
-            padding: 10px !important;
-            border: 1px solid #E5E5E5 !important;
-            vertical-align: top !important;
+            background-color: #F5F5F5;
+            padding: 10px 14px;
+            border-left: 3px solid #000000;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 h-screen flex flex-col overflow-hidden">
+<body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col">
 
-    <!-- Header Principal -->
-    <header class="bg-white border-b border-neutral-200 px-6 py-3 flex items-center justify-between shadow-sm shrink-0 z-20">
-        <div class="flex items-center space-x-3">
-            <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
+    <header class="bg-white border-b border-neutral-200 px-8 py-5 flex items-center justify-between shadow-sm">
+        <div class="flex items-center space-x-4">
+            <div class="bg-black text-white px-3 py-1.5 rounded font-bold tracking-widest text-xs">
+                NZ
+            </div>
             <div>
-                <h1 class="text-sm font-bold text-black tracking-widest uppercase">
-                    NAZARIA OPS <span class="ml-2 text-[9px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">ADMIN CONTROL</span>
+                <h1 class="text-base font-bold tracking-widest text-black uppercase">
+                    NAZARIA <span class="ml-2 text-[10px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">OPERACIONES</span>
                 </h1>
-                <p class="text-[11px] text-neutral-500">Consola Central de Procesos y Generación con IA</p>
+                <p class="text-[11px] text-neutral-500 tracking-wide mt-0.5">Base de Conocimiento y Manuales Técnicos</p>
             </div>
         </div>
-        <div class="flex items-center gap-3">
-            <button onclick="toggleGuideDrawer()" class="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-semibold text-xs px-3.5 py-1.5 rounded transition shadow-sm flex items-center gap-1.5">
-                <span>📖</span> Guía Operativa & Estándar
-            </button>
-            <div class="flex items-center gap-2">
-                <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:bg-white focus:outline-none focus:border-black">
-                <button onclick="saveKey()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llave</button>
-            </div>
+        <div class="text-[11px] font-medium text-neutral-600 bg-white border border-neutral-200 px-3 py-1.5 rounded flex items-center shadow-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 mr-2"></span> Terminal Sucursal
         </div>
     </header>
 
-    <!-- Layout de 3 Columnas -->
-    <div class="flex-1 flex overflow-hidden p-4 gap-4 justify-center items-stretch max-w-[1920px] mx-auto w-full">
+    <div class="flex-1 flex overflow-hidden">
         
-        <!-- Columna 1: Controles e IA (320px) -->
-        <aside class="w-[320px] shrink-0 flex flex-col gap-3 overflow-y-auto pr-1">
-            <div class="bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-3.5">
-                <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">1. Seleccionar Manual</label>
-                    <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2 text-xs text-neutral-800 font-medium focus:outline-none focus:border-black">
-                        <option value="">-- Cargando menú... --</option>
-                    </select>
+        <aside class="w-80 bg-white border-r border-neutral-200 p-4 flex flex-col space-y-1.5 overflow-y-auto">
+            <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-3 mb-3 mt-1">Manuales de Proceso</div>
+            
+            <div id="sop-menu-container" class="flex flex-col space-y-1.5">
                 </div>
-
-                <div id="new-sop-fields" class="hidden bg-amber-50/60 border border-amber-200 p-3 rounded space-y-2">
-                    <div class="text-[10px] font-bold text-amber-800 uppercase tracking-widest">Identificación de Nuevo Manual</div>
-                    <input type="text" id="new-id" placeholder="id único (ej: p11)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
-                    <input type="text" id="new-title" placeholder="Título (ej: P-11 · Estrategia Digital)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">2. Modo de Operación</label>
-                    <div class="flex flex-col space-y-1.5 text-xs bg-neutral-50 border border-neutral-200 p-2.5 rounded">
-                        <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
-                            <input type="radio" name="operation-mode" id="mode-modify" value="modify" checked class="accent-black">
-                            <span>Modificar archivo actual</span>
-                        </label>
-                        <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
-                            <input type="radio" name="operation-mode" id="mode-scratch" value="scratch" class="accent-black">
-                            <span>Maquetar borrador desde cero</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">3. Directiva o Texto Borrador</label>
-                    <textarea id="instruction-input" rows="5" placeholder="Escribí qué querés cambiar o pegá el texto crudo acá..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:bg-white focus:outline-none focus:border-black"></textarea>
-                </div>
-
-                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-[#E6D5C3]/40 border border-neutral-300 font-bold text-xs text-neutral-800 py-2.5 rounded uppercase tracking-widest transition shadow-sm">
-                    ✨ Generar Vista Previa con IA
-                </button>
-            </div>
-
-            <div class="bg-white border border-neutral-200 rounded p-3 flex-1 flex flex-col min-h-[140px] shadow-sm">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Consola de Estado</div>
-                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-2.5 text-[10px] font-mono text-neutral-600 overflow-y-auto space-y-1">
-                    <div>> Consola lista.</div>
-                </div>
-            </div>
         </aside>
 
-        <!-- Columna 2: Hoja A4 Visual Interactiva (820px) -->
-        <main id="main-scroll" class="flex-1 bg-[#FAF9F6] border border-neutral-200 rounded p-6 overflow-y-auto shadow-inner relative">
-            
-            <div id="empty-state" class="flex flex-col items-center justify-center text-center max-w-sm mx-auto min-h-[450px] space-y-3">
-                <div class="text-neutral-300 text-3xl">▪</div>
-                <h2 class="text-sm font-bold text-black tracking-wider uppercase">Lienzo de Operaciones</h2>
-                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento desde el panel izquierdo para cargar su contenido o creá un nuevo manual para comenzar.</p>
+        <main class="flex-1 bg-[#FAF9F6] p-8 flex justify-center overflow-y-auto">
+            <div id="sop-view-card" class="bg-white text-neutral-900 w-full max-w-[820px] min-h-[1123px] shadow-sm rounded border border-neutral-200 p-[60px] hidden relative">
+                <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
+                <div id="sop-content" class="sop-container">
+                    </div>
             </div>
 
-            <div id="sheet-wrapper" class="w-full max-w-[820px] mx-auto hidden flex-col items-center pb-16">
-                <div class="w-full mb-2 px-1 flex items-center justify-between">
-                    <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Hoja de Visualización y Edición Directa</span>
-                    <span id="editor-indicator" class="text-[10px] text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">DOM Activo (Editable)</span>
-                </div>
+            <div id="welcome-card" class="flex flex-col items-center justify-center text-center max-w-sm mx-auto space-y-3">
+                <div class="text-neutral-300 text-4xl">▪</div>
+                <h2 class="text-sm font-bold text-black tracking-wider uppercase">Portal Operativo Nazaria</h2>
+                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento operativo desde el panel lateral para consultar el estándar oficial vigente.</p>
+            </div>
 
-                <div class="w-full min-h-[1123px] bg-white text-neutral-900 shadow-sm rounded border border-neutral-200 p-[60px] relative">
-                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3] rounded-t"></div>
-                    <div id="visual-editor" contenteditable="true" class="sop-container w-full min-h-[1000px]"></div>
-                </div>
+            <div id="loader" class="hidden flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-2">
+                <div class="w-5 h-5 border-2 border-neutral-900 border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-[11px] text-neutral-500 tracking-wide">Sincronizando con base central...</p>
             </div>
         </main>
-
-        <!-- Columna 3: Publicación y Acceso a GitHub (280px) -->
-        <aside class="w-[280px] shrink-0 flex flex-col justify-between bg-white border border-neutral-200 rounded p-4 shadow-sm">
-            <div class="space-y-4">
-                <div class="border-b border-neutral-100 pb-2">
-                    <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">4. Publicación</div>
-                    <p class="text-[11px] text-neutral-500 mt-1">Copiá el código limpio validado bajo el estándar P-00 para guardar en el repositorio.</p>
-                </div>
-
-                <div class="space-y-2">
-                    <div class="text-[11px] font-mono text-neutral-500 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate font-bold" id="file-path-indicator">sops/??.html</div>
-                    <button onclick="copyCleanHtml()" id="btn-copy" class="w-full bg-neutral-900 hover:bg-black text-white font-bold text-xs py-3 rounded transition flex items-center justify-center space-x-2 shadow-sm">
-                        <span>📋 Copiar Código del Manual</span>
-                    </button>
-                    <button onclick="openGitHubDirect()" class="w-full bg-neutral-50 hover:bg-neutral-100 text-neutral-700 border border-neutral-200 font-semibold text-xs py-2 rounded transition flex items-center justify-center space-x-1.5">
-                        <span>↗ Abrir Archivo en GitHub Web</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="border-t border-neutral-100 pt-3">
-                <button onclick="toggleGuideDrawer()" class="w-full bg-neutral-50 hover:bg-neutral-100 text-neutral-600 border border-neutral-200 text-[11px] font-medium py-2 rounded transition text-center">
-                    Ver Guía de Flujo y Reglas
-                </button>
-            </div>
-        </aside>
-    </div>
-
-    <!-- Backdrop del Drawer -->
-    <div id="guide-drawer-backdrop" onclick="toggleGuideDrawer()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity"></div>
-
-    <!-- Drawer Lateral Deslizante: Guía y Estándar P-00 -->
-    <div id="guide-drawer" class="fixed top-0 right-0 h-full w-full max-w-[500px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-neutral-200">
-        
-        <div class="p-5 border-b border-neutral-200 bg-neutral-50 flex items-center justify-between shrink-0">
-            <div class="flex items-center space-x-2">
-                <span class="text-base">📖</span>
-                <div>
-                    <h2 class="text-xs font-bold text-neutral-900 uppercase tracking-widest">Manual de Uso y Estándar P-00</h2>
-                    <p class="text-[11px] text-neutral-500">Referencia de trabajo para el equipo de Operaciones</p>
-                </div>
-            </div>
-            <button onclick="toggleGuideDrawer()" class="w-7 h-7 rounded-full bg-neutral-200/70 hover:bg-neutral-300 text-neutral-700 flex items-center justify-center font-bold text-xs transition">✕</button>
-        </div>
-
-        <div class="flex-1 p-6 overflow-y-auto space-y-6 text-neutral-800 text-xs leading-relaxed">
-            
-            <div class="space-y-2.5">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">1. Herramientas del Sistema</div>
-                <div class="space-y-2">
-                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
-                        <strong class="text-neutral-900 block mb-0.5">🧠 Gemini (Chat)</strong>
-                        <span>Para pensar la estrategia, redactar borradores extensos o definir cambios operativos.</span>
-                    </div>
-                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
-                        <strong class="text-neutral-900 block mb-0.5">🖥️ Consola Admin (Esta Pantalla)</strong>
-                        <span>Para maquetar con formato oficial, ver la hoja real y ajustar el texto antes de publicar.</span>
-                    </div>
-                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
-                        <strong class="text-neutral-900 block mb-0.5">☁️ GitHub Web</strong>
-                        <span>Donde se guardan los archivos finales (carpeta <code>sops/</code> y listado <code>menu.json</code>).</span>
-                    </div>
-                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
-                        <strong class="text-neutral-900 block mb-0.5">📱 App de Sucursales (index.html)</strong>
-                        <span>La pantalla limpia de lectura que consultan las vendedoras en cada local.</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-2.5">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">2. Paso a Paso para Publicar</div>
-                
-                <div class="bg-neutral-50 p-3 rounded border border-neutral-200/80 space-y-1.5">
-                    <strong class="text-neutral-900 text-xs block">Caso A: Modificar un manual existente</strong>
-                    <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
-                        <li>Elegí el manual en el selector.</li>
-                        <li>Escribí la instrucción y clic en <em>"Generar Vista Previa con IA"</em> (o editalo directo en la hoja).</li>
-                        <li>Clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
-                        <li>Clic en <strong>"↗ Abrir Archivo en GitHub Web"</strong>, pegá el contenido (`Ctrl+V`) y tocá <strong>Commit changes</strong>.</li>
-                    </ol>
-                </div>
-
-                <div class="bg-neutral-50 p-3 rounded border border-neutral-200/80 space-y-1.5">
-                    <strong class="text-neutral-900 text-xs block">Caso B: Crear un manual nuevo</strong>
-                    <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
-                        <li>Elegí <em>"➕ [CREAR NUEVO PROCEDIMIENTO]"</em> y completá ID (ej: <code>p11</code>) y Título.</li>
-                        <li>Pegá el borrador y clic en <em>"Generar Vista Previa con IA"</em>.</li>
-                        <li>Clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
-                        <li>Creá el archivo en GitHub en <code>sops/p11.html</code> pegando el código, y agregá la fila al <code>menu.json</code>.</li>
-                    </ol>
-                </div>
-            </div>
-
-            <div class="space-y-2.5">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">3. Emojis Oficiales de Nazaria</div>
-                
-                <div class="bg-neutral-50 p-3 rounded border border-neutral-200/80 space-y-1.5">
-                    <ul class="space-y-1 text-neutral-600">
-                        <li>🖥️ <strong>Sistemas:</strong> Dux Software, consultas en PC y reportes.</li>
-                        <li>📱 <strong>Celular:</strong> WhatsApp del local, formularios y redes sociales.</li>
-                        <li>💳 <strong>Tarjetas:</strong> Payway, Nave, Mercado Pago y cupones.</li>
-                        <li>💵 <strong>Efectivo:</strong> Caja chica, cambio y arqueos de turno.</li>
-                        <li>📦 <strong>Mercadería:</strong> Stock, recepción de cajas, Correo Argentino y auditorías.</li>
-                        <li>✨ <strong>Atención:</strong> Saludo inicial, estética, ventas y fidelización.</li>
-                        <li>⚠ <strong>Reglas de Oro:</strong> Errores críticos que no se pueden cometer (cierre obligatorio).</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="p-4 border-t border-neutral-200 bg-neutral-50 text-center shrink-0">
-            <button onclick="toggleGuideDrawer()" class="w-full bg-neutral-900 hover:bg-black text-white font-bold text-xs py-2.5 rounded transition">
-                Entendido, volver a la consola
-            </button>
-        </div>
     </div>
 
     <script>
-        const GITHUB_USER = "juanoviedo1987-droid";
-        const GITHUB_REPO = "sops-nazaria";
-        let currentSopCode = "";
-        let fullMenuData = [];
+        let currentSopCode = null;
 
         window.onload = function() {
-            if (localStorage.getItem('gemini_key')) {
-                document.getElementById('gemini-key').value = localStorage.getItem('gemini_key');
-            }
-            loadMenu();
+            loadDynamicMenu();
         };
 
-        function toggleGuideDrawer() {
-            const drawer = document.getElementById('guide-drawer');
-            const backdrop = document.getElementById('guide-drawer-backdrop');
-            if (drawer.classList.contains('translate-x-full')) {
-                drawer.classList.remove('translate-x-full');
-                backdrop.classList.remove('hidden');
-            } else {
-                drawer.classList.add('translate-x-full');
-                backdrop.classList.add('hidden');
-            }
-        }
-
-        function saveKey() {
-            const gKey = document.getElementById('gemini-key').value.trim();
-            localStorage.setItem('gemini_key', gKey);
-            logToConsole("Gemini API Key guardada en LocalStorage.");
-        }
-
-        function logToConsole(msg, isError = false) {
-            const consoleBox = document.getElementById('console-output');
-            consoleBox.innerHTML += `<div class="py-0.5"><span class="text-neutral-400">[${new Date().toLocaleTimeString()}]</span> <span class="${isError ? 'text-red-600 font-bold' : 'text-neutral-800'}">${msg}</span></div>`;
-            consoleBox.scrollTop = consoleBox.scrollHeight;
-        }
-
-        function getSelectedId() {
-            const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
-            let id = isNew 
-                ? document.getElementById('new-id').value.trim().toLowerCase()
-                : currentSopCode.trim().toLowerCase();
-            return id.replace(/^sops\//, '').replace(/\.html$/, '').trim();
-        }
-
-        async function loadMenu() {
+        // LÓGICA CORE: Leer manifiesto menu.json e inyectar botones en sidebar
+        async function loadDynamicMenu() {
+            const container = document.getElementById('sop-menu-container');
             try {
-                const response = await fetch(`./menu.json?t=${Date.now()}`);
-                if (!response.ok) throw new Error("No se pudo cargar menu.json central.");
-                fullMenuData = await response.json();
+                const response = await fetch(`./menu.json?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error("Falta archivo menu.json central.");
                 
-                const selector = document.getElementById('sop-selector');
-                selector.innerHTML = '<option value="">-- Seleccionar SOP --</option>';
-                fullMenuData.forEach(item => {
-                    selector.innerHTML += `<option value="${item.id}">${item.title}</option>`;
+                const menuItems = await response.json();
+                container.innerHTML = ""; // Limpiar contenedor
+
+                menuItems.forEach(item => {
+                    // Separamos el código (P-01) del nombre para el formateo del badge
+                    const titleParts = item.title.split(' · ');
+                    const badgeText = titleParts[0] || item.id.toUpperCase();
+                    const nameText = titleParts[1] || item.title;
+
+                    container.innerHTML += `
+                        <button onclick="loadSOP('${item.id}')" id="btn-${item.id}" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
+                            <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded shrink-0">${badgeText}</span>
+                            <span class="text-xs truncate tracking-wide">${nameText}</span>
+                        </button>
+                    `;
                 });
-                selector.innerHTML += `<option value="NEW_SOP">➕ [CREAR NUEVO PROCEDIMIENTO]</option>`;
-                logToConsole("menu.json sincronizado correctamente.");
             } catch (error) {
-                logToConsole(error.message, true);
+                console.error(error);
+                container.innerHTML = `<p class="text-xs text-red-600 px-3">Error al inicializar menú central.</p>`;
             }
         }
 
-        function handleSopSelection() {
-            const selector = document.getElementById('sop-selector');
-            const newFields = document.getElementById('new-sop-fields');
-            const pathIndicator = document.getElementById('file-path-indicator');
-            const emptyState = document.getElementById('empty-state');
-            const sheetWrapper = document.getElementById('sheet-wrapper');
-            const mainScroll = document.getElementById('main-scroll');
-            
-            if (selector.value === "NEW_SOP") {
-                emptyState.classList.add('hidden');
-                sheetWrapper.classList.remove('hidden');
-                sheetWrapper.classList.add('flex');
-                newFields.classList.remove('hidden');
-                document.getElementById('mode-scratch').checked = true;
-                pathIndicator.innerText = "sops/nuevo.html";
-                document.getElementById('visual-editor').innerHTML = `<h1 class="sop-title-1">P-XX · Título del Procedimiento</h1>\n<p class="sop-text">Escribí acá el objetivo del procedimiento...</p>\n<hr class="sop-divider">\n<h2 class="sop-title-2">FASE 1: EJECUCIÓN</h2>\n<p class="sop-text">Detalle operativo.</p>\n<hr class="sop-divider">\n<h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>\n<ul class="sop-warning-list">\n  <li class="sop-warning-item">⚠ <strong>[Punto Crítico]:</strong> Descripción obligatoria.</li>\n</ul>`;
-                currentSopCode = "NEW";
-                if (mainScroll) mainScroll.scrollTop = 0;
-            } else if (selector.value) {
-                emptyState.classList.add('hidden');
-                sheetWrapper.classList.remove('hidden');
-                sheetWrapper.classList.add('flex');
-                newFields.classList.add('hidden');
-                document.getElementById('mode-modify').checked = true;
-                currentSopCode = selector.value.trim().toLowerCase();
-                fetchCurrentSOP();
-            } else {
-                sheetWrapper.classList.add('hidden');
-                sheetWrapper.classList.remove('flex');
-                emptyState.classList.remove('hidden');
-                newFields.classList.add('hidden');
-                pathIndicator.innerText = "sops/??.html";
-                currentSopCode = "";
-            }
-        }
+        async function loadSOP(sopCode) {
+            currentSopCode = sopCode;
+            const welcomeCard = document.getElementById('welcome-card');
+            const sopViewCard = document.getElementById('sop-view-card');
+            const loader = document.getElementById('loader');
+            const sopContent = document.getElementById('sop-content');
 
-        async function fetchCurrentSOP() {
-            document.getElementById('file-path-indicator').innerText = `sops/${currentSopCode}.html`;
-            const mainScroll = document.getElementById('main-scroll');
-            try {
-                const response = await fetch(`./sops/${currentSopCode}.html?t=${Date.now()}`);
-                if (!response.ok) { 
-                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico en sops/.</p>';
-                    return; 
-                }
-                const html = await response.text();
-                document.getElementById('visual-editor').innerHTML = html;
-                if (mainScroll) mainScroll.scrollTop = 0;
-                logToConsole(`SOP cargado: ${currentSopCode.toUpperCase()}`);
-            } catch (error) { 
-                logToConsole(error.message, true); 
-            }
-        }
-
-        async function processSOPModification() {
-            const instruction = document.getElementById('instruction-input').value.trim();
-            const geminiKey = localStorage.getItem('gemini_key');
-            const btn = document.getElementById('btn-process');
-            const editor = document.getElementById('visual-editor');
-            const mode = document.querySelector('input[name="operation-mode"]:checked').value;
-            const mainScroll = document.getElementById('main-scroll');
-
-            if (!geminiKey) { alert("Configurá tu Gemini API Key en la cabecera."); return; }
-            if (!currentSopCode) { alert("Seleccioná un SOP o creá uno nuevo."); return; }
-            if (!instruction) { alert("Ingresá la directiva de cambio o el texto borrador."); return; }
-
-            btn.disabled = true;
-            btn.innerText = "⏳ Procesando con IA...";
-            logToConsole("Llamando a Gemini 2.5 Flash...");
-
-            const systemPrompt = `Sos el Lead Operations Engineer de Nazaria. Tu tarea es generar fragmentos HTML limpios para manuales cumpliendo estrictamente el estándar P-00.
-
-REGLAS OBLIGATORIAS:
-- PROHIBIDO usar <!DOCTYPE html>, <html>, <head> o <body>.
-- PROHIBIDO responder con delimitadores markdown (\`\`\`html o \`\`\`). Tu respuesta debe ser ÚNICAMENTE el fragmento HTML puro.
-- Jerarquía CSS requerida:
-  * Título Principal: <h1 class="sop-title-1">P-XX · Nombre de Manual</h1> (22pt, bold, #000000)
-  * Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE</h2> (13pt, bold, #000000, mayúsculas, border-bottom)
-  * Sub-bloque: <h3 class="sop-title-3">X. Nombre de Sección</h3> (11pt, bold, #404040)
-  * Párrafo: <p class="sop-text">Texto justificado explicativo.</p> (11pt, #1A1A1A)
-  * Listas de Tareas: <ul class="sop-list"><li class="sop-list-item">[Emoji] <strong>Título del Paso:</strong> Detalle operativo.</li></ul>
-  * Citas/Ejemplos: <blockquote class="sop-blockquote">Ejemplo: "Texto de referencia"</blockquote>
-  * Separador: <hr class="sop-divider"> (Colocar tras el Objetivo y al final de cada Fase).
-  * Reglas de Oro (Cierre Obligatorio):
-    <hr class="sop-divider">
-    <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
-    <ul class="sop-warning-list">
-      <li class="sop-warning-item">⚠ <strong>[Regla]:</strong> Descripción del punto crítico.</li>
-    </ul>
-
-ASIGNACIÓN DE EMOJIS:
-🖥️ -> Dux Software / Sistemas | 📱 -> WhatsApp / Redes / Formularios | 💳 -> Pagos digitales / Tarjetas / Payway | 💵 -> Efectivo / Caja Chica | 📦 -> Stock / Envíos / Auditorías | ✨ -> Atención al Cliente / Fidelización`;
-
-            let userPrompt = mode === "scratch" 
-                ? `GENERAR MANUAL COMPLETO DESDE CERO CON ESTE TEXTO BORRADOR:\n${instruction}` 
-                : `MODIFICAR EL SIGUIENTE MANUAL EXISTENTE APLICANDO LA INSTRUCCIÓN:\n\nHTML ACTUAL:\n${editor.innerHTML}\n\nINSTRUCCIÓN DE CAMBIO:\n${instruction}`;
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: userPrompt }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] }
-                    })
-                });
-
-                if (!response.ok) {
-                    const errData = await response.json().catch(() => ({}));
-                    throw new Error(errData.error?.message || `HTTP ${response.status}`);
-                }
-
-                const resData = await response.json();
-                let outputHtml = resData.candidates[0].content.parts[0].text.trim();
-
-                if (outputHtml.startsWith("```html")) outputHtml = outputHtml.substring(7);
-                else if (outputHtml.startsWith("```")) outputHtml = outputHtml.substring(3);
-                if (outputHtml.endsWith("```")) outputHtml = outputHtml.substring(0, outputHtml.length - 3);
-
-                editor.innerHTML = outputHtml.trim();
-                if (mainScroll) mainScroll.scrollTop = 0;
-                logToConsole("Vista previa generada con éxito.");
-            } catch (error) { 
-                logToConsole(`Error IA: ${error.message}`, true);
-                alert(`Error al generar vista previa: ${error.message}`);
-            } finally { 
-                btn.disabled = false; 
-                btn.innerText = "✨ Generar Vista Previa con IA";
-            }
-        }
-
-        function copyCleanHtml() {
-            const editor = document.getElementById('visual-editor');
-            const btnCopy = document.getElementById('btn-copy');
-            const rawContent = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
-            
-            navigator.clipboard.writeText(rawContent).then(() => {
-                const originalContent = btnCopy.innerHTML;
-                btnCopy.innerHTML = "<span>✔ ¡Código Copiado!</span>";
-                btnCopy.classList.remove('bg-neutral-900', 'hover:bg-black');
-                btnCopy.classList.add('bg-emerald-700', 'hover:bg-emerald-800');
-                
-                setTimeout(() => {
-                    btnCopy.innerHTML = originalContent;
-                    btnCopy.classList.remove('bg-emerald-700', 'hover:bg-emerald-800');
-                    btnCopy.classList.add('bg-neutral-900', 'hover:bg-black');
-                }, 2000);
-
-                logToConsole("HTML estándar copiado al portapapeles.");
-            }).catch(() => {
-                logToConsole("Error al copiar al portapapeles.", true);
+            // Resetear estados visuales en la barra lateral dinámica
+            document.querySelectorAll('#sop-menu-container button').forEach(btn => {
+                btn.classList.remove('bg-black', 'text-white', 'border-black');
+                btn.classList.add('bg-neutral-50', 'text-neutral-700');
             });
-        }
 
-        function openGitHubDirect() {
-            const finalId = getSelectedId();
-            if (!finalId || finalId === "new") {
-                alert("Seleccioná o definí un ID de SOP primero.");
-                return;
+            const activeBtn = document.getElementById(`btn-${sopCode}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-neutral-50', 'text-neutral-700');
+                activeBtn.classList.add('bg-black', 'text-white', 'border-black');
             }
-            const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
-            const targetUrl = isNew 
-                ? `[https://github.com/$](https://github.com/$){GITHUB_USER}/${GITHUB_REPO}/new/main/sops?filename=${finalId}.html`
-                : `[https://github.com/$](https://github.com/$){GITHUB_USER}/${GITHUB_REPO}/edit/main/sops/${finalId}.html`;
-            window.open(targetUrl, '_blank');
+
+            welcomeCard.classList.add('hidden');
+            sopViewCard.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`./sops/${sopCode}.html?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error('SOP no disponible.');
+
+                const htmlContent = await response.text();
+                sopContent.innerHTML = htmlContent;
+                
+                loader.classList.add('hidden');
+                sopViewCard.classList.remove('hidden');
+            } catch (error) {
+                loader.classList.add('hidden');
+                sopContent.innerHTML = `
+                    <h1 class="sop-title-1 text-neutral-900">Documento en Actualización</h1>
+                    <p class="sop-text">El archivo técnico <b>${sopCode.toUpperCase()}</b> está siendo procesado o modificado en la consola de control de la empresa.</p>
+                `;
+                sopViewCard.classList.remove('hidden');
+            }
         }
     </script>
 </body>
 </html>
+index.html
+Displaying index.html.
