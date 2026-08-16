@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS estricta con P-00 */
+        /* Paridad CSS estricta con P-00 de index.html */
         .sop-editor-sheet {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -19,6 +19,7 @@
             outline: none;
         }
         .sop-editor-sheet h1, .sop-editor-sheet .sop-title-1 {
+            font-family: 'Inter', sans-serif !important;
             font-size: 22pt !important;
             font-weight: 700 !important;
             color: #000000 !important;
@@ -28,6 +29,7 @@
             letter-spacing: -0.02em !important;
         }
         .sop-editor-sheet h2, .sop-editor-sheet .sop-title-2 {
+            font-family: 'Inter', sans-serif !important;
             font-size: 13pt !important;
             font-weight: 700 !important;
             color: #000000 !important;
@@ -40,6 +42,7 @@
             padding-bottom: 4px !important;
         }
         .sop-editor-sheet h3, .sop-editor-sheet .sop-title-3 {
+            font-family: 'Inter', sans-serif !important;
             font-size: 11pt !important;
             font-weight: 700 !important;
             color: #404040 !important;
@@ -127,14 +130,14 @@
         </div>
         <div class="flex flex-wrap items-center gap-2">
             <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-44 focus:outline-none focus:border-black">
-            <input type="password" id="github-token" placeholder="GitHub PAT (repo scope)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:outline-none focus:border-black">
+            <input type="password" id="github-token" placeholder="GitHub Personal Token (PAT)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:outline-none focus:border-black">
             <button onclick="saveKeys()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llaves</button>
         </div>
     </header>
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Configuración -->
+        <!-- Panel de Control y Configuración -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
@@ -184,7 +187,7 @@
             </div>
         </div>
 
-        <!-- Área de Edición WYSIWYG -->
+        <!-- Área de Edición Visual WYSIWYG -->
         <div class="lg:col-span-6 flex flex-col">
             <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
@@ -200,7 +203,7 @@
         <div class="lg:col-span-2 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm">
             <div class="space-y-4">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Despliegue</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">El botón compila el contenido del editor, sincroniza el SHA correspondiente y actualiza la rama <strong>main</strong> de GitHub Pages.</p>
+                <p class="text-xs text-neutral-500 leading-relaxed">El botón compila el contenido del editor, resuelve el SHA correspondiente y actualiza la rama <strong>main</strong> de GitHub Pages.</p>
             </div>
             <div class="space-y-3">
                 <div class="text-[10px] font-mono text-neutral-400 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
@@ -214,7 +217,6 @@
     <script>
         const GITHUB_USER = "juanoviedo1987-droid";
         const GITHUB_REPO = "sops-nazaria";
-        const GITHUB_BRANCH = "main";
         let currentSopSha = null;
         let currentSopCode = null;
         let menuSha = null;
@@ -226,20 +228,17 @@
             loadMenuFromGitHub();
         };
 
-        function getAuthHeaders(token) {
-            return {
-                "Authorization": `Bearer ${token}`,
-                "Accept": "application/vnd.github+json",
-                "X-GitHub-Api-Version": "2022-11-28"
-            };
+        function getCleanToken() {
+            const raw = localStorage.getItem('github_token') || document.getElementById('github-token').value || "";
+            return raw.replace(/^(Bearer|token)\s+/i, '').trim();
         }
 
         function saveKeys() {
             const gKey = document.getElementById('gemini-key').value.trim();
-            const ghToken = document.getElementById('github-token').value.trim();
+            const ghToken = getCleanToken();
             localStorage.setItem('gemini_key', gKey);
             localStorage.setItem('github_token', ghToken);
-            logToConsole("Credenciales persistidas en LocalStorage.");
+            logToConsole("Credenciales guardadas.");
             loadMenuFromGitHub();
         }
 
@@ -249,32 +248,18 @@
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
-        async function getFileSha(path, token) {
-            try {
-                const res = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}?ref=${GITHUB_BRANCH}`, {
-                    headers: getAuthHeaders(token),
-                    cache: "no-store"
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    return data.sha;
-                }
-            } catch (e) {
-                console.warn("No se pudo obtener SHA previo para:", path);
-            }
-            return null;
-        }
-
         async function loadMenuFromGitHub() {
-            const token = localStorage.getItem('github_token');
+            const token = getCleanToken();
             if(!token) {
                 logToConsole("Falta configurar el GitHub Personal Token (PAT).", true);
                 return;
             }
             try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json?ref=${GITHUB_BRANCH}`, {
-                    headers: getAuthHeaders(token),
-                    cache: "no-store"
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
+                    headers: { 
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
                 });
                 if(!response.ok) {
                     const err = await response.json().catch(() => ({}));
@@ -317,16 +302,18 @@
         }
 
         async function fetchCurrentSOP() {
-            const token = localStorage.getItem('github_token');
+            const token = getCleanToken();
             document.getElementById('file-path-indicator').innerText = `sops/${currentSopCode}.html`;
             try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html?ref=${GITHUB_BRANCH}`, {
-                    headers: getAuthHeaders(token),
-                    cache: "no-store"
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`, {
+                    headers: { 
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
                 });
                 if (!response.ok) { 
                     currentSopSha = null;
-                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido previo.</p>';
+                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico en sops/.</p>';
                     return; 
                 }
                 const data = await response.json();
@@ -413,7 +400,7 @@ ASIGNACIÓN DE EMOJIS:
         }
 
         async function pushToGitHub() {
-            const token = localStorage.getItem('github_token');
+            const token = getCleanToken();
             const editor = document.getElementById('visual-editor');
             const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
             const btnSave = document.getElementById('btn-save');
@@ -440,37 +427,52 @@ ASIGNACIÓN DE EMOJIS:
                     return;
                 }
             } else {
-                finalId = finalId.toLowerCase().replace(/^sops\//, '').replace(/\.html$/, '');
+                finalId = String(finalId).toLowerCase().replace(/^sops\//, '').replace(/\.html$/, '');
             }
 
-            if (!finalId || finalId === "new") {
-                alert("Seleccioná un SOP válido.");
+            if (!finalId || finalId === "new" || finalId === "null" || finalId === "undefined") {
+                alert("Seleccioná un SOP válido antes de publicar.");
                 return;
             }
 
-            const finalContent = editor.innerHTML;
-            const base64Content = btoa(unescape(encodeURIComponent(finalContent)));
+            const rawContent = editor.innerHTML.trim();
+            const cleanContent = rawContent.replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
+            const base64Content = btoa(unescape(encodeURIComponent(cleanContent)));
             
             btnSave.disabled = true;
             btnSave.innerText = "Publicando...";
 
             try {
-                // 1. Obtener SHA dinámico del archivo HTML en sops/
-                const targetSha = await getFileSha(`sops/${finalId}.html`, token);
+                // 1. Obtener SHA en tiempo real del archivo en sops/
+                let targetSha = null;
+                try {
+                    const checkRes = await fetch(`[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`, {
+                        headers: {
+                            "Authorization": `token ${token}`,
+                            "Accept": "application/vnd.github.v3+json"
+                        }
+                    });
+                    if (checkRes.ok) {
+                        const fileData = await checkRes.json();
+                        targetSha = fileData.sha;
+                    }
+                } catch(e) {
+                    console.warn("Verificando existencia previa del archivo...");
+                }
 
-                // 2. Commit del archivo HTML en /sops/ sobre rama main
+                // 2. Commit del archivo HTML en /sops/
                 const urlHtml = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
                 const payloadHtml = { 
                     message: `Ops Control: Publicar sops/${finalId}.html`, 
-                    content: base64Content,
-                    branch: GITHUB_BRANCH
+                    content: base64Content
                 };
                 if (targetSha) payloadHtml.sha = targetSha;
                 
                 const resHtml = await fetch(urlHtml, { 
                     method: 'PUT', 
                     headers: {
-                        ...getAuthHeaders(token),
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
                         "Content-Type": "application/json"
                     }, 
                     body: JSON.stringify(payloadHtml) 
@@ -485,18 +487,22 @@ ASIGNACIÓN DE EMOJIS:
 
                 // 3. Sincronizar manifiesto menu.json si es un SOP nuevo
                 if (isNew) {
-                    const menuShaLatest = await getFileSha("menu.json", token);
-                    const urlMenu = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json?ref=${GITHUB_BRANCH}`;
-                    const menuRes = await fetch(urlMenu, {
-                        headers: getAuthHeaders(token),
-                        cache: "no-store"
-                    });
-                    
+                    let latestMenuSha = menuSha;
                     let currentMenuData = fullMenuData;
-                    if (menuRes.ok) {
-                        const mData = await menuRes.json();
-                        currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mData.content.replace(/\s/g, '')))));
-                    }
+
+                    try {
+                        const menuRes = await fetch(`[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
+                            headers: {
+                                "Authorization": `token ${token}`,
+                                "Accept": "application/vnd.github.v3+json"
+                            }
+                        });
+                        if (menuRes.ok) {
+                            const mData = await menuRes.json();
+                            latestMenuSha = mData.sha;
+                            currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mData.content.replace(/\s/g, '')))));
+                        }
+                    } catch(e) {}
 
                     const existsIndex = currentMenuData.findIndex(item => item.id === finalId);
                     if (existsIndex >= 0) {
@@ -509,14 +515,14 @@ ASIGNACIÓN DE EMOJIS:
                     const payloadMenu = { 
                         message: `Ops Control: Registrar ${finalId} en menu.json`, 
                         content: base64Menu, 
-                        branch: GITHUB_BRANCH,
-                        sha: menuShaLatest || menuSha 
+                        sha: latestMenuSha 
                     };
                     
                     const resMenu = await fetch(`[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
                         method: 'PUT',
                         headers: {
-                            ...getAuthHeaders(token),
+                            "Authorization": `token ${token}`,
+                            "Accept": "application/vnd.github.v3+json",
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify(payloadMenu)
