@@ -10,15 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS estricta con el estándar P-00 (index.html) */
-        .sop-editor-sheet {
+        /* Paridad CSS exacta con el estándar P-00 (index.html) */
+        .sop-container {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
             color: #1A1A1A !important;
             font-size: 11pt !important;
             outline: none;
         }
-        .sop-editor-sheet h1, .sop-editor-sheet .sop-title-1 {
+        .sop-title-1 {
             font-family: 'Inter', sans-serif !important;
             font-size: 22pt !important;
             font-weight: 700 !important;
@@ -28,7 +28,7 @@
             line-height: 1.25 !important;
             letter-spacing: -0.02em !important;
         }
-        .sop-editor-sheet h2, .sop-editor-sheet .sop-title-2 {
+        .sop-title-2 {
             font-family: 'Inter', sans-serif !important;
             font-size: 13pt !important;
             font-weight: 700 !important;
@@ -41,7 +41,7 @@
             border-bottom: 2px solid #1A1A1A !important;
             padding-bottom: 4px !important;
         }
-        .sop-editor-sheet h3, .sop-editor-sheet .sop-title-3 {
+        .sop-title-3 {
             font-family: 'Inter', sans-serif !important;
             font-size: 11pt !important;
             font-weight: 700 !important;
@@ -50,28 +50,28 @@
             margin-bottom: 6pt !important;
             line-height: 1.25 !important;
         }
-        .sop-editor-sheet p, .sop-editor-sheet .sop-text {
+        .sop-text {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             text-align: justify !important;
         }
-        .sop-editor-sheet ul.sop-list {
+        .sop-list {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             padding-left: 15pt !important;
             list-style-type: none !important;
         }
-        .sop-editor-sheet li.sop-list-item {
+        .sop-list-item {
             margin-bottom: 6pt !important;
             position: relative !important;
         }
-        .sop-editor-sheet hr, .sop-editor-sheet .sop-divider {
+        .sop-divider {
             border: none !important;
             border-top: 1px solid #E5E5E5 !important;
             margin-top: 24pt !important;
             margin-bottom: 24pt !important;
         }
-        .sop-editor-sheet blockquote, .sop-editor-sheet .sop-blockquote {
+        .sop-blockquote {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             margin-left: 0px !important;
@@ -81,13 +81,13 @@
             font-style: italic !important;
             color: #525252 !important;
         }
-        .sop-editor-sheet ul.sop-warning-list {
+        .sop-warning-list {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             padding-left: 15pt !important;
             list-style-type: none !important;
         }
-        .sop-editor-sheet li.sop-warning-item {
+        .sop-warning-item {
             margin-bottom: 8pt !important;
             color: #000000 !important;
             font-weight: 600 !important;
@@ -96,7 +96,7 @@
             border-left: 3px solid #000000 !important;
             border-radius: 4px !important;
         }
-        .sop-editor-sheet table {
+        .sop-container table {
             width: 100% !important;
             border-collapse: collapse !important;
             margin-top: 14pt !important;
@@ -104,14 +104,14 @@
             font-size: 10pt !important;
             text-align: left !important;
         }
-        .sop-editor-sheet th {
+        .sop-container th {
             padding: 10px !important;
             font-weight: 700 !important;
             background-color: #F5F5F5 !important;
             border: 1px solid #E5E5E5 !important;
             color: #000000 !important;
         }
-        .sop-editor-sheet td {
+        .sop-container td {
             padding: 10px !important;
             border: 1px solid #E5E5E5 !important;
             vertical-align: top !important;
@@ -125,25 +125,24 @@
             <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
             <div>
                 <h1 class="text-sm font-bold text-black tracking-widest uppercase">NAZARIA OPS <span class="ml-2 text-[9px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">ADMIN CONTROL</span></h1>
-                <p class="text-[11px] text-neutral-500">Consola de Mantenimiento y Despliegue de Manuales</p>
+                <p class="text-[11px] text-neutral-500">Consola de Mantenimiento y Redacción de Manuales</p>
             </div>
         </div>
-        <div class="flex flex-wrap items-center gap-2">
-            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-44 focus:outline-none focus:border-black">
-            <input type="password" id="github-token" placeholder="GitHub Personal Token (PAT)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:outline-none focus:border-black">
-            <button onclick="saveKeys()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llaves</button>
+        <div class="flex items-center gap-2">
+            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-60 focus:outline-none focus:border-black">
+            <button onclick="saveKey()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llave</button>
         </div>
     </header>
 
-    <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
+    <div class="flex-1 max-w-[1900px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel Lateral de Configuración -->
-        <div class="lg:col-span-4 flex flex-col space-y-4">
+        <!-- Panel Izquierdo: Controles de IA -->
+        <div class="lg:col-span-3 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">1. Seleccionar o Crear Manual</label>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">1. Seleccionar Manual</label>
                     <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 font-medium focus:outline-none focus:border-black">
-                        <option value="">-- Cargando menú... --</option>
+                        <option value="">-- Cargando menú central... --</option>
                     </select>
                 </div>
 
@@ -162,18 +161,18 @@
                     <div class="flex flex-col space-y-2 text-xs font-medium bg-neutral-50 border border-neutral-200 p-3 rounded">
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-modify" value="modify" checked class="accent-black">
-                            <span>Modificar sobre el archivo existente</span>
+                            <span>Modificar sobre el archivo actual</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-scratch" value="scratch" class="accent-black">
-                            <span>Formatear borrador crudo desde cero (Reemplazar)</span>
+                            <span>Maquetar borrador crudo desde cero</span>
                         </label>
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">3. Directiva o Texto Crudo</label>
-                    <textarea id="instruction-input" rows="5" placeholder="Escribí la instrucción de cambio o pegá el texto de operaciones..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
+                    <textarea id="instruction-input" rows="5" placeholder="Escribí la instrucción de ajuste o pegá el borrador operativo..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
                 </div>
 
                 <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-800 py-3 rounded uppercase tracking-widest transition shadow-sm">
@@ -182,36 +181,38 @@
             </div>
 
             <div class="bg-white border border-neutral-200 rounded p-4 flex-1 flex flex-col min-h-[120px] shadow-sm">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Consola de Estado y Eventos</div>
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Consola de Estado</div>
                 <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-600 overflow-y-auto max-h-[150px] space-y-1">> Consola lista.</div>
             </div>
         </div>
 
-        <!-- Área de Edición Visual WYSIWYG -->
-        <div class="lg:col-span-5 flex flex-col">
-            <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
-                <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
-                <div class="flex items-center justify-between mb-3 border-b border-neutral-100 pb-2">
-                    <label class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Hoja de Edición Visual Directa (Editable)</label>
-                    <span id="editor-indicator" class="text-[10px] text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">DOM Activo</span>
-                </div>
-                <div id="visual-editor" contenteditable="true" class="flex-1 bg-white border border-neutral-100 rounded p-8 overflow-y-auto max-h-[680px] text-neutral-900 shadow-inner sop-editor-sheet"></div>
+        <!-- Panel Central: Hoja de Edición Visual Real (820px exacto) -->
+        <div class="lg:col-span-6 flex flex-col items-center bg-[#FAF9F6] border border-neutral-200 rounded p-6 shadow-sm overflow-y-auto max-h-[calc(100vh-120px)]">
+            <div class="w-full max-w-[820px] mb-2 flex items-center justify-between">
+                <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Hoja de Visualización y Edición Directa</span>
+                <span class="text-[10px] text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">DOM Activo (Editable)</span>
+            </div>
+            
+            <div class="bg-white text-neutral-900 w-full max-w-[820px] min-h-[1050px] shadow-sm rounded border border-neutral-200 p-[60px] relative">
+                <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
+                <div id="visual-editor" contenteditable="true" class="sop-container"></div>
             </div>
         </div>
 
-        <!-- Panel de Despliegue e Instructivo de Flujo -->
+        <!-- Panel Derecho: Acciones y Flujo Operativo -->
         <div class="lg:col-span-3 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4 overflow-y-auto">
-            <div class="space-y-4">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación y Despliegue</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">Publicá mediante la API de GitHub en la rama <strong>main</strong> o copiá el código HTML limpio P-00.</p>
-                <div class="text-[10px] font-mono text-neutral-400 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
+            <div class="space-y-3">
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación en Producción</div>
+                <p class="text-xs text-neutral-500 leading-relaxed">Generá el fragmento HTML validado bajo el estándar P-00 para impactar en GitHub.</p>
                 
-                <button onclick="pushToGitHub()" id="btn-save" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3.5 rounded uppercase tracking-widest transition shadow-md">
-                    💾 Publicar en Locales
+                <div class="text-[10px] font-mono text-neutral-500 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
+                
+                <button onclick="copyCleanHtml()" id="btn-copy" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3.5 rounded uppercase tracking-widest transition shadow-md">
+                    📋 Copiar Código del Manual
                 </button>
 
-                <button onclick="copyCleanHtml()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold text-xs py-2.5 rounded uppercase tracking-wider transition">
-                    📋 Copiar HTML P-00
+                <button onclick="openGitHubDirect()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-semibold text-xs py-2.5 rounded transition border border-neutral-200">
+                    ↗ Abrir Archivo en GitHub Web
                 </button>
             </div>
 
@@ -223,26 +224,25 @@
                     <div class="bg-neutral-50 p-2.5 rounded border border-neutral-100">
                         <strong class="text-neutral-900 block mb-1">Caso A: Modificar SOP Existente</strong>
                         <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
-                            <li>Elegí el manual en el paso 1.</li>
-                            <li>Marcá <em>"Modificar sobre el archivo existente"</em>.</li>
-                            <li>Escribí el ajuste en el paso 3 y clic en <em>"Generar Vista Previa con IA"</em>.</li>
-                            <li>Editá el texto en el panel central si es necesario.</li>
-                            <li>Clic en <strong>"💾 Publicar en Locales"</strong>.</li>
+                            <li>Elegí el manual en el selector.</li>
+                            <li>Ingresá el ajuste y clic en <em>"Generar Vista Previa con IA"</em>.</li>
+                            <li>Clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
+                            <li>Clic en <em>"Abrir Archivo en GitHub Web"</em>, pegá el contenido (`Ctrl+V`) y confirmá el commit.</li>
                         </ol>
                     </div>
 
                     <div class="bg-neutral-50 p-2.5 rounded border border-neutral-100">
                         <strong class="text-neutral-900 block mb-1">Caso B: Crear Nuevo SOP</strong>
                         <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
-                            <li>Seleccioná <em>"➕ [CREAR NUEVO PROCEDIMIENTO]"</em>.</li>
-                            <li>Ingresá ID en minúsculas (ej: <code>p11</code>) y Título oficial (ej: <code>P-11 · Nombre</code>).</li>
-                            <li>Pegá el borrador crudo en el paso 3 y generá la vista previa.</li>
-                            <li>Clic en <strong>"💾 Publicar en Locales"</strong>. El sistema creará <code>sops/p11.html</code> y registrará el botón automáticamente en <code>menu.json</code>.</li>
+                            <li>Elegí <em>"➕ [CREAR NUEVO PROCEDIMIENTO]"</em> e indicá ID y Título.</li>
+                            <li>Pegá el texto crudo y generá la maqueta con IA.</li>
+                            <li>Clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
+                            <li>Creá el archivo en GitHub Web dentro de <code>sops/pXX.html</code> y agregá la línea al <code>menu.json</code>.</li>
                         </ol>
                     </div>
 
-                    <div class="bg-amber-50/50 p-2.5 rounded border border-amber-200/50 text-[10px] text-amber-900">
-                        <strong>Estándar P-00:</strong> Prohibido incluir tags <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> o delimitadores Markdown. Usar solo fragmentos HTML limpios con clases <code>sop-*</code> y cierre obligatorio de Reglas de Oro (⚠).
+                    <div class="bg-amber-50/50 p-2.5 rounded border border-amber-200/50 text-[10px] text-amber-900 leading-relaxed">
+                        <strong>Regla P-00:</strong> Prohibido incluir tags <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> o delimitadores Markdown (```). Los archivos deben ser fragmentos HTML puros con clases <code>sop-*</code> y cierre obligatorio de Reglas de Oro (⚠).
                     </div>
                 </div>
             </div>
@@ -253,27 +253,19 @@
         const GITHUB_USER = "juanoviedo1987-droid";
         const GITHUB_REPO = "sops-nazaria";
         let currentSopCode = "";
-        let menuSha = null;
         let fullMenuData = [];
 
         window.onload = function() {
-            if (localStorage.getItem('gemini_key')) document.getElementById('gemini-key').value = localStorage.getItem('gemini_key');
-            if (localStorage.getItem('github_token')) document.getElementById('github-token').value = localStorage.getItem('github_token');
+            if (localStorage.getItem('gemini_key')) {
+                document.getElementById('gemini-key').value = localStorage.getItem('gemini_key');
+            }
             loadMenu();
         };
 
-        function getCleanToken() {
-            const raw = localStorage.getItem('github_token') || document.getElementById('github-token').value || "";
-            return raw.replace(/^(Bearer|token)\s+/i, '').replace(/["'\s]/g, '').trim();
-        }
-
-        function saveKeys() {
+        function saveKey() {
             const gKey = document.getElementById('gemini-key').value.trim();
-            const ghToken = getCleanToken();
             localStorage.setItem('gemini_key', gKey);
-            localStorage.setItem('github_token', ghToken);
-            logToConsole("Credenciales guardadas en LocalStorage.");
-            loadMenu();
+            logToConsole("Gemini API Key persistida en LocalStorage.");
         }
 
         function logToConsole(msg, isError = false) {
@@ -385,7 +377,7 @@ ASIGNACIÓN DE EMOJIS:
                 : `MODIFICAR EL SIGUIENTE MANUAL EXISTENTE APLICANDO LA INSTRUCCIÓN:\n\nHTML ACTUAL:\n${editor.innerHTML}\n\nINSTRUCCIÓN DE CAMBIO:\n${instruction}`;
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+                const response = await fetch(`[https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$](https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$){geminiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -419,150 +411,36 @@ ASIGNACIÓN DE EMOJIS:
 
         function copyCleanHtml() {
             const editor = document.getElementById('visual-editor');
+            const btnCopy = document.getElementById('btn-copy');
             const rawContent = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
+            
             navigator.clipboard.writeText(rawContent).then(() => {
-                alert("Código HTML limpio (P-00) copiado al portapapeles.");
-                logToConsole("HTML copiado al portapapeles.");
+                const originalText = btnCopy.innerHTML;
+                btnCopy.innerHTML = "✔ ¡Código Copiado!";
+                btnCopy.classList.remove('bg-black', 'hover:bg-neutral-800');
+                btnCopy.classList.add('bg-emerald-700', 'hover:bg-emerald-800');
+                
+                setTimeout(() => {
+                    btnCopy.innerHTML = originalText;
+                    btnCopy.classList.remove('bg-emerald-700', 'hover:bg-emerald-800');
+                    btnCopy.classList.add('bg-black', 'hover:bg-neutral-800');
+                }, 2000);
+
+                logToConsole("HTML estándar copiado al portapapeles.");
             });
         }
 
-        async function pushToGitHub() {
-            const token = getCleanToken();
-            const editor = document.getElementById('visual-editor');
-            const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
-            const btnSave = document.getElementById('btn-save');
+        function openGitHubDirect() {
             const finalId = getSelectedId();
-
-            if (!token) {
-                alert("Falta configurar el GitHub Personal Token (PAT) en la cabecera.");
-                return;
-            }
-
             if (!finalId || finalId === "new") {
-                alert("Seleccioná un procedimiento válido antes de publicar.");
+                alert("Seleccioná un SOP primero.");
                 return;
             }
-
-            let finalTitle = isNew ? document.getElementById('new-title').value.trim() : "";
-            if (isNew) {
-                if (!finalTitle || !finalTitle.includes(" · ")) {
-                    alert("El formato del título debe ser: 'P-XX · Nombre'");
-                    return;
-                }
-            }
-
-            const rawContent = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
-            const base64Content = btoa(unescape(encodeURIComponent(rawContent)));
-
-            btnSave.disabled = true;
-            btnSave.innerText = "Publicando...";
-            logToConsole(`Iniciando despliegue de sops/${finalId}.html...`);
-
-            try {
-                // 1. Obtener SHA del archivo
-                let targetSha = null;
-                const fileApiUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
-                
-                const checkRes = await fetch(fileApiUrl, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json"
-                    },
-                    mode: "cors",
-                    credentials: "omit"
-                });
-
-                if (checkRes.ok) {
-                    const data = await checkRes.json();
-                    targetSha = data.sha;
-                    logToConsole(`SHA existente detectado: ${targetSha.substring(0, 7)}`);
-                }
-
-                // 2. Commit del archivo HTML
-                const payloadHtml = {
-                    message: `Ops Control: Publicar sops/${finalId}.html`,
-                    content: base64Content
-                };
-                if (targetSha) payloadHtml.sha = targetSha;
-
-                const putRes = await fetch(fileApiUrl, {
-                    method: "PUT",
-                    headers: {
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json",
-                        "Content-Type": "application/json"
-                    },
-                    mode: "cors",
-                    credentials: "omit",
-                    body: JSON.stringify(payloadHtml)
-                });
-
-                if (!putRes.ok) {
-                    const err = await putRes.json().catch(() => ({}));
-                    throw new Error(err.message || `HTTP ${putRes.status}`);
-                }
-
-                logToConsole(`sops/${finalId}.html publicado.`);
-
-                // 3. Sincronizar menu.json si es nuevo
-                if (isNew) {
-                    const menuApiUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
-                    let currentMenuSha = null;
-                    let currentMenuData = fullMenuData;
-
-                    const menuGet = await fetch(menuApiUrl, {
-                        headers: {
-                            "Authorization": `token ${token}`,
-                            "Accept": "application/vnd.github.v3+json"
-                        },
-                        mode: "cors",
-                        credentials: "omit"
-                    });
-
-                    if (menuGet.ok) {
-                        const mJson = await menuGet.json();
-                        currentMenuSha = mJson.sha;
-                        currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mJson.content.replace(/\s/g, '')))));
-                    }
-
-                    const existsIdx = currentMenuData.findIndex(item => item.id === finalId);
-                    if (existsIdx >= 0) {
-                        currentMenuData[existsIdx].title = finalTitle;
-                    } else {
-                        currentMenuData.push({ id: finalId, title: finalTitle });
-                    }
-
-                    const base64Menu = btoa(unescape(encodeURIComponent(JSON.stringify(currentMenuData, null, 2))));
-                    const putMenu = await fetch(menuApiUrl, {
-                        method: "PUT",
-                        headers: {
-                            "Authorization": `token ${token}`,
-                            "Accept": "application/vnd.github.v3+json",
-                            "Content-Type": "application/json"
-                        },
-                        mode: "cors",
-                        credentials: "omit",
-                        body: JSON.stringify({
-                            message: `Ops Control: Registrar ${finalId} en menu.json`,
-                            content: base64Menu,
-                            sha: currentMenuSha
-                        })
-                    });
-
-                    if (!putMenu.ok) throw new Error("Error al actualizar menu.json");
-                    logToConsole("menu.json actualizado y sincronizado.");
-                }
-
-                alert("Procedimiento publicado con éxito en la red de locales.");
-                location.reload();
-            } catch (error) {
-                logToConsole(`Error en API: ${error.message}`, true);
-                alert(`Error en despliegue automático:\n${error.message}\n\nPodés utilizar el botón '📋 Copiar HTML P-00' para respaldar el contenido.`);
-            } finally {
-                btnSave.disabled = false;
-                btnSave.innerText = "💾 Publicar en Locales";
-            }
+            const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
+            const targetUrl = isNew 
+                ? `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/new/main/sops?filename=${finalId}.html`
+                : `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/edit/main/sops/${finalId}.html`;
+            window.open(targetUrl, '_blank');
         }
     </script>
 </body>
