@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS exacta con el estándar P-00 (index.html) */
+        /* Paridad CSS exacta con el visor oficial P-00 (index.html) */
         .sop-container {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -18,7 +18,7 @@
             font-size: 11pt !important;
             outline: none;
         }
-        .sop-title-1 {
+        .sop-container .sop-title-1, .sop-container h1 {
             font-family: 'Inter', sans-serif !important;
             font-size: 22pt !important;
             font-weight: 700 !important;
@@ -28,7 +28,7 @@
             line-height: 1.25 !important;
             letter-spacing: -0.02em !important;
         }
-        .sop-title-2 {
+        .sop-container .sop-title-2, .sop-container h2 {
             font-family: 'Inter', sans-serif !important;
             font-size: 13pt !important;
             font-weight: 700 !important;
@@ -41,7 +41,7 @@
             border-bottom: 2px solid #1A1A1A !important;
             padding-bottom: 4px !important;
         }
-        .sop-title-3 {
+        .sop-container .sop-title-3, .sop-container h3 {
             font-family: 'Inter', sans-serif !important;
             font-size: 11pt !important;
             font-weight: 700 !important;
@@ -50,28 +50,28 @@
             margin-bottom: 6pt !important;
             line-height: 1.25 !important;
         }
-        .sop-text {
+        .sop-container .sop-text, .sop-container p {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             text-align: justify !important;
         }
-        .sop-list {
+        .sop-container .sop-list, .sop-container ul {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             padding-left: 15pt !important;
             list-style-type: none !important;
         }
-        .sop-list-item {
+        .sop-container .sop-list-item, .sop-container li {
             margin-bottom: 6pt !important;
             position: relative !important;
         }
-        .sop-divider {
+        .sop-container .sop-divider, .sop-container hr {
             border: none !important;
             border-top: 1px solid #E5E5E5 !important;
             margin-top: 24pt !important;
             margin-bottom: 24pt !important;
         }
-        .sop-blockquote {
+        .sop-container .sop-blockquote, .sop-container blockquote {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             margin-left: 0px !important;
@@ -81,13 +81,13 @@
             font-style: italic !important;
             color: #525252 !important;
         }
-        .sop-warning-list {
+        .sop-container .sop-warning-list {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
             padding-left: 15pt !important;
             list-style-type: none !important;
         }
-        .sop-warning-item {
+        .sop-container .sop-warning-item {
             margin-bottom: 8pt !important;
             color: #000000 !important;
             font-weight: 600 !important;
@@ -120,7 +120,7 @@
 </head>
 <body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col">
 
-    <header class="bg-white border-b border-neutral-200 px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+    <header class="bg-white border-b border-neutral-200 px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm shrink-0">
         <div class="flex items-center space-x-3">
             <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
             <div>
@@ -129,24 +129,25 @@
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-60 focus:outline-none focus:border-black">
+            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-64 focus:outline-none focus:border-black">
             <button onclick="saveKey()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llave</button>
         </div>
     </header>
 
-    <div class="flex-1 max-w-[1900px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
+    <!-- Layout Flex de 3 Paneles: Lateral Izquierdo Fijo, Lienzo Central Adaptativo, Lateral Derecho Fijo -->
+    <div class="flex-1 w-full p-4 flex flex-row gap-4 overflow-hidden h-[calc(100vh-65px)]">
         
-        <!-- Panel Izquierdo: Controles de IA -->
-        <div class="lg:col-span-3 flex flex-col space-y-4">
-            <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
+        <!-- Panel Izquierdo: Controles de IA (Ancho fijo: 320px) -->
+        <aside class="w-[320px] shrink-0 flex flex-col space-y-3 overflow-y-auto pr-1">
+            <div class="bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-3">
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">1. Seleccionar Manual</label>
-                    <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 font-medium focus:outline-none focus:border-black">
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">1. Seleccionar Manual</label>
+                    <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2 text-xs text-neutral-800 font-medium focus:outline-none focus:border-black">
                         <option value="">-- Cargando menú central... --</option>
                     </select>
                 </div>
 
-                <div id="new-sop-fields" class="hidden bg-amber-50/60 border border-amber-200 p-4 rounded space-y-3">
+                <div id="new-sop-fields" class="hidden bg-amber-50/60 border border-amber-200 p-3 rounded space-y-2.5">
                     <div class="text-[10px] font-bold text-amber-800 uppercase tracking-widest">Identificación de Nuevo SOP</div>
                     <div>
                         <input type="text" id="new-id" placeholder="id único (ej: p10)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
@@ -157,67 +158,69 @@
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">2. Modo de Operación IA</label>
-                    <div class="flex flex-col space-y-2 text-xs font-medium bg-neutral-50 border border-neutral-200 p-3 rounded">
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">2. Modo de Operación IA</label>
+                    <div class="flex flex-col space-y-1.5 text-xs font-medium bg-neutral-50 border border-neutral-200 p-2.5 rounded">
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-modify" value="modify" checked class="accent-black">
-                            <span>Modificar sobre el archivo actual</span>
+                            <span>Modificar archivo actual</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-scratch" value="scratch" class="accent-black">
-                            <span>Maquetar borrador crudo desde cero</span>
+                            <span>Maquetar borrador desde cero</span>
                         </label>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">3. Directiva o Texto Crudo</label>
-                    <textarea id="instruction-input" rows="5" placeholder="Escribí la instrucción de ajuste o pegá el borrador operativo..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">3. Directiva o Texto Crudo</label>
+                    <textarea id="instruction-input" rows="4" placeholder="Escribí la instrucción de ajuste o pegá el borrador..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
                 </div>
 
-                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-800 py-3 rounded uppercase tracking-widest transition shadow-sm">
+                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-800 py-2.5 rounded uppercase tracking-widest transition shadow-sm">
                     ✨ Generar Vista Previa con IA
                 </button>
             </div>
 
-            <div class="bg-white border border-neutral-200 rounded p-4 flex-1 flex flex-col min-h-[120px] shadow-sm">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Consola de Estado</div>
-                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-600 overflow-y-auto max-h-[150px] space-y-1">> Consola lista.</div>
+            <div class="bg-white border border-neutral-200 rounded p-3.5 flex-1 flex flex-col min-h-[110px] shadow-sm">
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Consola de Estado</div>
+                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-2.5 text-[10px] font-mono text-neutral-600 overflow-y-auto max-h-[140px] space-y-1">> Consola lista.</div>
             </div>
-        </div>
+        </aside>
 
-        <!-- Panel Central: Hoja de Edición Visual Real (820px exacto) -->
-        <div class="lg:col-span-6 flex flex-col items-center bg-[#FAF9F6] border border-neutral-200 rounded p-6 shadow-sm overflow-y-auto max-h-[calc(100vh-120px)]">
-            <div class="w-full max-w-[820px] mb-2 flex items-center justify-between">
-                <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Hoja de Visualización y Edición Directa</span>
-                <span class="text-[10px] text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">DOM Activo (Editable)</span>
+        <!-- Panel Central: Lienzo idéntico al visor oficial con centrado y hoja A4 (820px) -->
+        <main class="flex-1 bg-[#FAF9F6] border border-neutral-200 rounded p-8 overflow-y-auto flex justify-center shadow-inner">
+            <div class="w-full max-w-[820px] flex flex-col items-center">
+                <div class="w-full mb-3 flex items-center justify-between px-1">
+                    <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Hoja de Visualización y Edición Directa</span>
+                    <span class="text-[10px] text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">DOM Activo (Editable)</span>
+                </div>
+                
+                <div class="bg-white text-neutral-900 w-full min-h-[1123px] shadow-sm rounded border border-neutral-200 p-[60px] relative">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
+                    <div id="visual-editor" contenteditable="true" class="sop-container"></div>
+                </div>
             </div>
-            
-            <div class="bg-white text-neutral-900 w-full max-w-[820px] min-h-[1050px] shadow-sm rounded border border-neutral-200 p-[60px] relative">
-                <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
-                <div id="visual-editor" contenteditable="true" class="sop-container"></div>
-            </div>
-        </div>
+        </main>
 
-        <!-- Panel Derecho: Acciones y Flujo Operativo -->
-        <div class="lg:col-span-3 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4 overflow-y-auto">
+        <!-- Panel Derecho: Acciones y Flujo Operativo (Ancho fijo: 300px) -->
+        <aside class="w-[300px] shrink-0 flex flex-col justify-between bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-4 overflow-y-auto pl-4">
             <div class="space-y-3">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación en Producción</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">Generá el fragmento HTML validado bajo el estándar P-00 para impactar en GitHub.</p>
+                <p class="text-xs text-neutral-500 leading-relaxed">Generá el código HTML validado bajo el estándar P-00 para impactar en GitHub.</p>
                 
                 <div class="text-[10px] font-mono text-neutral-500 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
                 
-                <button onclick="copyCleanHtml()" id="btn-copy" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3.5 rounded uppercase tracking-widest transition shadow-md">
+                <button onclick="copyCleanHtml()" id="btn-copy" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded uppercase tracking-widest transition shadow-md">
                     📋 Copiar Código del Manual
                 </button>
 
-                <button onclick="openGitHubDirect()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-semibold text-xs py-2.5 rounded transition border border-neutral-200">
+                <button onclick="openGitHubDirect()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-semibold text-xs py-2 rounded transition border border-neutral-200">
                     ↗ Abrir Archivo en GitHub Web
                 </button>
             </div>
 
             <!-- Instructivo Operativo Integrado -->
-            <div class="border-t border-neutral-100 pt-4 space-y-3">
+            <div class="border-t border-neutral-100 pt-3 space-y-2.5">
                 <div class="text-[10px] font-bold text-neutral-800 uppercase tracking-widest">Guía de Flujo Operativo</div>
                 
                 <div class="text-[11px] text-neutral-600 space-y-2 leading-tight">
@@ -241,12 +244,12 @@
                         </ol>
                     </div>
 
-                    <div class="bg-amber-50/50 p-2.5 rounded border border-amber-200/50 text-[10px] text-amber-900 leading-relaxed">
+                    <div class="bg-amber-50/50 p-2 rounded border border-amber-200/50 text-[10px] text-amber-900 leading-relaxed">
                         <strong>Regla P-00:</strong> Prohibido incluir tags <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> o delimitadores Markdown (```). Los archivos deben ser fragmentos HTML puros con clases <code>sop-*</code> y cierre obligatorio de Reglas de Oro (⚠).
                     </div>
                 </div>
             </div>
-        </div>
+        </aside>
     </div>
 
     <script>
@@ -265,7 +268,7 @@
         function saveKey() {
             const gKey = document.getElementById('gemini-key').value.trim();
             localStorage.setItem('gemini_key', gKey);
-            logToConsole("Gemini API Key persistida en LocalStorage.");
+            logToConsole("Gemini API Key guardada en LocalStorage.");
         }
 
         function logToConsole(msg, isError = false) {
