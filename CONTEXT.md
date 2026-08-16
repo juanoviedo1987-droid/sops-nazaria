@@ -1,25 +1,50 @@
-# Contexto Tecnológico: Sistema de SOPs Nazaria (v2)
+# Contexto Tecnológico: Sistema de SOPs Nazaria (v3)
 
-## 1. Arquitectura General
-- **Infraestructura:** Despliegue estático nativo en GitHub Pages (Sin intermediarios de compilación como Netlify).
+## 1. Arquitectura del Sistema
+- **Infraestructura:** Alojamiento estático en GitHub Pages sobre el repositorio `juanoviedo1987-droid/sops-nazaria` (sin intermediarios ni servidores de compilación)[cite: 2].
 - **Estructura del Proyecto:**
-  - `/index.html`: Visor operativo para sucursales. Renderiza dinámicamente los botones leyendo el archivo `menu.json`. Integra lógica anti-caché mediante marcas de tiempo (`?t=`).
-  - `/admin.html`: Consola de control para gestión de procesos. Posee un editor interactivo visual (`contenteditable` tipo Word) aislado bajo las reglas del CSS de la marca.
-  - `/menu.json`: Manifiesto dinámico central que lista los IDs y Títulos de los SOPs activos.
-  - `/sops/`: Carpeta de almacenamiento físico para los archivos HTML individuales de cada procedimiento (`p01.html`, `p02.html`, etc.).
+  - `/index.html`: Terminal de consulta en sucursales. Consume `/menu.json` dinámicamente con bypass anti-caché (`?t=`) y renderiza los manuales en una tarjeta A4 centrada (`max-w-[820px]`, `padding: 60px`)[cite: 2, 3].
+  - `/admin.html`: Consola de control para redacción y maquetado. Incluye panel de IA (`gemini-2.5-flash` vía `v1beta`), hoja de edición interactiva (`contenteditable`) de 820px y panel lateral deslizante (Drawer) con la guía de flujo[cite: 1].
+  - `/menu.json`: Manifiesto central que lista el catálogo activo: `[{"id": "p01", "title": "P-01 · Título"}]`[cite: 2, 4].
+  - `/sops/`: Directorio físico donde se almacenan los archivos HTML de cada manual (`p01.html`, `p02.html`, etc.)[cite: 2].
 
 ## 2. Estándar de Diseño Estricto (P-00)
-Todos los archivos alojados en `/sops/` deben estructurarse con etiquetas HTML limpias (sin wrappers externos ni markdown) respetando la jerarquía de fuentes de la familia **Inter**:
-- Título Principal (20pt, #000000, Negrita): `<h1 class="sop-title-1">P-XX · Nombre</h1>`
-- Títulos de Fase (14pt, #000000, Negrita, MAYÚSCULAS): `<h2 class="sop-title-2">FASE X: NOMBRE</h2>`
-- Sub-bloques (12pt, #434343, Negrita): `<h3 class="sop-title-3">X. Nombre</h3>`
-- Cuerpo / Viñetas (11pt, #262626, Regular): `<p class="sop-text">` o `<li class="sop-list-item">`
-- Ejemplos / Alertas: `<blockquote>` con itálica y sangría de 12pt.
-- Separadores: `<hr class="sop-divider">` debajo del Objetivo y al terminar cada Fase.
+Existen dos formatos admitidos dentro de `/sops/`:
 
-## 3. Biblioteca Operativa de Emojis Automáticos
-- 🖥️ Dux Software | 📱 WhatsApp / Google Forms | 💳 Payway / Nave / Mercado Pago | 💵 Efectivo / Caja | 📦 Depósito / Stock / Auditorías | ✨ Atención / Fidelización de clientes.
-- Cierre obligatorio de todo SOP: `<h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>` seguido de una lista donde cada ítem inicia estrictamente con ⚠ para faltas graves de caja, stock o datos.
+### Tipo A: Fragmentos HTML Estándar (p01 a p08, p10)
+Prohibido incluir etiquetas globales (`<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`) o bloques markdown (` ``` `)[cite: 1]. Se estructuran exclusivamente con clases CSS de la familia **Inter**[cite: 1, 3]:
+- **Título Principal (22pt, #000000, Negrita):** `<h1 class="sop-title-1">P-XX · Título</h1>`[cite: 1, 3]
+- **Títulos de Fase (13pt, #000000, Negrita, MAYÚSCULAS, Borde 2px):** `<h2 class="sop-title-2">FASE X: NOMBRE</h2>`[cite: 1, 3]
+- **Sub-bloques (11pt, #404040, Negrita):** `<h3 class="sop-title-3">X. Nombre</h3>`[cite: 1, 3]
+- **Párrafos (11pt, #1A1A1A, Justificado):** `<p class="sop-text">Texto explicativo.</p>`[cite: 1, 3]
+- **Listas de Tareas:** `<ul class="sop-list"><li class="sop-list-item">[Emoji] <strong>Paso:</strong> Detalle.</li></ul>`[cite: 1, 3]
+- **Citas / Ejemplos:** `<blockquote class="sop-blockquote">Ejemplo: "Texto"</blockquote>`[cite: 1, 3]
+- **Separadores:** `<hr class="sop-divider">` tras el Objetivo y al finalizar cada Fase[cite: 1, 3].
+- **Tablas Operativas:** `<table>` con encabezados `<th>` en fondo `#F5F5F5` y bordes `#E5E5E5`[cite: 1].
+- **Reglas de Oro (Cierre Obligatorio):**
+  ```html
+  <hr class="sop-divider">
+  <h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>
+  <ul class="sop-warning-list">
+    <li class="sop-warning-item">⚠ <strong>[Regla]:</strong> Descripción de la falta crítica.</li>
+  </ul>
+  ```[cite: 1, 3]
 
-## 4. Flujo de Integración de API en Admin
-El `admin.html` conecta directamente con la API de GitHub (`PUT`) y Gemini (`models/gemini-2.5-flash`). Si el modo es `scratch`, la IA formatea texto crudo aplicando los emojis analíticamente; si es `modify`, edita el HTML existente. Si el SOP es catalogado como nuevo, el script inyecta la línea correspondiente en `menu.json` y genera el archivo físico en `/sops/`.
+### Tipo B: Planillas e Integraciones Embebidas (p09.html)
+Documentos HTML completos estructurados con contenedor fijo responsivo:
+`.wrapper-promos { position: fixed; top: 110px; left: 345px; right: 20px; bottom: 20px; z-index: 10; overflow: auto; }`
+
+## 3. Biblioteca Operativa de Emojis
+Asignación estricta de íconos según la naturaleza de la tarea:
+- 🖥️ **Sistemas:** Dux Software, consultas en PC y reportes[cite: 1].
+- 📱 **Comunicación:** WhatsApp del local, formularios Google y redes sociales[cite: 1].
+- 💳 **Pagos Digitales:** Terminales Payway, Nave, Mercado Pago y tarjetas[cite: 1].
+- 💵 **Efectivo:** Caja chica, cambio y arqueos de turno[cite: 1].
+- 📦 **Mercadería:** Control de stock, recepción de cajas, Correo Argentino y auditorías[cite: 1].
+- ✨ **Atención al Cliente:** Saludo, estética, asesoramiento y fidelización[cite: 1].
+
+## 4. Flujo Operativo Desacoplado
+1. **Concepción (Gemini Gem):** Estructuración de borradores y análisis de directivas de negocio[cite: 1].
+2. **Maquetación (`admin.html`):** Inyección del texto en la consola $\rightarrow$ Procesamiento con Gemini 2.5 Flash (`v1beta`) $\rightarrow$ Previsualización y edición directa en hoja de 820px[cite: 1].
+3. **Persistencia (GitHub Web):** Clic en *"📋 Copiar Código del Manual"* $\rightarrow$ Clic en *"↗ Abrir Archivo en GitHub Web"* $\rightarrow$ Pegar código (`Ctrl+V`) y confirmar commit en `sops/pXX.html`[cite: 1]. (Si es nuevo, agregar la entrada a `menu.json`)[cite: 1].
+4. **Consulta (`index.html`):** Las terminales en locales visualizan los cambios inmediatamente sin recargas de servidor ni bloqueos de caché[cite: 1, 3].
