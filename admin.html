@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estándar CSS Oficial P-00 Nazaria */
+        /* Paridad CSS exacta con index.html (Estándar P-00) */
         .sop-container {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -20,7 +20,7 @@
         }
         .sop-container .sop-title-1, .sop-container h1 {
             font-family: 'Inter', sans-serif !important;
-            font-size: 20pt !important;
+            font-size: 22pt !important;
             font-weight: 700 !important;
             color: #000000 !important;
             margin-top: 0px !important;
@@ -38,8 +38,8 @@
             margin-bottom: 12pt !important;
             line-height: 1.25 !important;
             letter-spacing: 0.05em !important;
-            border-bottom: 2px solid #1A1A1A !important;
-            padding-bottom: 4px !important;
+            border-bottom: 2px solid #1A1A1A;
+            padding-bottom: 4px;
         }
         .sop-container .sop-title-3, .sop-container h3 {
             font-family: 'Inter', sans-serif !important;
@@ -91,10 +91,10 @@
             margin-bottom: 8pt !important;
             color: #000000 !important;
             font-weight: 600 !important;
-            background-color: #F5F5F5 !important;
-            padding: 10px 14px !important;
-            border-left: 3px solid #000000 !important;
-            border-radius: 4px !important;
+            background-color: #F5F5F5;
+            padding: 10px 14px;
+            border-left: 3px solid #000000;
+            border-radius: 4px;
         }
         .sop-container table {
             width: 100% !important;
@@ -125,47 +125,45 @@
         <div class="flex items-center space-x-3">
             <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
             <div>
-                <h1 class="text-sm font-bold text-black tracking-widest uppercase">NAZARIA OPS <span class="ml-2 text-[9px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">ADMIN CONTROL</span></h1>
-                <p class="text-[11px] text-neutral-500">Consola de Mantenimiento y Redacción de Manuales</p>
+                <h1 class="text-sm font-bold text-black tracking-widest uppercase">
+                    NAZARIA OPS <span class="ml-2 text-[9px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">ADMIN CONTROL</span>
+                </h1>
+                <p class="text-[11px] text-neutral-500">Consola Central de Procesos y Generación con IA</p>
             </div>
         </div>
         <div class="flex items-center gap-3">
-            <button onclick="toggleGuideDrawer()" class="bg-amber-50 hover:bg-amber-100/80 text-amber-900 border border-amber-300/80 font-semibold text-xs px-3.5 py-1.5 rounded transition shadow-sm flex items-center gap-1.5">
+            <button onclick="toggleGuideDrawer()" class="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-semibold text-xs px-3 py-1.5 rounded transition shadow-sm flex items-center gap-1.5">
                 <span>📖</span> Guía Operativa & Estándar
             </button>
             <div class="flex items-center gap-2">
-                <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:outline-none focus:border-black">
+                <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:bg-white focus:outline-none focus:border-black">
                 <button onclick="saveKey()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llave</button>
             </div>
         </div>
     </header>
 
-    <!-- Layout Central de 3 Columnas -->
-    <div class="flex-1 flex flex-row overflow-hidden">
+    <!-- Layout de 3 Columnas -->
+    <div class="flex-1 flex overflow-hidden p-4 gap-4 justify-center items-stretch max-w-[1920px] mx-auto w-full">
         
-        <!-- Panel Izquierdo: Configuración e IA (320px fijo) -->
-        <aside class="w-[320px] bg-white border-r border-neutral-200 p-4 flex flex-col space-y-4 overflow-y-auto shrink-0 z-10 shadow-sm">
-            <div class="space-y-3">
+        <!-- Columna 1: Controles e IA (320px) -->
+        <aside class="w-[320px] shrink-0 flex flex-col gap-3 overflow-y-auto pr-1">
+            <div class="bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-3.5">
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">1. Seleccionar Manual</label>
                     <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2 text-xs text-neutral-800 font-medium focus:outline-none focus:border-black">
-                        <option value="">-- Seleccionar SOP --</option>
+                        <option value="">-- Cargando menú... --</option>
                     </select>
                 </div>
 
-                <div id="new-sop-fields" class="hidden bg-amber-50/60 border border-amber-200 p-3 rounded space-y-2.5">
+                <div id="new-sop-fields" class="hidden bg-amber-50/60 border border-amber-200 p-3 rounded space-y-2">
                     <div class="text-[10px] font-bold text-amber-800 uppercase tracking-widest">Identificación de Nuevo Manual</div>
-                    <div>
-                        <input type="text" id="new-id" placeholder="id único (ej: p10)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
-                    </div>
-                    <div>
-                        <input type="text" id="new-title" placeholder="Título Oficial (ej: P-10 · Estrategia Digital)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
-                    </div>
+                    <input type="text" id="new-id" placeholder="id único (ej: p11)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
+                    <input type="text" id="new-title" placeholder="Título (ej: P-11 · Estrategia Digital)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
                 </div>
 
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">2. Modo de Operación</label>
-                    <div class="flex flex-col space-y-1.5 text-xs font-medium bg-neutral-50 border border-neutral-200 p-2.5 rounded">
+                    <div class="flex flex-col space-y-1.5 text-xs bg-neutral-50 border border-neutral-200 p-2.5 rounded">
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-modify" value="modify" checked class="accent-black">
                             <span>Modificar archivo actual</span>
@@ -179,59 +177,62 @@
 
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">3. Directiva o Texto Borrador</label>
-                    <textarea id="instruction-input" rows="4" placeholder="Escribí qué querés cambiar o pegá el texto acá..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
+                    <textarea id="instruction-input" rows="5" placeholder="Escribí qué querés cambiar o pegá el texto crudo acá..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:bg-white focus:outline-none focus:border-black"></textarea>
                 </div>
 
-                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-800 py-2.5 rounded uppercase tracking-widest transition shadow-sm">
+                <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-[#E6D5C3]/40 border border-neutral-300 font-bold text-xs text-neutral-800 py-2.5 rounded uppercase tracking-widest transition shadow-sm">
                     ✨ Generar Vista Previa con IA
                 </button>
             </div>
 
-            <div class="bg-neutral-50 border border-neutral-200 rounded p-3 flex-1 flex flex-col min-h-[100px]">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Consola de Estado</div>
-                <div id="console-output" class="flex-1 text-[10px] font-mono text-neutral-600 overflow-y-auto max-h-[120px] space-y-0.5">> Consola lista.</div>
+            <!-- Consola de Eventos -->
+            <div class="bg-white border border-neutral-200 rounded p-3 flex-1 flex flex-col min-h-[140px] shadow-sm">
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">Consola de Estado</div>
+                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-2.5 text-[10px] font-mono text-neutral-600 overflow-y-auto space-y-1">
+                    <div>> Consola lista.</div>
+                </div>
             </div>
         </aside>
 
-        <!-- Panel Central: Lienzo de Edición (Idéntico a index.html) -->
-        <main class="flex-1 bg-[#FAF9F6] p-8 flex justify-center overflow-y-auto relative">
+        <!-- Columna 2: Hoja A4 Visual Interactiva (820px) -->
+        <main class="flex-1 bg-[#FAF9F6] border border-neutral-200 rounded p-4 flex flex-col items-center overflow-y-auto shadow-inner relative">
             
-            <!-- Estado Inicial: Ningún SOP seleccionado -->
             <div id="empty-state" class="flex flex-col items-center justify-center text-center max-w-sm my-auto space-y-3">
                 <div class="text-neutral-300 text-3xl">▪</div>
                 <h2 class="text-sm font-bold text-black tracking-wider uppercase">Lienzo de Operaciones</h2>
-                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento desde el panel lateral para cargar su contenido o creá un nuevo manual para comenzar.</p>
+                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento desde el panel izquierdo para cargar su contenido o creá un nuevo manual para comenzar.</p>
             </div>
 
-            <!-- Hoja de Edición Activa A4 (820px, padding 60px) -->
-            <div id="sheet-wrapper" class="w-full max-w-[820px] hidden flex-col items-center pb-12">
-                <div class="w-full mb-3 flex items-center justify-between px-1">
+            <div id="sheet-wrapper" class="w-full max-w-[820px] hidden flex-col items-center">
+                <div class="w-full mb-2 px-1 flex items-center justify-between">
                     <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Hoja de Visualización y Edición Directa</span>
-                    <span class="text-[10px] text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">DOM Activo (Editable)</span>
+                    <span id="editor-indicator" class="text-[10px] text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200">DOM Activo (Editable)</span>
                 </div>
-                
-                <div class="bg-white text-neutral-900 w-full min-h-[1123px] shadow-sm rounded border border-neutral-200 p-[60px] relative">
-                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3] rounded-t"></div>
-                    <div id="visual-editor" contenteditable="true" class="sop-container"></div>
+
+                <div class="w-full min-h-[1123px] bg-white text-neutral-900 shadow-sm rounded border border-neutral-200 p-[60px] relative">
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
+                    <div id="visual-editor" contenteditable="true" class="sop-container w-full min-h-[1000px]"></div>
                 </div>
             </div>
         </main>
 
-        <!-- Panel Derecho: Publicación Rápida (280px fijo) -->
-        <aside class="w-[280px] bg-white border-l border-neutral-200 p-4 flex flex-col justify-between shrink-0 z-10 shadow-sm overflow-y-auto">
-            <div class="space-y-3">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">Copiá el código limpio validado bajo el estándar P-00 para guardar en GitHub.</p>
-                
-                <div class="text-[10px] font-mono text-neutral-500 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
-                
-                <button onclick="copyCleanHtml()" id="btn-copy" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded uppercase tracking-widest transition shadow-md">
-                    📋 Copiar Código del Manual
-                </button>
+        <!-- Columna 3: Publicación y Acceso a GitHub (280px) -->
+        <aside class="w-[280px] shrink-0 flex flex-col justify-between bg-white border border-neutral-200 rounded p-4 shadow-sm">
+            <div class="space-y-4">
+                <div class="border-b border-neutral-100 pb-2">
+                    <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">4. Publicación</div>
+                    <p class="text-[11px] text-neutral-500 mt-1">Copiá el código limpio validado bajo el estándar P-00 para guardar en el repositorio.</p>
+                </div>
 
-                <button onclick="openGitHubDirect()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-semibold text-xs py-2 rounded transition border border-neutral-200">
-                    ↗ Abrir Archivo en GitHub Web
-                </button>
+                <div class="space-y-2">
+                    <div class="text-[11px] font-mono text-neutral-500 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate font-bold" id="file-path-indicator">sops/??.html</div>
+                    <button onclick="copyCleanHtml()" id="btn-copy" class="w-full bg-neutral-900 hover:bg-black text-white font-bold text-xs py-3 rounded transition flex items-center justify-center space-x-2 shadow-sm">
+                        <span>📋 Copiar Código del Manual</span>
+                    </button>
+                    <button onclick="openGitHubDirect()" class="w-full bg-neutral-50 hover:bg-neutral-100 text-neutral-700 border border-neutral-200 font-semibold text-xs py-2 rounded transition flex items-center justify-center space-x-1.5">
+                        <span>↗ Abrir Archivo en GitHub Web</span>
+                    </button>
+                </div>
             </div>
 
             <div class="border-t border-neutral-100 pt-3">
@@ -365,7 +366,7 @@
 
         function logToConsole(msg, isError = false) {
             const consoleBox = document.getElementById('console-output');
-            consoleBox.innerHTML += `<div class="py-0.5"><span class="text-neutral-400">[${new Date().toLocaleTimeString()}]</span> <span class="${isError ? 'text-red-600 font-bold':'text-neutral-800'}">${msg}</span></div>`;
+            consoleBox.innerHTML += `<div class="py-0.5"><span class="text-neutral-400">[${new Date().toLocaleTimeString()}]</span> <span class="${isError ? 'text-red-600 font-bold' : 'text-neutral-800'}">${msg}</span></div>`;
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
@@ -409,7 +410,7 @@
                 newFields.classList.remove('hidden');
                 document.getElementById('mode-scratch').checked = true;
                 pathIndicator.innerText = "sops/nuevo.html";
-                document.getElementById('visual-editor').innerHTML = '<h1 class="sop-title-1">P-XX · Nombre de Manual</h1><p class="sop-text"><strong>Objetivo:</strong> Definir el estándar operativo...</p>';
+                document.getElementById('visual-editor').innerHTML = `<h1 class="sop-title-1">P-XX · Título del Procedimiento</h1>\n<p class="sop-text">Escribí acá el objetivo del procedimiento...</p>\n<hr class="sop-divider">\n<h2 class="sop-title-2">FASE 1: EJECUCIÓN</h2>\n<p class="sop-text">Detalle operativo.</p>\n<hr class="sop-divider">\n<h3 class="sop-title-3">⚠ REGLAS DE ORO (Puntos Críticos de Control)</h3>\n<ul class="sop-warning-list">\n  <li class="sop-warning-item">⚠ <strong>[Punto Crítico]:</strong> Descripción obligatoria.</li>\n</ul>`;
                 currentSopCode = "NEW";
             } else if (selector.value) {
                 emptyState.classList.add('hidden');
@@ -461,12 +462,13 @@
             logToConsole("Llamando a Gemini 2.5 Flash...");
 
             const systemPrompt = `Sos el Lead Operations Engineer de Nazaria. Tu tarea es generar fragmentos HTML limpios para manuales cumpliendo estrictamente el estándar P-00.
+
 REGLAS OBLIGATORIAS:
 - PROHIBIDO usar <!DOCTYPE html>, <html>, <head> o <body>.
-- PROHIBIDO responder con delimitadores markdown (\`\`\`html o \`\`\`). Tu respuesta debe ser ÚNICAMENTE el código HTML puro.
+- PROHIBIDO responder con delimitadores markdown (\`\`\`html o \`\`\`). Tu respuesta debe ser ÚNICAMENTE el fragmento HTML puro.
 - Jerarquía CSS requerida:
-  * Título Principal: <h1 class="sop-title-1">P-XX · Título del Procedimiento</h1> (20pt, bold, #000000)
-  * Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE EN MAYÚSCULAS</h2> (13pt, bold, #000000, border-bottom)
+  * Título Principal: <h1 class="sop-title-1">P-XX · Nombre de Manual</h1> (22pt, bold, #000000)
+  * Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE</h2> (13pt, bold, #000000, mayúsculas, border-bottom)
   * Sub-bloque: <h3 class="sop-title-3">X. Nombre de Sección</h3> (11pt, bold, #404040)
   * Párrafo: <p class="sop-text">Texto justificado explicativo.</p> (11pt, #1A1A1A)
   * Listas de Tareas: <ul class="sop-list"><li class="sop-list-item">[Emoji] <strong>Título del Paso:</strong> Detalle operativo.</li></ul>
@@ -483,7 +485,7 @@ ASIGNACIÓN DE EMOJIS:
 🖥️ -> Dux Software / Sistemas | 📱 -> WhatsApp / Redes / Formularios | 💳 -> Pagos digitales / Tarjetas / Payway | 💵 -> Efectivo / Caja Chica | 📦 -> Stock / Envíos / Auditorías | ✨ -> Atención al Cliente / Fidelización`;
 
             let userPrompt = mode === "scratch" 
-                ? `GENERAR MANUAL COMPLETO DESDE CERO CON ESTE TEXTO BORRADOR:\n${instruction}`
+                ? `GENERAR MANUAL COMPLETO DESDE CERO CON ESTE TEXTO BORRADOR:\n${instruction}` 
                 : `MODIFICAR EL SIGUIENTE MANUAL EXISTENTE APLICANDO LA INSTRUCCIÓN:\n\nHTML ACTUAL:\n${editor.innerHTML}\n\nINSTRUCCIÓN DE CAMBIO:\n${instruction}`;
 
             try {
@@ -525,25 +527,27 @@ ASIGNACIÓN DE EMOJIS:
             const rawContent = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
             
             navigator.clipboard.writeText(rawContent).then(() => {
-                const originalText = btnCopy.innerHTML;
-                btnCopy.innerHTML = "✔ ¡Código Copiado!";
-                btnCopy.classList.remove('bg-black', 'hover:bg-neutral-800');
+                const originalContent = btnCopy.innerHTML;
+                btnCopy.innerHTML = "<span>✔ ¡Código Copiado!</span>";
+                btnCopy.classList.remove('bg-neutral-900', 'hover:bg-black');
                 btnCopy.classList.add('bg-emerald-700', 'hover:bg-emerald-800');
                 
                 setTimeout(() => {
-                    btnCopy.innerHTML = originalText;
+                    btnCopy.innerHTML = originalContent;
                     btnCopy.classList.remove('bg-emerald-700', 'hover:bg-emerald-800');
-                    btnCopy.classList.add('bg-black', 'hover:bg-neutral-800');
+                    btnCopy.classList.add('bg-neutral-900', 'hover:bg-black');
                 }, 2000);
 
                 logToConsole("HTML estándar copiado al portapapeles.");
+            }).catch(() => {
+                logToConsole("Error al copiar al portapapeles.", true);
             });
         }
 
         function openGitHubDirect() {
             const finalId = getSelectedId();
             if (!finalId || finalId === "new") {
-                alert("Seleccioná un SOP primero.");
+                alert("Seleccioná o definí un ID de SOP primero.");
                 return;
             }
             const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
