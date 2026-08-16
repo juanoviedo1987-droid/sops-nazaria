@@ -136,7 +136,7 @@
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Configuración -->
+        <!-- Panel de Control y Parámetros -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
@@ -256,9 +256,8 @@
             try {
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
                     headers: { 
-                        "Authorization": `Bearer ${token}`,
-                        "Accept": "application/vnd.github+json",
-                        "X-GitHub-Api-Version": "2022-11-28"
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
                     },
                     cache: "no-store"
                 });
@@ -308,9 +307,8 @@
             try {
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`, {
                     headers: { 
-                        "Authorization": `Bearer ${token}`,
-                        "Accept": "application/vnd.github+json",
-                        "X-GitHub-Api-Version": "2022-11-28"
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
                     },
                     cache: "no-store"
                 });
@@ -403,163 +401,137 @@ ASIGNACIÓN DE EMOJIS:
         }
 
         async function pushToGitHub() {
-            const token = getCleanToken();
+            const rawToken = localStorage.getItem('github_token') || document.getElementById('github-token').value || "";
+            const token = rawToken.replace(/^(Bearer|token)\s+/i, '').replace(/["']/g, '').trim();
             const editor = document.getElementById('visual-editor');
             const selectorVal = document.getElementById('sop-selector').value;
             const isNew = (selectorVal === "NEW_SOP");
             const btnSave = document.getElementById('btn-save');
             
             if(!token) { 
-                alert("Falta el GitHub Token en la cabecera."); 
+                alert("Falta configurar el GitHub Personal Token (PAT)."); 
                 return; 
             }
 
             let finalId = isNew 
-                ? document.getElementById('new-id').value.trim().toLowerCase()
+                ? document.getElementById('new-id').value.trim().toLowerCase() 
                 : currentSopCode.trim().toLowerCase();
 
             finalId = finalId.replace(/^sops\//, '').replace(/\.html$/, '').trim();
             let finalTitle = isNew ? document.getElementById('new-title').value.trim() : "";
 
-            if (isNew) {
-                if(!finalId || !finalTitle) { 
-                    alert("Completá el ID y el Título oficial del nuevo SOP."); 
-                    return; 
-                }
-                if (!finalTitle.includes(" · ")) {
-                    alert("El formato del título debe ser: 'P-XX · Nombre'"); 
-                    return; 
-                }
-            }
-
-            if (!finalId || finalId === "new") {
-                alert("Seleccioná un SOP válido antes de publicar.");
+            if (isNew && (!finalId || !finalTitle)) {
+                alert("Completá ID y Título del nuevo SOP.");
                 return;
             }
 
-            const rawContent = editor.innerHTML.trim();
-            const cleanContent = rawContent.replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
-            const base64Content = btoa(unescape(encodeURIComponent(cleanContent)));
+            if (!finalId || finalId === "new") {
+                alert("Seleccioná un procedimiento válido.");
+                return;
+            }
+
+            const contentString = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
+            const base64Content = btoa(unescape(encodeURIComponent(contentString)));
             
             btnSave.disabled = true;
             btnSave.innerText = "Publicando...";
+            logToConsole(`Iniciando despliegue de sops/${finalId}.html...`);
 
             try {
-                // 1. Obtener SHA del archivo en sops/
-                let targetSha = null;
-                const fileEndpoint = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
-                logToConsole(`Consultando sops/${finalId}.html...`);
+                const repoOwner = "juanoviedo1987-droid";
+                const repoName = "sops-nazaria";
+                const targetPath = `sops/${finalId}.html`;
+                const apiUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){repoOwner}/${repoName}/contents/${targetPath}`;
 
-                const checkRes = await fetch(fileEndpoint, {
+                // 1. Obtener SHA del archivo existente si existe
+                let fileSha = null;
+                const getRes = await fetch(apiUrl, {
                     headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Accept": "application/vnd.github+json",
-                        "X-GitHub-Api-Version": "2022-11-28"
-                    },
-                    cache: "no-store",
-                    redirect: "error"
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
                 });
 
-                if (checkRes.ok) {
-                    const fileData = await checkRes.json();
-                    targetSha = fileData.sha;
-                    logToConsole(`SHA existente: ${targetSha.substring(0,7)}`);
-                } else if (checkRes.status === 404) {
-                    logToConsole("Creando nuevo archivo...");
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    fileSha = fileData.sha;
+                    logToConsole(`SHA existente detectado: ${fileSha.substring(0, 7)}`);
                 }
 
-                // 2. Commit del archivo HTML
-                const payloadHtml = { 
-                    message: `Ops Control: Publicar sops/${finalId}.html`, 
+                // 2. Ejecutar Commit directo vía PUT
+                const payload = {
+                    message: `Ops Control: Publicar ${targetPath}`,
                     content: base64Content
                 };
-                if (targetSha) payloadHtml.sha = targetSha;
-                
-                logToConsole(`Enviando PUT a GitHub REST API...`);
-                const resHtml = await fetch(fileEndpoint, { 
-                    method: 'PUT', 
+                if (fileSha) payload.sha = fileSha;
+
+                const putRes = await fetch(apiUrl, {
+                    method: "PUT",
                     headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Accept": "application/vnd.github+json",
-                        "X-GitHub-Api-Version": "2022-11-28",
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
                         "Content-Type": "application/json"
-                    }, 
-                    body: JSON.stringify(payloadHtml),
-                    redirect: "error"
+                    },
+                    body: JSON.stringify(payload)
                 });
 
-                if(!resHtml.ok) {
-                    const rawErr = await resHtml.text();
-                    let errMsg = rawErr;
-                    try { errMsg = JSON.parse(rawErr).message || rawErr; } catch(e) {}
-                    throw new Error(`[HTML ${resHtml.status}]: ${errMsg}`);
+                if (!putRes.ok) {
+                    const errJson = await putRes.json().catch(() => ({}));
+                    throw new Error(`GitHub API Error (${putRes.status}): ${errJson.message || 'Fallo de permisos o branch protegida'}`);
                 }
 
-                logToConsole(`sops/${finalId}.html publicado con éxito.`);
+                logToConsole(`Archivo ${targetPath} guardado en GitHub.`);
 
-                // 3. Sincronizar manifiesto menu.json si es un SOP nuevo
+                // 3. Sincronizar menu.json si es un SOP nuevo
                 if (isNew) {
-                    let latestMenuSha = null;
-                    let currentMenuData = [];
-                    const menuEndpoint = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
-
-                    const menuRes = await fetch(menuEndpoint, {
+                    const menuUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){repoOwner}/${repoName}/contents/menu.json`;
+                    const menuGet = await fetch(menuUrl, {
                         headers: {
-                            "Authorization": `Bearer ${token}`,
-                            "Accept": "application/vnd.github+json",
-                            "X-GitHub-Api-Version": "2022-11-28"
-                        },
-                        cache: "no-store",
-                        redirect: "error"
+                            "Authorization": `token ${token}`,
+                            "Accept": "application/vnd.github.v3+json"
+                        }
                     });
 
-                    if (menuRes.ok) {
-                        const mData = await menuRes.json();
-                        latestMenuSha = mData.sha;
-                        currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mData.content.replace(/\s/g, '')))));
+                    let menuData = fullMenuData;
+                    let currentMenuSha = menuSha;
+
+                    if (menuGet.ok) {
+                        const mJson = await menuGet.json();
+                        currentMenuSha = mJson.sha;
+                        menuData = JSON.parse(decodeURIComponent(escape(atob(mJson.content.replace(/\s/g, '')))));
                     }
 
-                    const existsIndex = currentMenuData.findIndex(item => item.id === finalId);
-                    if (existsIndex >= 0) {
-                        currentMenuData[existsIndex].title = finalTitle;
+                    const existsIdx = menuData.findIndex(item => item.id === finalId);
+                    if (existsIdx >= 0) {
+                        menuData[existsIdx].title = finalTitle;
                     } else {
-                        currentMenuData.push({ id: finalId, title: finalTitle });
+                        menuData.push({ id: finalId, title: finalTitle });
                     }
 
-                    const base64Menu = btoa(unescape(encodeURIComponent(JSON.stringify(currentMenuData, null, 2))));
-                    const payloadMenu = { 
-                        message: `Ops Control: Registrar ${finalId} en menu.json`, 
-                        content: base64Menu, 
-                        sha: latestMenuSha 
-                    };
-                    
-                    const resMenu = await fetch(menuEndpoint, {
-                        method: 'PUT',
+                    const menuBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(menuData, null, 2))));
+                    const menuPut = await fetch(menuUrl, {
+                        method: "PUT",
                         headers: {
-                            "Authorization": `Bearer ${token}`,
-                            "Accept": "application/vnd.github+json",
-                            "X-GitHub-Api-Version": "2022-11-28",
+                            "Authorization": `token ${token}`,
+                            "Accept": "application/vnd.github.v3+json",
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(payloadMenu),
-                        redirect: "error"
+                        body: JSON.stringify({
+                            message: `Ops Control: Registrar ${finalId} en menu.json`,
+                            content: menuBase64,
+                            sha: currentMenuSha
+                        })
                     });
 
-                    if(!resMenu.ok) {
-                        const rawMenuErr = await resMenu.text();
-                        let errMenuMsg = rawMenuErr;
-                        try { errMenuMsg = JSON.parse(rawMenuErr).message || rawMenuErr; } catch(e) {}
-                        throw new Error(`[Menu ${resMenu.status}]: ${errMenuMsg}`);
-                    }
-                    logToConsole("menu.json actualizado.");
+                    if (!menuPut.ok) throw new Error("Error al actualizar menu.json");
+                    logToConsole("menu.json sincronizado.");
                 }
 
-                logToConsole(`¡SOP ${finalId.toUpperCase()} publicado y sincronizado!`);
                 alert("Procedimiento publicado con éxito en la red de locales.");
                 location.reload();
-            } catch (error) { 
-                logToConsole(`Error en despliegue: ${error.message}`, true);
-                alert(`Error en el despliegue:\n${error.message}`);
+            } catch (err) {
+                logToConsole(err.message, true);
+                alert(err.message);
             } finally {
                 btnSave.disabled = false;
                 btnSave.innerText = "💾 Publicar en Locales";
