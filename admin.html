@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS exacta con el visor oficial (P-00) */
+        /* Paridad CSS estricta con el estándar P-00 de index.html */
         .sop-editor-sheet {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -137,7 +137,7 @@
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Control y Configuración -->
+        <!-- Panel de Control -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
@@ -187,7 +187,7 @@
             </div>
         </div>
 
-        <!-- Hoja de Edición Visual Directa -->
+        <!-- Área de Edición WYSIWYG -->
         <div class="lg:col-span-6 flex flex-col">
             <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
@@ -199,7 +199,7 @@
             </div>
         </div>
 
-        <!-- Panel de Despliegue a Producción -->
+        <!-- Panel de Despliegue -->
         <div class="lg:col-span-2 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm">
             <div class="space-y-4">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Despliegue</div>
@@ -422,7 +422,7 @@ ASIGNACIÓN DE EMOJIS:
                     return; 
                 }
                 if (!finalTitle.includes(" · ")) {
-                    alert("El formato del título debe ser: 'P-XX · Nombre de Manual'"); 
+                    alert("El formato del título debe ser estrictamente: 'P-XX · Nombre de Manual'"); 
                     return; 
                 }
             }
@@ -444,7 +444,7 @@ ASIGNACIÓN DE EMOJIS:
                 const fileEndpoint = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/${targetPath}`;
                 logToConsole(`Verificando SHA en ${targetPath}...`);
 
-                // 1. Obtener SHA dinámico del archivo
+                // 1. Obtener SHA del archivo si ya existe
                 let targetSha = null;
                 const checkRes = await fetch(fileEndpoint, {
                     headers: {
@@ -462,7 +462,7 @@ ASIGNACIÓN DE EMOJIS:
                     logToConsole("El archivo no existe previamente, se creará uno nuevo.");
                 }
 
-                // 2. Commit del archivo HTML
+                // 2. Commit directo del archivo HTML vía PUT a api.github.com
                 const payloadHtml = { 
                     message: `Ops Control: Publicar ${targetPath}`, 
                     content: base64Content
@@ -487,7 +487,7 @@ ASIGNACIÓN DE EMOJIS:
 
                 logToConsole(`${targetPath} publicado exitosamente.`);
 
-                // 3. Sincronizar menú central menu.json si es un SOP nuevo
+                // 3. Sincronizar manifiesto central menu.json si es un SOP nuevo
                 if (isNew) {
                     let latestMenuSha = null;
                     let currentMenuData = [];
