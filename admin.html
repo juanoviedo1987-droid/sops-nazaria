@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Paridad CSS exacta con el visor oficial (P-00) */
         .sop-editor-sheet {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -136,7 +137,7 @@
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Control y Parámetros -->
+        <!-- Panel de Control y Configuración -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
@@ -182,11 +183,11 @@
 
             <div class="bg-white border border-neutral-200 rounded p-4 flex-1 flex flex-col min-h-[120px] shadow-sm">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Consola de Estado y API</div>
-                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-600 overflow-y-auto max-h-[150px] space-y-1">> Sistema preparado.</div>
+                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-600 overflow-y-auto max-h-[150px] space-y-1">> Consola lista.</div>
             </div>
         </div>
 
-        <!-- Área de Edición Visual WYSIWYG -->
+        <!-- Hoja de Edición Visual Directa -->
         <div class="lg:col-span-6 flex flex-col">
             <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
@@ -198,7 +199,7 @@
             </div>
         </div>
 
-        <!-- Panel de Despliegue -->
+        <!-- Panel de Despliegue a Producción -->
         <div class="lg:col-span-2 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm">
             <div class="space-y-4">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Despliegue</div>
@@ -216,7 +217,6 @@
     <script>
         const GITHUB_USER = "juanoviedo1987-droid";
         const GITHUB_REPO = "sops-nazaria";
-        let currentSopSha = null;
         let currentSopCode = "";
         let menuSha = null;
         let fullMenuData = [];
@@ -229,7 +229,7 @@
 
         function getCleanToken() {
             const raw = localStorage.getItem('github_token') || document.getElementById('github-token').value || "";
-            return raw.replace(/^(Bearer|token)\s+/i, '').replace(/["']/g, '').trim();
+            return raw.replace(/^(Bearer|token)\s+/i, '').replace(/["'\s]/g, '').trim();
         }
 
         function saveKeys() {
@@ -237,7 +237,7 @@
             const ghToken = getCleanToken();
             localStorage.setItem('gemini_key', gKey);
             localStorage.setItem('github_token', ghToken);
-            logToConsole("Credenciales persistidas.");
+            logToConsole("Credenciales persistidas en LocalStorage.");
             loadMenuFromGitHub();
         }
 
@@ -250,7 +250,7 @@
         async function loadMenuFromGitHub() {
             const token = getCleanToken();
             if(!token) {
-                logToConsole("Configurá tu GitHub PAT en la cabecera.", true);
+                logToConsole("Falta configurar el GitHub Personal Token (PAT).", true);
                 return;
             }
             try {
@@ -291,7 +291,6 @@
                 document.getElementById('mode-scratch').checked = true;
                 pathIndicator.innerText = "sops/nuevo.html";
                 document.getElementById('visual-editor').innerHTML = '<h1 class="sop-title-1">P-XX · Nombre de Manual</h1><p class="sop-text"><strong>Objetivo:</strong> Definir el estándar operativo...</p>';
-                currentSopSha = null;
                 currentSopCode = "NEW";
             } else if (selector.value) {
                 newFields.classList.add('hidden');
@@ -313,14 +312,12 @@
                     cache: "no-store"
                 });
                 if (!response.ok) { 
-                    currentSopSha = null;
-                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico previo.</p>';
+                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico en sops/.</p>';
                     return; 
                 }
                 const data = await response.json();
-                currentSopSha = data.sha;
                 document.getElementById('visual-editor').innerHTML = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
-                logToConsole(`SOP cargado: ${currentSopCode.toUpperCase()} (SHA: ${currentSopSha.substring(0,7)})`);
+                logToConsole(`SOP cargado: ${currentSopCode.toUpperCase()} (SHA: ${data.sha.substring(0,7)})`);
             } catch (error) { 
                 logToConsole(error.message, true); 
             }
@@ -333,7 +330,7 @@
             const editor = document.getElementById('visual-editor');
             const mode = document.querySelector('input[name="operation-mode"]:checked').value;
 
-            if (!geminiKey) { alert("Configurá tu Gemini API Key."); return; }
+            if (!geminiKey) { alert("Configurá tu Gemini API Key en la cabecera."); return; }
             if (!currentSopCode) { alert("Seleccioná un SOP o creá uno nuevo."); return; }
             if (!instruction) { alert("Ingresá el texto crudo o la directiva."); return; }
 
@@ -401,137 +398,152 @@ ASIGNACIÓN DE EMOJIS:
         }
 
         async function pushToGitHub() {
-            const rawToken = localStorage.getItem('github_token') || document.getElementById('github-token').value || "";
-            const token = rawToken.replace(/^(Bearer|token)\s+/i, '').replace(/["']/g, '').trim();
+            const token = getCleanToken();
             const editor = document.getElementById('visual-editor');
             const selectorVal = document.getElementById('sop-selector').value;
             const isNew = (selectorVal === "NEW_SOP");
             const btnSave = document.getElementById('btn-save');
             
             if(!token) { 
-                alert("Falta configurar el GitHub Personal Token (PAT)."); 
+                alert("Falta el GitHub Personal Token (PAT) en la cabecera."); 
                 return; 
             }
 
             let finalId = isNew 
-                ? document.getElementById('new-id').value.trim().toLowerCase() 
+                ? document.getElementById('new-id').value.trim().toLowerCase()
                 : currentSopCode.trim().toLowerCase();
 
             finalId = finalId.replace(/^sops\//, '').replace(/\.html$/, '').trim();
             let finalTitle = isNew ? document.getElementById('new-title').value.trim() : "";
 
-            if (isNew && (!finalId || !finalTitle)) {
-                alert("Completá ID y Título del nuevo SOP.");
-                return;
+            if (isNew) {
+                if(!finalId || !finalTitle) { 
+                    alert("Completá el ID y el Título oficial del nuevo SOP."); 
+                    return; 
+                }
+                if (!finalTitle.includes(" · ")) {
+                    alert("El formato del título debe ser: 'P-XX · Nombre de Manual'"); 
+                    return; 
+                }
             }
 
             if (!finalId || finalId === "new") {
-                alert("Seleccioná un procedimiento válido.");
+                alert("Seleccioná un procedimiento válido antes de publicar.");
                 return;
             }
 
-            const contentString = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
-            const base64Content = btoa(unescape(encodeURIComponent(contentString)));
+            const rawContent = editor.innerHTML.trim();
+            const cleanContent = rawContent.replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
+            const base64Content = btoa(unescape(encodeURIComponent(cleanContent)));
             
             btnSave.disabled = true;
             btnSave.innerText = "Publicando...";
-            logToConsole(`Iniciando despliegue de sops/${finalId}.html...`);
 
             try {
-                const repoOwner = "juanoviedo1987-droid";
-                const repoName = "sops-nazaria";
                 const targetPath = `sops/${finalId}.html`;
-                const apiUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){repoOwner}/${repoName}/contents/${targetPath}`;
+                const fileEndpoint = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/${targetPath}`;
+                logToConsole(`Verificando SHA en ${targetPath}...`);
 
-                // 1. Obtener SHA del archivo existente si existe
-                let fileSha = null;
-                const getRes = await fetch(apiUrl, {
+                // 1. Obtener SHA dinámico del archivo
+                let targetSha = null;
+                const checkRes = await fetch(fileEndpoint, {
                     headers: {
                         "Authorization": `token ${token}`,
                         "Accept": "application/vnd.github.v3+json"
-                    }
+                    },
+                    cache: "no-store"
                 });
 
-                if (getRes.ok) {
-                    const fileData = await getRes.json();
-                    fileSha = fileData.sha;
-                    logToConsole(`SHA existente detectado: ${fileSha.substring(0, 7)}`);
+                if (checkRes.ok) {
+                    const fileData = await checkRes.json();
+                    targetSha = fileData.sha;
+                    logToConsole(`SHA existente detectado: ${targetSha.substring(0,7)}`);
+                } else if (checkRes.status === 404) {
+                    logToConsole("El archivo no existe previamente, se creará uno nuevo.");
                 }
 
-                // 2. Ejecutar Commit directo vía PUT
-                const payload = {
-                    message: `Ops Control: Publicar ${targetPath}`,
+                // 2. Commit del archivo HTML
+                const payloadHtml = { 
+                    message: `Ops Control: Publicar ${targetPath}`, 
                     content: base64Content
                 };
-                if (fileSha) payload.sha = fileSha;
-
-                const putRes = await fetch(apiUrl, {
-                    method: "PUT",
+                if (targetSha) payloadHtml.sha = targetSha;
+                
+                logToConsole(`Enviando commit a GitHub REST API...`);
+                const resHtml = await fetch(fileEndpoint, { 
+                    method: "PUT", 
                     headers: {
                         "Authorization": `token ${token}`,
                         "Accept": "application/vnd.github.v3+json",
                         "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(payload)
+                    }, 
+                    body: JSON.stringify(payloadHtml) 
                 });
 
-                if (!putRes.ok) {
-                    const errJson = await putRes.json().catch(() => ({}));
-                    throw new Error(`GitHub API Error (${putRes.status}): ${errJson.message || 'Fallo de permisos o branch protegida'}`);
+                if(!resHtml.ok) {
+                    const errData = await resHtml.json().catch(() => ({}));
+                    throw new Error(`[HTML ${resHtml.status}]: ${errData.message || 'Error al guardar el archivo'}`);
                 }
 
-                logToConsole(`Archivo ${targetPath} guardado en GitHub.`);
+                logToConsole(`${targetPath} publicado exitosamente.`);
 
-                // 3. Sincronizar menu.json si es un SOP nuevo
+                // 3. Sincronizar menú central menu.json si es un SOP nuevo
                 if (isNew) {
-                    const menuUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){repoOwner}/${repoName}/contents/menu.json`;
-                    const menuGet = await fetch(menuUrl, {
+                    let latestMenuSha = null;
+                    let currentMenuData = [];
+                    const menuEndpoint = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
+
+                    const menuRes = await fetch(menuEndpoint, {
                         headers: {
                             "Authorization": `token ${token}`,
                             "Accept": "application/vnd.github.v3+json"
-                        }
+                        },
+                        cache: "no-store"
                     });
 
-                    let menuData = fullMenuData;
-                    let currentMenuSha = menuSha;
-
-                    if (menuGet.ok) {
-                        const mJson = await menuGet.json();
-                        currentMenuSha = mJson.sha;
-                        menuData = JSON.parse(decodeURIComponent(escape(atob(mJson.content.replace(/\s/g, '')))));
+                    if (menuRes.ok) {
+                        const mData = await menuRes.json();
+                        latestMenuSha = mData.sha;
+                        currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mData.content.replace(/\s/g, '')))));
                     }
 
-                    const existsIdx = menuData.findIndex(item => item.id === finalId);
-                    if (existsIdx >= 0) {
-                        menuData[existsIdx].title = finalTitle;
+                    const existsIndex = currentMenuData.findIndex(item => item.id === finalId);
+                    if (existsIndex >= 0) {
+                        currentMenuData[existsIndex].title = finalTitle;
                     } else {
-                        menuData.push({ id: finalId, title: finalTitle });
+                        currentMenuData.push({ id: finalId, title: finalTitle });
                     }
 
-                    const menuBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(menuData, null, 2))));
-                    const menuPut = await fetch(menuUrl, {
+                    const base64Menu = btoa(unescape(encodeURIComponent(JSON.stringify(currentMenuData, null, 2))));
+                    const payloadMenu = { 
+                        message: `Ops Control: Registrar ${finalId} en menu.json`, 
+                        content: base64Menu, 
+                        sha: latestMenuSha || menuSha 
+                    };
+                    
+                    const resMenu = await fetch(menuEndpoint, {
                         method: "PUT",
                         headers: {
                             "Authorization": `token ${token}`,
                             "Accept": "application/vnd.github.v3+json",
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({
-                            message: `Ops Control: Registrar ${finalId} en menu.json`,
-                            content: menuBase64,
-                            sha: currentMenuSha
-                        })
+                        body: JSON.stringify(payloadMenu)
                     });
 
-                    if (!menuPut.ok) throw new Error("Error al actualizar menu.json");
-                    logToConsole("menu.json sincronizado.");
+                    if(!resMenu.ok) {
+                        const errMenuData = await resMenu.json().catch(() => ({}));
+                        throw new Error(`[Menu ${resMenu.status}]: ${errMenuData.message || 'Error al actualizar menu.json'}`);
+                    }
+                    logToConsole("menu.json actualizado y sincronizado.");
                 }
 
+                logToConsole(`¡SOP ${finalId.toUpperCase()} publicado y sincronizado!`);
                 alert("Procedimiento publicado con éxito en la red de locales.");
                 location.reload();
-            } catch (err) {
-                logToConsole(err.message, true);
-                alert(err.message);
+            } catch (error) { 
+                logToConsole(`Error en despliegue: ${error.message}`, true);
+                alert(`Error en el despliegue:\n${error.message}`);
             } finally {
                 btnSave.disabled = false;
                 btnSave.innerText = "💾 Publicar en Locales";
