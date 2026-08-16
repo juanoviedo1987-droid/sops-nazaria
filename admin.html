@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS estricta con P-00 */
         .sop-editor-sheet {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -137,7 +136,7 @@
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Control -->
+        <!-- Panel de Configuración -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
@@ -187,7 +186,7 @@
             </div>
         </div>
 
-        <!-- Editor Visual WYSIWYG -->
+        <!-- Área de Edición Visual WYSIWYG -->
         <div class="lg:col-span-6 flex flex-col">
             <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
@@ -217,7 +216,6 @@
     <script>
         const GITHUB_USER = "juanoviedo1987-droid";
         const GITHUB_REPO = "sops-nazaria";
-        const GITHUB_BRANCH = "main";
         let currentSopSha = null;
         let currentSopCode = "";
         let menuSha = null;
@@ -252,14 +250,15 @@
         async function loadMenuFromGitHub() {
             const token = getCleanToken();
             if(!token) {
-                logToConsole("Falta configurar el GitHub Personal Token (PAT).", true);
+                logToConsole("Configurá tu GitHub PAT en la cabecera.", true);
                 return;
             }
             try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json?ref=${GITHUB_BRANCH}`, {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
                     headers: { 
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json"
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/vnd.github+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
                     },
                     cache: "no-store"
                 });
@@ -307,10 +306,11 @@
             const token = getCleanToken();
             document.getElementById('file-path-indicator').innerText = `sops/${currentSopCode}.html`;
             try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html?ref=${GITHUB_BRANCH}`, {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`, {
                     headers: { 
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json"
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/vnd.github+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
                     },
                     cache: "no-store"
                 });
@@ -418,9 +418,7 @@ ASIGNACIÓN DE EMOJIS:
                 ? document.getElementById('new-id').value.trim().toLowerCase()
                 : currentSopCode.trim().toLowerCase();
 
-            // Limpieza estricta de prefijos y extensiones
             finalId = finalId.replace(/^sops\//, '').replace(/\.html$/, '').trim();
-
             let finalTitle = isNew ? document.getElementById('new-title').value.trim() : "";
 
             if (isNew) {
@@ -429,7 +427,7 @@ ASIGNACIÓN DE EMOJIS:
                     return; 
                 }
                 if (!finalTitle.includes(" · ")) {
-                    alert("El formato del título debe ser estrictamente: 'P-XX · Nombre'"); 
+                    alert("El formato del título debe ser: 'P-XX · Nombre'"); 
                     return; 
                 }
             }
@@ -447,48 +445,47 @@ ASIGNACIÓN DE EMOJIS:
             btnSave.innerText = "Publicando...";
 
             try {
-                // 1. Obtener SHA en tiempo real del archivo en sops/
+                // 1. Obtener SHA del archivo en sops/
                 let targetSha = null;
-                const checkUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html?ref=${GITHUB_BRANCH}`;
+                const fileEndpoint = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
                 logToConsole(`Consultando sops/${finalId}.html...`);
 
-                const checkRes = await fetch(checkUrl, {
+                const checkRes = await fetch(fileEndpoint, {
                     headers: {
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json"
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/vnd.github+json",
+                        "X-GitHub-Api-Version": "2022-11-28"
                     },
-                    cache: "no-store"
+                    cache: "no-store",
+                    redirect: "error"
                 });
 
                 if (checkRes.ok) {
                     const fileData = await checkRes.json();
                     targetSha = fileData.sha;
-                    logToConsole(`SHA existente detectado: ${targetSha.substring(0,7)}`);
+                    logToConsole(`SHA existente: ${targetSha.substring(0,7)}`);
                 } else if (checkRes.status === 404) {
-                    logToConsole("Creando nuevo archivo en repositorio...");
-                } else {
-                    const rawCheckErr = await checkRes.text();
-                    logToConsole(`Aviso verificación (${checkRes.status}): ${rawCheckErr}`);
+                    logToConsole("Creando nuevo archivo...");
                 }
 
-                // 2. Commit del archivo HTML en /sops/
-                const putUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
+                // 2. Commit del archivo HTML
                 const payloadHtml = { 
                     message: `Ops Control: Publicar sops/${finalId}.html`, 
-                    content: base64Content,
-                    branch: GITHUB_BRANCH
+                    content: base64Content
                 };
                 if (targetSha) payloadHtml.sha = targetSha;
                 
-                logToConsole(`Ejecutando PUT a GitHub API...`);
-                const resHtml = await fetch(putUrl, { 
+                logToConsole(`Enviando PUT a GitHub REST API...`);
+                const resHtml = await fetch(fileEndpoint, { 
                     method: 'PUT', 
                     headers: {
-                        "Authorization": `token ${token}`,
-                        "Accept": "application/vnd.github.v3+json",
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/vnd.github+json",
+                        "X-GitHub-Api-Version": "2022-11-28",
                         "Content-Type": "application/json"
                     }, 
-                    body: JSON.stringify(payloadHtml) 
+                    body: JSON.stringify(payloadHtml),
+                    redirect: "error"
                 });
 
                 if(!resHtml.ok) {
@@ -504,14 +501,16 @@ ASIGNACIÓN DE EMOJIS:
                 if (isNew) {
                     let latestMenuSha = null;
                     let currentMenuData = [];
-                    const menuUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json?ref=${GITHUB_BRANCH}`;
+                    const menuEndpoint = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
 
-                    const menuRes = await fetch(menuUrl, {
+                    const menuRes = await fetch(menuEndpoint, {
                         headers: {
-                            "Authorization": `token ${token}`,
-                            "Accept": "application/vnd.github.v3+json"
+                            "Authorization": `Bearer ${token}`,
+                            "Accept": "application/vnd.github+json",
+                            "X-GitHub-Api-Version": "2022-11-28"
                         },
-                        cache: "no-store"
+                        cache: "no-store",
+                        redirect: "error"
                     });
 
                     if (menuRes.ok) {
@@ -530,20 +529,20 @@ ASIGNACIÓN DE EMOJIS:
                     const base64Menu = btoa(unescape(encodeURIComponent(JSON.stringify(currentMenuData, null, 2))));
                     const payloadMenu = { 
                         message: `Ops Control: Registrar ${finalId} en menu.json`, 
-                        content: base64Menu,
-                        branch: GITHUB_BRANCH,
+                        content: base64Menu, 
                         sha: latestMenuSha 
                     };
                     
-                    const putMenuUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
-                    const resMenu = await fetch(putMenuUrl, {
+                    const resMenu = await fetch(menuEndpoint, {
                         method: 'PUT',
                         headers: {
-                            "Authorization": `token ${token}`,
-                            "Accept": "application/vnd.github.v3+json",
+                            "Authorization": `Bearer ${token}`,
+                            "Accept": "application/vnd.github+json",
+                            "X-GitHub-Api-Version": "2022-11-28",
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(payloadMenu)
+                        body: JSON.stringify(payloadMenu),
+                        redirect: "error"
                     });
 
                     if(!resMenu.ok) {
