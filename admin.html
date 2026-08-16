@@ -550,17 +550,14 @@ ASIGNACIÓN DE EMOJIS:
         }
 
         function openGitHubDirect() {
-            const finalId = getSelectedId();
-            if (!finalId || finalId === "new") {
-                alert("Seleccioná o definí un ID de SOP primero.");
-                return;
-            }
-            const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
-            const targetUrl = isNew 
-                ? `[https://github.com/$](https://github.com/$){GITHUB_USER}/${GITHUB_REPO}/new/main/sops?filename=${finalId}.html`
-                : `[https://github.com/$](https://github.com/$){GITHUB_USER}/${GITHUB_REPO}/edit/main/sops/${finalId}.html`;
-            window.open(targetUrl, '_blank');
-        }
-    </script>
-</body>
-</html>
+    const finalId = getSelectedId();
+    if (!finalId || finalId === "new") {
+        alert("Seleccioná o definí un ID de SOP primero.");
+        return;
+    }
+    const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
+    const targetUrl = isNew 
+        ? `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/new/main/sops?filename=${finalId}.html`
+        : `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/edit/main/sops/${finalId}.html`;
+    window.open(targetUrl, '_blank');
+}
