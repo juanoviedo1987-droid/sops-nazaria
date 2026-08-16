@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS estricta con P-00 de index.html */
         .sop-editor-sheet {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -137,7 +136,7 @@
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Control y Configuración -->
+        <!-- Controles -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
@@ -187,7 +186,7 @@
             </div>
         </div>
 
-        <!-- Área de Edición Visual WYSIWYG -->
+        <!-- Área de Edición WYSIWYG -->
         <div class="lg:col-span-6 flex flex-col">
             <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
@@ -203,7 +202,7 @@
         <div class="lg:col-span-2 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm">
             <div class="space-y-4">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Despliegue</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">El botón compila el contenido del editor, resuelve el SHA correspondiente y actualiza la rama <strong>main</strong> de GitHub Pages.</p>
+                <p class="text-xs text-neutral-500 leading-relaxed">El botón compila el contenido del editor, resuelve el SHA correspondiente y actualiza la base central de GitHub Pages.</p>
             </div>
             <div class="space-y-3">
                 <div class="text-[10px] font-mono text-neutral-400 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
@@ -218,7 +217,7 @@
         const GITHUB_USER = "juanoviedo1987-droid";
         const GITHUB_REPO = "sops-nazaria";
         let currentSopSha = null;
-        let currentSopCode = null;
+        let currentSopCode = "";
         let menuSha = null;
         let fullMenuData = [];
 
@@ -238,7 +237,7 @@
             const ghToken = getCleanToken();
             localStorage.setItem('gemini_key', gKey);
             localStorage.setItem('github_token', ghToken);
-            logToConsole("Credenciales guardadas.");
+            logToConsole("Credenciales persistidas.");
             loadMenuFromGitHub();
         }
 
@@ -251,7 +250,7 @@
         async function loadMenuFromGitHub() {
             const token = getCleanToken();
             if(!token) {
-                logToConsole("Falta configurar el GitHub Personal Token (PAT).", true);
+                logToConsole("Configurá tu GitHub PAT en la cabecera.", true);
                 return;
             }
             try {
@@ -263,7 +262,7 @@
                 });
                 if(!response.ok) {
                     const err = await response.json().catch(() => ({}));
-                    throw new Error(`Error cargando menu.json (${response.status}): ${err.message || ''}`);
+                    throw new Error(`Error menu.json (${response.status}): ${err.message || ''}`);
                 }
                 const data = await response.json();
                 menuSha = data.sha;
@@ -296,7 +295,7 @@
             } else if (selector.value) {
                 newFields.classList.add('hidden');
                 document.getElementById('mode-modify').checked = true;
-                currentSopCode = selector.value;
+                currentSopCode = selector.value.trim().toLowerCase();
                 fetchCurrentSOP();
             }
         }
@@ -313,7 +312,7 @@
                 });
                 if (!response.ok) { 
                     currentSopSha = null;
-                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico en sops/.</p>';
+                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico previo.</p>';
                     return; 
                 }
                 const data = await response.json();
@@ -332,9 +331,9 @@
             const editor = document.getElementById('visual-editor');
             const mode = document.querySelector('input[name="operation-mode"]:checked').value;
 
-            if (!geminiKey) { alert("Configurá tu Gemini API Key en la cabecera."); return; }
+            if (!geminiKey) { alert("Configurá tu Gemini API Key."); return; }
             if (!currentSopCode) { alert("Seleccioná un SOP o creá uno nuevo."); return; }
-            if (!instruction) { alert("Ingresá el texto crudo o la directiva en el cuadro 3."); return; }
+            if (!instruction) { alert("Ingresá el texto crudo o la directiva."); return; }
 
             btn.disabled = true;
             btn.innerText = "⏳ Procesando con IA...";
@@ -402,7 +401,8 @@ ASIGNACIÓN DE EMOJIS:
         async function pushToGitHub() {
             const token = getCleanToken();
             const editor = document.getElementById('visual-editor');
-            const isNew = (document.getElementById('sop-selector').value === "NEW_SOP");
+            const selectorVal = document.getElementById('sop-selector').value;
+            const isNew = (selectorVal === "NEW_SOP");
             const btnSave = document.getElementById('btn-save');
             
             if(!token) { 
@@ -410,27 +410,27 @@ ASIGNACIÓN DE EMOJIS:
                 return; 
             }
 
-            let finalId = currentSopCode;
-            let finalTitle = "";
+            let finalId = isNew 
+                ? document.getElementById('new-id').value.trim().toLowerCase()
+                : currentSopCode.trim().toLowerCase();
+
+            // Limpieza estricta de prefijos y extensiones
+            finalId = finalId.replace(/^sops\//, '').replace(/\.html$/, '').trim();
+
+            let finalTitle = isNew ? document.getElementById('new-title').value.trim() : "";
 
             if (isNew) {
-                finalId = document.getElementById('new-id').value.trim().toLowerCase().replace(/^sops\//, '').replace(/\.html$/, '');
-                finalTitle = document.getElementById('new-title').value.trim();
-                
                 if(!finalId || !finalTitle) { 
                     alert("Completá el ID y el Título oficial del nuevo SOP."); 
                     return; 
                 }
-
                 if (!finalTitle.includes(" · ")) {
-                    alert("El formato del título debe ser estrictamente: 'P-XX · Nombre de Manual'");
-                    return;
+                    alert("El formato del título debe ser: 'P-XX · Nombre'"); 
+                    return; 
                 }
-            } else {
-                finalId = String(finalId).toLowerCase().replace(/^sops\//, '').replace(/\.html$/, '');
             }
 
-            if (!finalId || finalId === "new" || finalId === "null" || finalId === "undefined") {
+            if (!finalId || finalId === "new") {
                 alert("Seleccioná un SOP válido antes de publicar.");
                 return;
             }
@@ -443,32 +443,38 @@ ASIGNACIÓN DE EMOJIS:
             btnSave.innerText = "Publicando...";
 
             try {
-                // 1. Obtener SHA en tiempo real del archivo en sops/
+                // 1. Obtener SHA del archivo en sops/
                 let targetSha = null;
-                try {
-                    const checkRes = await fetch(`[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`, {
-                        headers: {
-                            "Authorization": `token ${token}`,
-                            "Accept": "application/vnd.github.v3+json"
-                        }
-                    });
-                    if (checkRes.ok) {
-                        const fileData = await checkRes.json();
-                        targetSha = fileData.sha;
+                const checkUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
+                logToConsole(`Consultando estado en: sops/${finalId}.html`);
+
+                const checkRes = await fetch(checkUrl, {
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
                     }
-                } catch(e) {
-                    console.warn("Verificando existencia previa del archivo...");
+                });
+
+                if (checkRes.ok) {
+                    const fileData = await checkRes.json();
+                    targetSha = fileData.sha;
+                    logToConsole(`SHA existente detectado: ${targetSha.substring(0,7)}`);
+                } else if (checkRes.status === 404) {
+                    logToConsole("El archivo no existe previamente en sops/, se creará uno nuevo.");
+                } else {
+                    const rawCheckErr = await checkRes.text();
+                    logToConsole(`Aviso verificación SHA (${checkRes.status}): ${rawCheckErr}`);
                 }
 
-                // 2. Commit del archivo HTML en /sops/
-                const urlHtml = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
+                // 2. Commit del archivo HTML
                 const payloadHtml = { 
                     message: `Ops Control: Publicar sops/${finalId}.html`, 
                     content: base64Content
                 };
                 if (targetSha) payloadHtml.sha = targetSha;
                 
-                const resHtml = await fetch(urlHtml, { 
+                logToConsole(`Ejecutando PUT a GitHub API para sops/${finalId}.html...`);
+                const resHtml = await fetch(checkUrl, { 
                     method: 'PUT', 
                     headers: {
                         "Authorization": `token ${token}`,
@@ -482,27 +488,29 @@ ASIGNACIÓN DE EMOJIS:
                     const rawErr = await resHtml.text();
                     let errMsg = rawErr;
                     try { errMsg = JSON.parse(rawErr).message || rawErr; } catch(e) {}
-                    throw new Error(`GitHub Error [HTML ${resHtml.status}]: ${errMsg}`);
+                    throw new Error(`[HTML ${resHtml.status}]: ${errMsg}`);
                 }
+
+                logToConsole(`sops/${finalId}.html guardado con éxito.`);
 
                 // 3. Sincronizar manifiesto menu.json si es un SOP nuevo
                 if (isNew) {
-                    let latestMenuSha = menuSha;
-                    let currentMenuData = fullMenuData;
+                    let latestMenuSha = null;
+                    let currentMenuData = [];
+                    const menuUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
 
-                    try {
-                        const menuRes = await fetch(`[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
-                            headers: {
-                                "Authorization": `token ${token}`,
-                                "Accept": "application/vnd.github.v3+json"
-                            }
-                        });
-                        if (menuRes.ok) {
-                            const mData = await menuRes.json();
-                            latestMenuSha = mData.sha;
-                            currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mData.content.replace(/\s/g, '')))));
+                    const menuRes = await fetch(menuUrl, {
+                        headers: {
+                            "Authorization": `token ${token}`,
+                            "Accept": "application/vnd.github.v3+json"
                         }
-                    } catch(e) {}
+                    });
+
+                    if (menuRes.ok) {
+                        const mData = await menuRes.json();
+                        latestMenuSha = mData.sha;
+                        currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mData.content.replace(/\s/g, '')))));
+                    }
 
                     const existsIndex = currentMenuData.findIndex(item => item.id === finalId);
                     if (existsIndex >= 0) {
@@ -518,7 +526,7 @@ ASIGNACIÓN DE EMOJIS:
                         sha: latestMenuSha 
                     };
                     
-                    const resMenu = await fetch(`[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
+                    const resMenu = await fetch(menuUrl, {
                         method: 'PUT',
                         headers: {
                             "Authorization": `token ${token}`,
@@ -532,15 +540,16 @@ ASIGNACIÓN DE EMOJIS:
                         const rawMenuErr = await resMenu.text();
                         let errMenuMsg = rawMenuErr;
                         try { errMenuMsg = JSON.parse(rawMenuErr).message || rawMenuErr; } catch(e) {}
-                        throw new Error(`GitHub Error [Menu ${resMenu.status}]: ${errMenuMsg}`);
+                        throw new Error(`[Menu ${resMenu.status}]: ${errMenuMsg}`);
                     }
+                    logToConsole("menu.json actualizado.");
                 }
 
-                logToConsole(`¡SOP ${finalId.toUpperCase()} publicado y sincronizado con éxito!`);
+                logToConsole(`¡SOP ${finalId.toUpperCase()} publicado y sincronizado!`);
                 alert("Procedimiento publicado con éxito en la red de locales.");
                 location.reload();
             } catch (error) { 
-                logToConsole(error.message, true);
+                logToConsole(`Error en despliegue: ${error.message}`, true);
                 alert(`Error en el despliegue:\n${error.message}`);
             } finally {
                 btnSave.disabled = false;
