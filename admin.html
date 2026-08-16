@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS exacta con el visor oficial P-00 (index.html) */
+        /* Paridad CSS exacta con el estándar oficial P-00 de index.html */
         .sop-container {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -118,9 +118,10 @@
         }
     </style>
 </head>
-<body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col">
+<body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col relative overflow-hidden">
 
-    <header class="bg-white border-b border-neutral-200 px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm shrink-0">
+    <!-- Header Principal -->
+    <header class="bg-white border-b border-neutral-200 px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm shrink-0 z-10">
         <div class="flex items-center space-x-3">
             <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
             <div>
@@ -128,16 +129,21 @@
                 <p class="text-[11px] text-neutral-500">Consola de Mantenimiento y Redacción de Manuales</p>
             </div>
         </div>
-        <div class="flex items-center gap-2">
-            <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-64 focus:outline-none focus:border-black">
-            <button onclick="saveKey()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llave</button>
+        <div class="flex items-center gap-3">
+            <button onclick="toggleGuideDrawer()" class="bg-amber-50 hover:bg-amber-100/80 text-amber-900 border border-amber-300/80 font-semibold text-xs px-3.5 py-1.5 rounded transition shadow-sm flex items-center gap-1.5">
+                <span>📖</span> Guía Operativa & Estándar
+            </button>
+            <div class="flex items-center gap-2">
+                <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-56 focus:outline-none focus:border-black">
+                <button onclick="saveKey()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llave</button>
+            </div>
         </div>
     </header>
 
-    <!-- Layout Flex de 3 Columnas: Izquierda Fija, Centro Adaptativo A4, Derecha Fija -->
+    <!-- Layout de Trabajo Principal -->
     <div class="flex-1 w-full p-4 flex flex-row gap-4 overflow-hidden h-[calc(100vh-65px)]">
         
-        <!-- Panel Izquierdo: Controles de IA (320px) -->
+        <!-- Panel Izquierdo: Controles de IA -->
         <aside class="w-[320px] shrink-0 flex flex-col space-y-3 overflow-y-auto pr-1">
             <div class="bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-3">
                 <div>
@@ -148,7 +154,7 @@
                 </div>
 
                 <div id="new-sop-fields" class="hidden bg-amber-50/60 border border-amber-200 p-3 rounded space-y-2.5">
-                    <div class="text-[10px] font-bold text-amber-800 uppercase tracking-widest">Identificación de Nuevo SOP</div>
+                    <div class="text-[10px] font-bold text-amber-800 uppercase tracking-widest">Identificación de Nuevo Manual</div>
                     <div>
                         <input type="text" id="new-id" placeholder="id único (ej: p10)" class="w-full bg-white border border-neutral-200 rounded p-2 text-xs text-neutral-800 focus:outline-none focus:border-black">
                     </div>
@@ -158,7 +164,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">2. Modo de Operación IA</label>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">2. Modo de Operación</label>
                     <div class="flex flex-col space-y-1.5 text-xs font-medium bg-neutral-50 border border-neutral-200 p-2.5 rounded">
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-modify" value="modify" checked class="accent-black">
@@ -172,8 +178,8 @@
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">3. Directiva o Texto Crudo</label>
-                    <textarea id="instruction-input" rows="4" placeholder="Escribí la instrucción de ajuste o pegá el borrador..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">3. Directiva o Texto Borrador</label>
+                    <textarea id="instruction-input" rows="4" placeholder="Escribí qué querés cambiar o pegá el texto crudo acá..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
                 </div>
 
                 <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-800 py-2.5 rounded uppercase tracking-widest transition shadow-sm">
@@ -187,7 +193,7 @@
             </div>
         </aside>
 
-        <!-- Panel Central: Hoja A4 Centrada (820px exactos) -->
+        <!-- Panel Central: Hoja de Edición Visual Real (820px idéntico a locales) -->
         <main class="flex-1 bg-[#FAF9F6] border border-neutral-200 rounded p-8 overflow-y-auto flex justify-center shadow-inner">
             <div class="w-full max-w-[820px] flex flex-col items-center">
                 <div class="w-full mb-3 flex items-center justify-between px-1">
@@ -202,11 +208,11 @@
             </div>
         </main>
 
-        <!-- Panel Derecho: Acciones e Instructivo (300px) -->
-        <aside class="w-[300px] shrink-0 flex flex-col justify-between bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-4 overflow-y-auto pl-4">
+        <!-- Panel Derecho: Publicación Rápida -->
+        <aside class="w-[280px] shrink-0 flex flex-col justify-between bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-4 overflow-y-auto">
             <div class="space-y-3">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación en Producción</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">Generá el código HTML validado bajo el estándar P-00 para impactar en GitHub.</p>
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación</div>
+                <p class="text-xs text-neutral-500 leading-relaxed">Copiá el código limpio validado para impactar los cambios en el repositorio de GitHub.</p>
                 
                 <div class="text-[10px] font-mono text-neutral-500 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
                 
@@ -219,37 +225,114 @@
                 </button>
             </div>
 
-            <!-- Instructivo de Flujo Operativo -->
-            <div class="border-t border-neutral-100 pt-3 space-y-2.5">
-                <div class="text-[10px] font-bold text-neutral-800 uppercase tracking-widest">Guía de Flujo Operativo</div>
-                
-                <div class="text-[11px] text-neutral-600 space-y-2 leading-tight">
-                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-100">
-                        <strong class="text-neutral-900 block mb-1">Caso A: Modificar SOP Existente</strong>
-                        <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
-                            <li>Elegí el manual en el selector.</li>
-                            <li>Ingresá el ajuste y clic en <em>"Generar Vista Previa con IA"</em>.</li>
-                            <li>Clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
-                            <li>Clic en <em>"Abrir Archivo en GitHub Web"</em>, pegá el contenido (`Ctrl+V`) y confirmá el commit.</li>
-                        </ol>
-                    </div>
+            <div class="border-t border-neutral-100 pt-3">
+                <button onclick="toggleGuideDrawer()" class="w-full bg-neutral-50 hover:bg-neutral-100 text-neutral-600 border border-neutral-200 text-[11px] font-medium py-2 rounded transition text-center">
+                    Ver Guía de Publicación y Reglas
+                </button>
+            </div>
+        </aside>
+    </div>
 
-                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-100">
-                        <strong class="text-neutral-900 block mb-1">Caso B: Crear Nuevo SOP</strong>
-                        <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
-                            <li>Elegí <em>"➕ [CREAR NUEVO PROCEDIMIENTO]"</em> e indicá ID y Título.</li>
-                            <li>Pegá el texto crudo y generá la maqueta con IA.</li>
-                            <li>Clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
-                            <li>Creá el archivo en GitHub Web dentro de <code>sops/pXX.html</code> y agregá la línea al <code>menu.json</code>.</li>
-                        </ol>
-                    </div>
+    <!-- Backdrop del Drawer Lateral -->
+    <div id="guide-drawer-backdrop" onclick="toggleGuideDrawer()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity"></div>
 
-                    <div class="bg-amber-50/50 p-2 rounded border border-amber-200/50 text-[10px] text-amber-900 leading-relaxed">
-                        <strong>Regla P-00:</strong> Prohibido incluir tags <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> o delimitadores Markdown (```). Los archivos deben ser fragmentos HTML puros con clases <code>sop-*</code> y cierre obligatorio de Reglas de Oro (⚠).
+    <!-- Drawer Lateral Deslizante: Guía y Estándar P-00 -->
+    <div id="guide-drawer" class="fixed top-0 right-0 h-full w-full max-w-[500px] bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-neutral-200">
+        
+        <!-- Cabecera del Drawer -->
+        <div class="p-5 border-b border-neutral-200 bg-neutral-50 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-base">📖</span>
+                <div>
+                    <h2 class="text-xs font-bold text-neutral-900 uppercase tracking-widest">Manual de Uso y Estándar P-00</h2>
+                    <p class="text-[11px] text-neutral-500">Referencia rápida para crear, modificar y publicar</p>
+                </div>
+            </div>
+            <button onclick="toggleGuideDrawer()" class="w-8 h-8 rounded-full bg-neutral-200/70 hover:bg-neutral-300 text-neutral-700 flex items-center justify-center font-bold text-sm transition">✕</button>
+        </div>
+
+        <!-- Contenido Desplazable del Drawer -->
+        <div class="flex-1 p-6 overflow-y-auto space-y-6 text-neutral-800 text-xs leading-relaxed">
+            
+            <!-- Sección 1: Roles y Herramientas -->
+            <div class="space-y-2.5">
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">1. ¿Qué herramienta uso y para qué?</div>
+                <div class="grid grid-cols-1 gap-2">
+                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
+                        <strong class="text-neutral-900 block mb-0.5">🧠 Gemini (HQ / Chat)</strong>
+                        <span>Para pensar, redactar borradores largos, ordenar ideas de negocio o armar directivas iniciales.</span>
+                    </div>
+                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
+                        <strong class="text-neutral-900 block mb-0.5">🖥️ Consola Admin (Esta Pantalla)</strong>
+                        <span>Para maquetar el texto con diseño oficial, previsualizar la hoja real y retocar cualquier párrafo antes de publicar.</span>
+                    </div>
+                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
+                        <strong class="text-neutral-900 block mb-0.5">☁️ GitHub Web</strong>
+                        <span>El lugar donde se guardan los archivos finales (dentro de la carpeta <code>sops/</code> y en la lista <code>menu.json</code>).</span>
+                    </div>
+                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-200/80">
+                        <strong class="text-neutral-900 block mb-0.5">📱 App de Sucursales (index.html)</strong>
+                        <span>La pantalla de consulta limpia que usan las vendedoras y encargadas en cada local.</span>
                     </div>
                 </div>
             </div>
-        </aside>
+
+            <!-- Sección 2: Paso a Paso para Trabajar -->
+            <div class="space-y-2.5">
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">2. Paso a paso para publicar</div>
+                
+                <div class="bg-neutral-50 p-3 rounded border border-neutral-200/80 space-y-2">
+                    <strong class="text-neutral-900 text-xs block">Caso A: Modificar un manual que ya existe</strong>
+                    <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
+                        <li>Elegí el manual en el selector del panel izquierdo.</li>
+                        <li>Escribí qué querés agregar o cambiar y hacé clic en <em>"Generar Vista Previa con IA"</em> (o editalo directo escribiendo sobre la hoja blanca).</li>
+                        <li>Hacé clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
+                        <li>Hacé clic en <strong>"↗ Abrir Archivo en GitHub Web"</strong>, pegá el contenido reemplazando lo anterior (<code>Ctrl+V</code>) y tocá <strong>Commit changes</strong>.</li>
+                    </ol>
+                </div>
+
+                <div class="bg-neutral-50 p-3 rounded border border-neutral-200/80 space-y-2">
+                    <strong class="text-neutral-900 text-xs block">Caso B: Crear un manual nuevo</strong>
+                    <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
+                        <li>Elegí <em>"➕ [CREAR NUEVO PROCEDIMIENTO]"</em> y completá el ID (ej: <code>p11</code>) y el Título (ej: <code>P-11 · Nombre Oficial</code>).</li>
+                        <li>Pegá el texto borrador y hacé clic en <em>"Generar Vista Previa con IA"</em>.</li>
+                        <li>Hacé clic en <strong>"📋 Copiar Código del Manual"</strong>.</li>
+                        <li>Creá el archivo en GitHub en <code>sops/p11.html</code> pegando el código. Luego agregá la línea con el nuevo botón en <code>menu.json</code>.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Sección 3: Reglas de Estilo y Emojis -->
+            <div class="space-y-2.5">
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">3. Reglas de diseño y Emojis oficiales</div>
+                
+                <div class="bg-amber-50/70 p-3 rounded border border-amber-200/80 text-amber-950 space-y-1.5">
+                    <strong class="block text-amber-900 font-semibold">⚠ Regla de Oro del Código:</strong>
+                    <p class="leading-relaxed">Los manuales nunca deben incluir etiquetas como <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> ni bloques de código (```). Solo se guarda el fragmento interno con el contenido del procedimiento.</p>
+                </div>
+
+                <div class="bg-neutral-50 p-3 rounded border border-neutral-200/80 space-y-2">
+                    <strong class="text-neutral-900 block font-semibold">Uso obligatorio de Emojis según el tema:</strong>
+                    <ul class="space-y-1 text-neutral-600">
+                        <li>🖥️ <strong>Sistemas / Pantallas:</strong> Dux Software, consultas en PC y reportes.</li>
+                        <li>📱 <strong>Celular / Comunicación:</strong> WhatsApp del local, formularios de Google y redes.</li>
+                        <li>💳 <strong>Cobros con Tarjeta:</strong> Terminales Payway, Nave, Mercado Pago y cupones.</li>
+                        <li>💵 <strong>Efectivo:</strong> Caja chica, cambio y arqueos de turno.</li>
+                        <li>📦 <strong>Mercadería:</strong> Control de stock, recepción de cajas, Correo Argentino y auditorías.</li>
+                        <li>✨ <strong>Atención al Cliente:</strong> Saludo inicial, estética del salón, asesoramiento y fidelización.</li>
+                        <li>⚠ <strong>Reglas de Oro:</strong> Errores críticos que no se pueden cometer (sección final obligatoria).</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Pie del Drawer -->
+        <div class="p-4 border-t border-neutral-200 bg-neutral-50 text-center">
+            <button onclick="toggleGuideDrawer()" class="w-full bg-neutral-900 hover:bg-black text-white font-bold text-xs py-2.5 rounded transition">
+                Entendido, volver a la consola
+            </button>
+        </div>
     </div>
 
     <script>
@@ -264,6 +347,19 @@
             }
             loadMenu();
         };
+
+        function toggleGuideDrawer() {
+            const drawer = document.getElementById('guide-drawer');
+            const backdrop = document.getElementById('guide-drawer-backdrop');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
 
         function saveKey() {
             const gKey = document.getElementById('gemini-key').value.trim();
@@ -347,7 +443,7 @@
 
             if (!geminiKey) { alert("Configurá tu Gemini API Key en la cabecera."); return; }
             if (!currentSopCode) { alert("Seleccioná un SOP o creá uno nuevo."); return; }
-            if (!instruction) { alert("Ingresá la directiva de cambio o el texto crudo."); return; }
+            if (!instruction) { alert("Ingresá la directiva de cambio o el texto borrador."); return; }
 
             btn.disabled = true;
             btn.innerText = "⏳ Procesando con IA...";
