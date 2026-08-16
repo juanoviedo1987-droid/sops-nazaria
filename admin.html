@@ -137,7 +137,7 @@
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Control y Configuración -->
+        <!-- Panel de Control -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
@@ -233,7 +233,7 @@
             const ghToken = document.getElementById('github-token').value.trim();
             localStorage.setItem('gemini_key', gKey);
             localStorage.setItem('github_token', ghToken);
-            logToConsole("Credenciales persistidas en LocalStorage.");
+            logToConsole("Credenciales guardadas.");
             loadMenuFromGitHub();
         }
 
@@ -243,6 +243,24 @@
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
+        async function getFileSha(path, token) {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${path}`, {
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github+json"
+                    }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    return data.sha;
+                }
+            } catch (e) {
+                console.warn("No se pudo obtener SHA previo para:", path);
+            }
+            return null;
+        }
+
         async function loadMenuFromGitHub() {
             const token = localStorage.getItem('github_token');
             if(!token) {
@@ -250,13 +268,16 @@
                 return;
             }
             try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json?t=${Date.now()}`, {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`, {
                     headers: { 
-                        "Authorization": `Bearer ${token}`,
+                        "Authorization": `token ${token}`,
                         "Accept": "application/vnd.github+json"
                     }
                 });
-                if(!response.ok) throw new Error("No se pudo obtener menu.json desde el repositorio.");
+                if(!response.ok) {
+                    const err = await response.json().catch(() => ({}));
+                    throw new Error(`Error cargando menu.json (${response.status}): ${err.message || ''}`);
+                }
                 const data = await response.json();
                 menuSha = data.sha;
                 fullMenuData = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\s/g, '')))));
@@ -285,11 +306,11 @@
                 document.getElementById('visual-editor').innerHTML = '<h1 class="sop-title-1">P-XX · Nombre de Manual</h1><p class="sop-text"><strong>Objetivo:</strong> Definir el estándar operativo...</p>';
                 currentSopSha = null;
                 currentSopCode = "NEW";
-            } else {
+            } else if (selector.value) {
                 newFields.classList.add('hidden');
                 document.getElementById('mode-modify').checked = true;
                 currentSopCode = selector.value;
-                if(currentSopCode) fetchCurrentSOP();
+                fetchCurrentSOP();
             }
         }
 
@@ -297,9 +318,9 @@
             const token = localStorage.getItem('github_token');
             document.getElementById('file-path-indicator').innerText = `sops/${currentSopCode}.html`;
             try {
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html?t=${Date.now()}`, {
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/sops/${currentSopCode}.html`, {
                     headers: { 
-                        "Authorization": `Bearer ${token}`,
+                        "Authorization": `token ${token}`,
                         "Accept": "application/vnd.github+json"
                     }
                 });
@@ -311,7 +332,7 @@
                 const data = await response.json();
                 currentSopSha = data.sha;
                 document.getElementById('visual-editor').innerHTML = decodeURIComponent(escape(atob(data.content.replace(/\s/g, ''))));
-                logToConsole(`SOP cargado: ${currentSopCode.toUpperCase()} (SHA: ${currentSopSha.substring(0,7)})`);
+                logToConsole(`SOP cargado: ${currentSopCode.toUpperCase()}`);
             } catch (error) { 
                 logToConsole(error.message, true); 
             }
@@ -332,10 +353,9 @@
             btn.innerText = "⏳ Procesando con IA...";
             logToConsole("Llamando a Gemini 2.5 Flash...");
 
-            const systemPrompt = `Sos el Lead Operations Engineer y Arquitecto de Software de Nazaria. Tu tarea es generar y actualizar fragmentos HTML limpios para el manual de procedimientos cumpliendo de forma estricta el estándar P-00.
-
-REGLAS DE FORMATO ESTRICTAS:
-- PROHIBIDO usar etiquetas estructurales externas: no incluyas <!DOCTYPE html>, <html>, <head> ni <body>.
+            const systemPrompt = `Sos el Lead Operations Engineer de Nazaria. Tu tarea es generar fragmentos HTML limpios para manuales cumpliendo estrictamente el estándar P-00.
+REGLAS OBLIGATORIAS:
+- PROHIBIDO usar <!DOCTYPE html>, <html>, <head> o <body>.
 - PROHIBIDO responder con delimitadores markdown (\`\`\`html o \`\`\`). Tu respuesta debe ser ÚNICAMENTE el código HTML puro.
 - Jerarquía CSS requerida:
   * Título Principal: <h1 class="sop-title-1">P-XX · Título del Procedimiento</h1>
@@ -352,13 +372,8 @@ REGLAS DE FORMATO ESTRICTAS:
       <li class="sop-warning-item">⚠ <strong>[Regla]:</strong> Descripción del punto crítico.</li>
     </ul>
 
-ASIGNACIÓN OBLIGATORIA DE EMOJIS:
-🖥️ -> Dux Software / Sistemas / Reportes
-📱 -> WhatsApp / Redes / Formularios / Mensajería
-💳 -> Pagos digitales / Tarjetas / Terminales POS / Cupones
-💵 -> Efectivo / Caja Chica / Arqueos
-📦 -> Depósito / Stock / Envíos / Auditorías
-✨ -> Atención al Cliente / Fidelización / Imagen`;
+ASIGNACIÓN DE EMOJIS:
+🖥️ -> Dux Software / Sistemas | 📱 -> WhatsApp / Redes | 💳 -> Pagos digitales / Tarjetas | 💵 -> Efectivo / Caja | 📦 -> Stock / Envíos | ✨ -> Atención al Cliente`;
 
             let userPrompt = mode === "scratch" 
                 ? `GENERAR MANUAL COMPLETO DESDE CERO CON ESTE TEXTO BORRADOR:\n${instruction}`
@@ -376,7 +391,7 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
 
                 if (!response.ok) {
                     const errData = await response.json().catch(() => ({}));
-                    throw new Error(errData.error?.message || `HTTP ${response.status}: Error al conectar con Gemini API`);
+                    throw new Error(errData.error?.message || `HTTP ${response.status}`);
                 }
 
                 const resData = await response.json();
@@ -387,7 +402,7 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
                 if (outputHtml.endsWith("```")) outputHtml = outputHtml.substring(0, outputHtml.length - 3);
 
                 editor.innerHTML = outputHtml.trim();
-                logToConsole("Vista previa generada y sincronizada en el editor.");
+                logToConsole("Vista previa generada con éxito.");
             } catch (error) { 
                 logToConsole(`Error IA: ${error.message}`, true);
                 alert(`Error al generar vista previa: ${error.message}`);
@@ -426,6 +441,11 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
                 }
             }
 
+            if (!finalId || finalId === "NEW") {
+                alert("Seleccioná un SOP válido.");
+                return;
+            }
+
             const finalContent = editor.innerHTML;
             const base64Content = btoa(unescape(encodeURIComponent(finalContent)));
             
@@ -433,26 +453,11 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
             btnSave.innerText = "Publicando...";
 
             try {
-                const urlHtml = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
-                
-                // 1. Obtener SHA dinámico en caliente para evitar conflictos 422/409
-                let targetSha = currentSopSha;
-                try {
-                    const checkRes = await fetch(`${urlHtml}?t=${Date.now()}`, {
-                        headers: { 
-                            "Authorization": `Bearer ${token}`,
-                            "Accept": "application/vnd.github+json"
-                        }
-                    });
-                    if (checkRes.ok) {
-                        const fileData = await checkRes.json();
-                        targetSha = fileData.sha;
-                    }
-                } catch(e) {
-                    console.warn("Validando creación de nuevo archivo.");
-                }
+                // 1. Obtener SHA dinámico del archivo HTML en sops/
+                const targetSha = await getFileSha(`sops/${finalId}.html`, token);
 
                 // 2. Commit del archivo HTML en /sops/
+                const urlHtml = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
                 const payloadHtml = { 
                     message: `Ops Control: Publicar sops/${finalId}.html`, 
                     content: base64Content 
@@ -462,7 +467,7 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
                 const resHtml = await fetch(urlHtml, { 
                     method: 'PUT', 
                     headers: { 
-                        "Authorization": `Bearer ${token}`,
+                        "Authorization": `token ${token}`,
                         "Accept": "application/vnd.github+json",
                         "Content-Type": "application/json"
                     }, 
@@ -471,25 +476,23 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
 
                 if(!resHtml.ok) {
                     const errData = await resHtml.json().catch(() => ({}));
-                    throw new Error(`GitHub Error [HTML]: ${errData.message || resHtml.statusText}`);
+                    throw new Error(`GitHub Error [HTML ${resHtml.status}]: ${errData.message || 'Error de permisos o SHA'}`);
                 }
 
-                // 3. Sincronizar manifiesto menu.json si corresponde
+                // 3. Sincronizar manifiesto menu.json si es un SOP nuevo
                 if (isNew) {
+                    const menuShaLatest = await getFileSha("menu.json", token);
                     const urlMenu = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
-                    const menuRes = await fetch(`${urlMenu}?t=${Date.now()}`, {
+                    const menuRes = await fetch(urlMenu, {
                         headers: { 
-                            "Authorization": `Bearer ${token}`,
+                            "Authorization": `token ${token}`,
                             "Accept": "application/vnd.github+json"
                         }
                     });
                     
-                    let freshMenuSha = menuSha;
                     let currentMenuData = fullMenuData;
-
                     if (menuRes.ok) {
                         const mData = await menuRes.json();
-                        freshMenuSha = mData.sha;
                         currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mData.content.replace(/\s/g, '')))));
                     }
 
@@ -504,13 +507,13 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
                     const payloadMenu = { 
                         message: `Ops Control: Registrar ${finalId} en menu.json`, 
                         content: base64Menu, 
-                        sha: freshMenuSha 
+                        sha: menuShaLatest || menuSha 
                     };
                     
                     const resMenu = await fetch(urlMenu, {
                         method: 'PUT',
                         headers: { 
-                            "Authorization": `Bearer ${token}`,
+                            "Authorization": `token ${token}`,
                             "Accept": "application/vnd.github+json",
                             "Content-Type": "application/json"
                         },
@@ -519,7 +522,7 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
 
                     if(!resMenu.ok) {
                         const errMenuData = await resMenu.json().catch(() => ({}));
-                        throw new Error(`GitHub Error [Menu]: ${errMenuData.message || resMenu.statusText}`);
+                        throw new Error(`GitHub Error [Menu ${resMenu.status}]: ${errMenuData.message || 'Error al actualizar menú'}`);
                     }
                 }
 
@@ -528,7 +531,7 @@ ASIGNACIÓN OBLIGATORIA DE EMOJIS:
                 location.reload();
             } catch (error) { 
                 logToConsole(error.message, true);
-                alert(`Error en el despliegue: ${error.message}`);
+                alert(`Error en el despliegue:\n${error.message}`);
             } finally {
                 btnSave.disabled = false;
                 btnSave.innerText = "💾 Publicar en Locales";
