@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS estricta con P-00 de index.html */
+        /* Paridad CSS estricta con el estándar P-00 (index.html) */
         .sop-editor-sheet {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -130,20 +130,20 @@
         </div>
         <div class="flex flex-wrap items-center gap-2">
             <input type="password" id="gemini-key" placeholder="Gemini API Key" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-44 focus:outline-none focus:border-black">
-            <input type="password" id="github-token" placeholder="GitHub PAT (ghp_...)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:outline-none focus:border-black">
+            <input type="password" id="github-token" placeholder="GitHub Personal Token (PAT)" class="bg-neutral-50 border border-neutral-200 rounded px-3 py-1.5 text-xs text-neutral-800 w-52 focus:outline-none focus:border-black">
             <button onclick="saveKeys()" class="bg-neutral-900 hover:bg-black text-white font-semibold text-xs px-4 py-1.5 rounded transition shadow-sm">Guardar Llaves</button>
         </div>
     </header>
 
     <div class="flex-1 max-w-[1800px] w-full mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 overflow-hidden">
         
-        <!-- Panel de Parámetros -->
+        <!-- Panel Lateral de Configuración -->
         <div class="lg:col-span-4 flex flex-col space-y-4">
             <div class="bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">1. Seleccionar o Crear Manual</label>
                     <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2.5 text-xs text-neutral-800 font-medium focus:outline-none focus:border-black">
-                        <option value="">-- Cargando menú central... --</option>
+                        <option value="">-- Cargando menú... --</option>
                     </select>
                 </div>
 
@@ -162,18 +162,18 @@
                     <div class="flex flex-col space-y-2 text-xs font-medium bg-neutral-50 border border-neutral-200 p-3 rounded">
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-modify" value="modify" checked class="accent-black">
-                            <span>Modificar sobre el contenido cargado</span>
+                            <span>Modificar sobre el archivo existente</span>
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer text-neutral-700">
                             <input type="radio" name="operation-mode" id="mode-scratch" value="scratch" class="accent-black">
-                            <span>Maquetar borrador crudo desde cero</span>
+                            <span>Formatear borrador crudo desde cero (Reemplazar)</span>
                         </label>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">3. Instrucción o Texto Crudo</label>
-                    <textarea id="instruction-input" rows="5" placeholder="Ingresá la directiva de cambio o pegá el texto de operaciones..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
+                    <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">3. Directiva o Texto Crudo</label>
+                    <textarea id="instruction-input" rows="5" placeholder="Escribí la instrucción de cambio o pegá el texto de operaciones..." class="w-full bg-neutral-50 border border-neutral-200 rounded p-3 text-xs text-neutral-800 placeholder-neutral-400 resize-none leading-relaxed focus:outline-none focus:border-black"></textarea>
                 </div>
 
                 <button onclick="processSOPModification()" id="btn-process" class="w-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs text-neutral-800 py-3 rounded uppercase tracking-widest transition shadow-sm">
@@ -182,13 +182,13 @@
             </div>
 
             <div class="bg-white border border-neutral-200 rounded p-4 flex-1 flex flex-col min-h-[120px] shadow-sm">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Consola de Estado y API</div>
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Consola de Estado y Eventos</div>
                 <div id="console-output" class="flex-1 bg-neutral-50 rounded p-3 text-[11px] font-mono text-neutral-600 overflow-y-auto max-h-[150px] space-y-1">> Consola lista.</div>
             </div>
         </div>
 
-        <!-- Área de Edición WYSIWYG -->
-        <div class="lg:col-span-6 flex flex-col">
+        <!-- Área de Edición Visual WYSIWYG -->
+        <div class="lg:col-span-5 flex flex-col">
             <div class="bg-white border border-neutral-200 rounded p-6 flex-1 flex flex-col shadow-sm overflow-hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1 bg-[#E6D5C3]"></div>
                 <div class="flex items-center justify-between mb-3 border-b border-neutral-100 pb-2">
@@ -199,25 +199,52 @@
             </div>
         </div>
 
-        <!-- Panel de Despliegue y Acceso Directo -->
-        <div class="lg:col-span-2 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4">
+        <!-- Panel de Despliegue e Instructivo de Flujo -->
+        <div class="lg:col-span-3 flex flex-col justify-between bg-white border border-neutral-200 rounded p-5 shadow-sm space-y-4 overflow-y-auto">
             <div class="space-y-4">
-                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Despliegue</div>
-                <p class="text-xs text-neutral-500 leading-relaxed">Publicá mediante la API de GitHub o utilizá el bypass manual instantáneo si la conexión está restringida.</p>
+                <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación y Despliegue</div>
+                <p class="text-xs text-neutral-500 leading-relaxed">Publicá mediante la API de GitHub en la rama <strong>main</strong> o copiá el código HTML limpio P-00.</p>
                 <div class="text-[10px] font-mono text-neutral-400 bg-neutral-50 p-2 rounded border border-neutral-100 text-center truncate" id="file-path-indicator">sops/??.html</div>
+                
                 <button onclick="pushToGitHub()" id="btn-save" class="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3.5 rounded uppercase tracking-widest transition shadow-md">
                     💾 Publicar en Locales
                 </button>
-            </div>
 
-            <div class="border-t border-neutral-100 pt-4 space-y-2">
-                <div class="text-[9px] font-bold text-neutral-400 uppercase tracking-widest">Flujo de Respaldo</div>
-                <button onclick="copyCleanHtml()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-semibold py-2 rounded transition">
+                <button onclick="copyCleanHtml()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold text-xs py-2.5 rounded uppercase tracking-wider transition">
                     📋 Copiar HTML P-00
                 </button>
-                <button onclick="openGitHubDirect()" class="w-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-semibold py-2 rounded transition">
-                    ↗ Abrir en GitHub Web
-                </button>
+            </div>
+
+            <!-- Instructivo Operativo Integrado -->
+            <div class="border-t border-neutral-100 pt-4 space-y-3">
+                <div class="text-[10px] font-bold text-neutral-800 uppercase tracking-widest">Guía de Flujo Operativo</div>
+                
+                <div class="text-[11px] text-neutral-600 space-y-2 leading-tight">
+                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-100">
+                        <strong class="text-neutral-900 block mb-1">Caso A: Modificar SOP Existente</strong>
+                        <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
+                            <li>Elegí el manual en el paso 1.</li>
+                            <li>Marcá <em>"Modificar sobre el archivo existente"</em>.</li>
+                            <li>Escribí el ajuste en el paso 3 y clic en <em>"Generar Vista Previa con IA"</em>.</li>
+                            <li>Editá el texto en el panel central si es necesario.</li>
+                            <li>Clic en <strong>"💾 Publicar en Locales"</strong>.</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-neutral-50 p-2.5 rounded border border-neutral-100">
+                        <strong class="text-neutral-900 block mb-1">Caso B: Crear Nuevo SOP</strong>
+                        <ol class="list-decimal pl-4 space-y-1 text-neutral-600">
+                            <li>Seleccioná <em>"➕ [CREAR NUEVO PROCEDIMIENTO]"</em>.</li>
+                            <li>Ingresá ID en minúsculas (ej: <code>p11</code>) y Título oficial (ej: <code>P-11 · Nombre</code>).</li>
+                            <li>Pegá el borrador crudo en el paso 3 y generá la vista previa.</li>
+                            <li>Clic en <strong>"💾 Publicar en Locales"</strong>. El sistema creará <code>sops/p11.html</code> y registrará el botón automáticamente en <code>menu.json</code>.</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-amber-50/50 p-2.5 rounded border border-amber-200/50 text-[10px] text-amber-900">
+                        <strong>Estándar P-00:</strong> Prohibido incluir tags <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> o delimitadores Markdown. Usar solo fragmentos HTML limpios con clases <code>sop-*</code> y cierre obligatorio de Reglas de Oro (⚠).
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -226,6 +253,7 @@
         const GITHUB_USER = "juanoviedo1987-droid";
         const GITHUB_REPO = "sops-nazaria";
         let currentSopCode = "";
+        let menuSha = null;
         let fullMenuData = [];
 
         window.onload = function() {
@@ -244,7 +272,7 @@
             const ghToken = getCleanToken();
             localStorage.setItem('gemini_key', gKey);
             localStorage.setItem('github_token', ghToken);
-            logToConsole("Credenciales guardadas.");
+            logToConsole("Credenciales guardadas en LocalStorage.");
             loadMenu();
         }
 
@@ -265,7 +293,7 @@
         async function loadMenu() {
             try {
                 const response = await fetch(`./menu.json?t=${Date.now()}`);
-                if (!response.ok) throw new Error("No se pudo leer menu.json");
+                if (!response.ok) throw new Error("No se pudo cargar menu.json central.");
                 fullMenuData = await response.json();
                 
                 const selector = document.getElementById('sop-selector');
@@ -304,7 +332,7 @@
             try {
                 const response = await fetch(`./sops/${currentSopCode}.html?t=${Date.now()}`);
                 if (!response.ok) { 
-                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico previo.</p>';
+                    document.getElementById('visual-editor').innerHTML = '<p class="sop-text">Documento sin contenido físico en sops/.</p>';
                     return; 
                 }
                 const html = await response.text();
@@ -324,7 +352,7 @@
 
             if (!geminiKey) { alert("Configurá tu Gemini API Key en la cabecera."); return; }
             if (!currentSopCode) { alert("Seleccioná un SOP o creá uno nuevo."); return; }
-            if (!instruction) { alert("Ingresá el texto crudo o la directiva."); return; }
+            if (!instruction) { alert("Ingresá la directiva de cambio o el texto crudo."); return; }
 
             btn.disabled = true;
             btn.innerText = "⏳ Procesando con IA...";
@@ -335,10 +363,10 @@ REGLAS OBLIGATORIAS:
 - PROHIBIDO usar <!DOCTYPE html>, <html>, <head> o <body>.
 - PROHIBIDO responder con delimitadores markdown (\`\`\`html o \`\`\`). Tu respuesta debe ser ÚNICAMENTE el código HTML puro.
 - Jerarquía CSS requerida:
-  * Título Principal: <h1 class="sop-title-1">P-XX · Título del Procedimiento</h1>
-  * Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE EN MAYÚSCULAS</h2>
-  * Sub-bloque: <h3 class="sop-title-3">X. Nombre de Sección</h3>
-  * Párrafo: <p class="sop-text">Texto justificado explicativo.</p>
+  * Título Principal: <h1 class="sop-title-1">P-XX · Título del Procedimiento</h1> (22pt, bold, #000000)
+  * Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE EN MAYÚSCULAS</h2> (13pt, bold, #000000, border-bottom)
+  * Sub-bloque: <h3 class="sop-title-3">X. Nombre de Sección</h3> (11pt, bold, #404040)
+  * Párrafo: <p class="sop-text">Texto justificado explicativo.</p> (11pt, #1A1A1A)
   * Listas de Tareas: <ul class="sop-list"><li class="sop-list-item">[Emoji] <strong>Título del Paso:</strong> Detalle operativo.</li></ul>
   * Citas/Ejemplos: <blockquote class="sop-blockquote">Ejemplo: "Texto de referencia"</blockquote>
   * Separador: <hr class="sop-divider"> (Colocar tras el Objetivo y al final de cada Fase).
@@ -350,7 +378,7 @@ REGLAS OBLIGATORIAS:
     </ul>
 
 ASIGNACIÓN DE EMOJIS:
-🖥️ -> Dux Software / Sistemas | 📱 -> WhatsApp / Redes | 💳 -> Pagos digitales / Tarjetas | 💵 -> Efectivo / Caja | 📦 -> Stock / Envíos | ✨ -> Atención al Cliente`;
+🖥️ -> Dux Software / Sistemas | 📱 -> WhatsApp / Redes / Formularios | 💳 -> Pagos digitales / Tarjetas / Payway | 💵 -> Efectivo / Caja Chica | 📦 -> Stock / Envíos / Auditorías | ✨ -> Atención al Cliente / Fidelización`;
 
             let userPrompt = mode === "scratch" 
                 ? `GENERAR MANUAL COMPLETO DESDE CERO CON ESTE TEXTO BORRADOR:\n${instruction}`
@@ -390,21 +418,12 @@ ASIGNACIÓN DE EMOJIS:
         }
 
         function copyCleanHtml() {
-            const content = document.getElementById('visual-editor').innerHTML.trim();
-            navigator.clipboard.writeText(content).then(() => {
-                alert("Código HTML limpio copiado al portapapeles.");
+            const editor = document.getElementById('visual-editor');
+            const rawContent = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
+            navigator.clipboard.writeText(rawContent).then(() => {
+                alert("Código HTML limpio (P-00) copiado al portapapeles.");
                 logToConsole("HTML copiado al portapapeles.");
             });
-        }
-
-        function openGitHubDirect() {
-            const finalId = getSelectedId();
-            if (!finalId || finalId === "new") {
-                alert("Seleccioná un SOP primero.");
-                return;
-            }
-            const targetUrl = `[https://github.com/$](https://github.com/$){GITHUB_USER}/${GITHUB_REPO}/edit/main/sops/${finalId}.html`;
-            window.open(targetUrl, '_blank');
         }
 
         async function pushToGitHub() {
@@ -415,19 +434,21 @@ ASIGNACIÓN DE EMOJIS:
             const finalId = getSelectedId();
 
             if (!token) {
-                alert("Falta configurar el GitHub Personal Token (PAT).");
+                alert("Falta configurar el GitHub Personal Token (PAT) en la cabecera.");
                 return;
             }
 
             if (!finalId || finalId === "new") {
-                alert("Seleccioná un procedimiento válido.");
+                alert("Seleccioná un procedimiento válido antes de publicar.");
                 return;
             }
 
             let finalTitle = isNew ? document.getElementById('new-title').value.trim() : "";
-            if (isNew && (!finalTitle || !finalTitle.includes(" · "))) {
-                alert("El formato del título debe ser: 'P-XX · Nombre'");
-                return;
+            if (isNew) {
+                if (!finalTitle || !finalTitle.includes(" · ")) {
+                    alert("El formato del título debe ser: 'P-XX · Nombre'");
+                    return;
+                }
             }
 
             const rawContent = editor.innerHTML.trim().replace(/^```html\s*/i, '').replace(/```$/i, '').trim();
@@ -438,7 +459,7 @@ ASIGNACIÓN DE EMOJIS:
             logToConsole(`Iniciando despliegue de sops/${finalId}.html...`);
 
             try {
-                // 1. Obtener SHA vía API
+                // 1. Obtener SHA del archivo
                 let targetSha = null;
                 const fileApiUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/sops/${finalId}.html`;
                 
@@ -487,8 +508,8 @@ ASIGNACIÓN DE EMOJIS:
                 // 3. Sincronizar menu.json si es nuevo
                 if (isNew) {
                     const menuApiUrl = `[https://api.github.com/repos/$](https://api.github.com/repos/$){GITHUB_USER}/${GITHUB_REPO}/contents/menu.json`;
-                    let menuSha = null;
-                    let menuData = fullMenuData;
+                    let currentMenuSha = null;
+                    let currentMenuData = fullMenuData;
 
                     const menuGet = await fetch(menuApiUrl, {
                         headers: {
@@ -501,18 +522,18 @@ ASIGNACIÓN DE EMOJIS:
 
                     if (menuGet.ok) {
                         const mJson = await menuGet.json();
-                        menuSha = mJson.sha;
-                        menuData = JSON.parse(decodeURIComponent(escape(atob(mJson.content.replace(/\s/g, '')))));
+                        currentMenuSha = mJson.sha;
+                        currentMenuData = JSON.parse(decodeURIComponent(escape(atob(mJson.content.replace(/\s/g, '')))));
                     }
 
-                    const existsIdx = menuData.findIndex(item => item.id === finalId);
+                    const existsIdx = currentMenuData.findIndex(item => item.id === finalId);
                     if (existsIdx >= 0) {
-                        menuData[existsIdx].title = finalTitle;
+                        currentMenuData[existsIdx].title = finalTitle;
                     } else {
-                        menuData.push({ id: finalId, title: finalTitle });
+                        currentMenuData.push({ id: finalId, title: finalTitle });
                     }
 
-                    const base64Menu = btoa(unescape(encodeURIComponent(JSON.stringify(menuData, null, 2))));
+                    const base64Menu = btoa(unescape(encodeURIComponent(JSON.stringify(currentMenuData, null, 2))));
                     const putMenu = await fetch(menuApiUrl, {
                         method: "PUT",
                         headers: {
@@ -525,19 +546,19 @@ ASIGNACIÓN DE EMOJIS:
                         body: JSON.stringify({
                             message: `Ops Control: Registrar ${finalId} en menu.json`,
                             content: base64Menu,
-                            sha: menuSha
+                            sha: currentMenuSha
                         })
                     });
 
                     if (!putMenu.ok) throw new Error("Error al actualizar menu.json");
-                    logToConsole("menu.json actualizado.");
+                    logToConsole("menu.json actualizado y sincronizado.");
                 }
 
                 alert("Procedimiento publicado con éxito en la red de locales.");
                 location.reload();
             } catch (error) {
-                logToConsole(`Error en API: ${error.message}. Utilizá el Flujo de Respaldo abajo a la derecha.`, true);
-                alert(`Error en despliegue automático:\n${error.message}\n\nPodés usar el botón '📋 Copiar HTML' y pegarlo directamente en GitHub.`);
+                logToConsole(`Error en API: ${error.message}`, true);
+                alert(`Error en despliegue automático:\n${error.message}\n\nPodés utilizar el botón '📋 Copiar HTML P-00' para respaldar el contenido.`);
             } finally {
                 btnSave.disabled = false;
                 btnSave.innerText = "💾 Publicar en Locales";
