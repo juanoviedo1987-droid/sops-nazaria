@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Paridad CSS exacta con el visor oficial P-00 (index.html) */
+        /* Estándar CSS Oficial P-00 Nazaria */
         .sop-container {
             font-family: 'Inter', sans-serif !important;
             line-height: 1.25 !important;
@@ -20,7 +20,7 @@
         }
         .sop-container .sop-title-1, .sop-container h1 {
             font-family: 'Inter', sans-serif !important;
-            font-size: 22pt !important;
+            font-size: 20pt !important;
             font-weight: 700 !important;
             color: #000000 !important;
             margin-top: 0px !important;
@@ -38,8 +38,8 @@
             margin-bottom: 12pt !important;
             line-height: 1.25 !important;
             letter-spacing: 0.05em !important;
-            border-bottom: 2px solid #1A1A1A;
-            padding-bottom: 4px;
+            border-bottom: 2px solid #1A1A1A !important;
+            padding-bottom: 4px !important;
         }
         .sop-container .sop-title-3, .sop-container h3 {
             font-family: 'Inter', sans-serif !important;
@@ -91,10 +91,10 @@
             margin-bottom: 8pt !important;
             color: #000000 !important;
             font-weight: 600 !important;
-            background-color: #F5F5F5;
-            padding: 10px 14px;
-            border-left: 3px solid #000000;
-            border-radius: 4px;
+            background-color: #F5F5F5 !important;
+            padding: 10px 14px !important;
+            border-left: 3px solid #000000 !important;
+            border-radius: 4px !important;
         }
         .sop-container table {
             width: 100% !important;
@@ -121,7 +121,7 @@
 <body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 h-screen flex flex-col overflow-hidden">
 
     <!-- Header Principal -->
-    <header class="bg-white border-b border-neutral-200 px-6 py-3 flex items-center justify-between shadow-sm shrink-0 z-10">
+    <header class="bg-white border-b border-neutral-200 px-6 py-3 flex items-center justify-between shadow-sm shrink-0 z-20">
         <div class="flex items-center space-x-3">
             <div class="bg-neutral-900 text-white w-8 h-8 flex items-center justify-center rounded font-bold text-xs">HQ</div>
             <div>
@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="flex items-center gap-3">
-            <button onclick="toggleGuideDrawer()" class="bg-amber-50 hover:bg-amber-100/80 text-amber-900 border border-amber-300/80 font-semibold text-xs px-3 py-1.5 rounded transition shadow-sm flex items-center gap-1.5">
+            <button onclick="toggleGuideDrawer()" class="bg-amber-50 hover:bg-amber-100/80 text-amber-900 border border-amber-300/80 font-semibold text-xs px-3.5 py-1.5 rounded transition shadow-sm flex items-center gap-1.5">
                 <span>📖</span> Guía Operativa & Estándar
             </button>
             <div class="flex items-center gap-2">
@@ -140,12 +140,12 @@
         </div>
     </header>
 
-    <!-- Contenedor Principal de Trabajo -->
-    <div class="flex-1 flex flex-row gap-4 p-4 overflow-hidden">
+    <!-- Layout Central de 3 Columnas -->
+    <div class="flex-1 flex flex-row overflow-hidden">
         
-        <!-- Panel Izquierdo: Configuración e IA (320px) -->
-        <aside class="w-[320px] shrink-0 flex flex-col space-y-3 overflow-y-auto pr-1">
-            <div class="bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-3">
+        <!-- Panel Izquierdo: Configuración e IA (320px fijo) -->
+        <aside class="w-[320px] bg-white border-r border-neutral-200 p-4 flex flex-col space-y-4 overflow-y-auto shrink-0 z-10 shadow-sm">
+            <div class="space-y-3">
                 <div>
                     <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">1. Seleccionar Manual</label>
                     <select id="sop-selector" onchange="handleSopSelection()" class="w-full bg-neutral-50 border border-neutral-200 rounded p-2 text-xs text-neutral-800 font-medium focus:outline-none focus:border-black">
@@ -187,38 +187,38 @@
                 </button>
             </div>
 
-            <div class="bg-white border border-neutral-200 rounded p-3 flex-1 flex flex-col min-h-[100px] shadow-sm">
+            <div class="bg-neutral-50 border border-neutral-200 rounded p-3 flex-1 flex flex-col min-h-[100px]">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1">Consola de Estado</div>
-                <div id="console-output" class="flex-1 bg-neutral-50 rounded p-2 text-[10px] font-mono text-neutral-600 overflow-y-auto max-h-[120px] space-y-0.5">> Consola lista.</div>
+                <div id="console-output" class="flex-1 text-[10px] font-mono text-neutral-600 overflow-y-auto max-h-[120px] space-y-0.5">> Consola lista.</div>
             </div>
         </aside>
 
-        <!-- Panel Central: Lienzo de Edición (820px idéntico a sucursales) -->
-        <main class="flex-1 bg-[#FAF9F6] border border-neutral-200 rounded p-6 overflow-y-auto flex justify-center shadow-inner relative">
+        <!-- Panel Central: Lienzo de Edición (Idéntico a index.html) -->
+        <main class="flex-1 bg-[#FAF9F6] p-8 flex justify-center overflow-y-auto relative">
             
             <!-- Estado Inicial: Ningún SOP seleccionado -->
             <div id="empty-state" class="flex flex-col items-center justify-center text-center max-w-sm my-auto space-y-3">
                 <div class="text-neutral-300 text-3xl">▪</div>
                 <h2 class="text-sm font-bold text-black tracking-wider uppercase">Lienzo de Operaciones</h2>
-                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento desde el panel izquierdo para cargar su contenido o creá un nuevo manual para comenzar.</p>
+                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento desde el panel lateral para cargar su contenido o creá un nuevo manual para comenzar.</p>
             </div>
 
-            <!-- Hoja de Edición Activa -->
-            <div id="sheet-wrapper" class="w-full max-w-[820px] hidden flex-col items-center">
-                <div class="w-full mb-2.5 flex items-center justify-between px-1">
+            <!-- Hoja de Edición Activa A4 (820px, padding 60px) -->
+            <div id="sheet-wrapper" class="w-full max-w-[820px] hidden flex-col items-center pb-12">
+                <div class="w-full mb-3 flex items-center justify-between px-1">
                     <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Hoja de Visualización y Edición Directa</span>
                     <span class="text-[10px] text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded border border-amber-200/50">DOM Activo (Editable)</span>
                 </div>
                 
                 <div class="bg-white text-neutral-900 w-full min-h-[1123px] shadow-sm rounded border border-neutral-200 p-[60px] relative">
-                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
+                    <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3] rounded-t"></div>
                     <div id="visual-editor" contenteditable="true" class="sop-container"></div>
                 </div>
             </div>
         </main>
 
-        <!-- Panel Derecho: Publicación Rápida (280px) -->
-        <aside class="w-[280px] shrink-0 flex flex-col justify-between bg-white border border-neutral-200 rounded p-4 shadow-sm space-y-4 overflow-y-auto">
+        <!-- Panel Derecho: Publicación Rápida (280px fijo) -->
+        <aside class="w-[280px] bg-white border-l border-neutral-200 p-4 flex flex-col justify-between shrink-0 z-10 shadow-sm overflow-y-auto">
             <div class="space-y-3">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-2">4. Publicación</div>
                 <p class="text-xs text-neutral-500 leading-relaxed">Copiá el código limpio validado bajo el estándar P-00 para guardar en GitHub.</p>
@@ -261,7 +261,6 @@
 
         <div class="flex-1 p-6 overflow-y-auto space-y-6 text-neutral-800 text-xs leading-relaxed">
             
-            <!-- 1. Roles -->
             <div class="space-y-2.5">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">1. Herramientas del Sistema</div>
                 <div class="space-y-2">
@@ -284,7 +283,6 @@
                 </div>
             </div>
 
-            <!-- 2. Paso a Paso -->
             <div class="space-y-2.5">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">2. Paso a Paso para Publicar</div>
                 
@@ -309,7 +307,6 @@
                 </div>
             </div>
 
-            <!-- 3. Emojis y Reglas -->
             <div class="space-y-2.5">
                 <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-100 pb-1">3. Emojis Oficiales de Nazaria</div>
                 
@@ -468,7 +465,7 @@ REGLAS OBLIGATORIAS:
 - PROHIBIDO usar <!DOCTYPE html>, <html>, <head> o <body>.
 - PROHIBIDO responder con delimitadores markdown (\`\`\`html o \`\`\`). Tu respuesta debe ser ÚNICAMENTE el código HTML puro.
 - Jerarquía CSS requerida:
-  * Título Principal: <h1 class="sop-title-1">P-XX · Título del Procedimiento</h1> (22pt, bold, #000000)
+  * Título Principal: <h1 class="sop-title-1">P-XX · Título del Procedimiento</h1> (20pt, bold, #000000)
   * Título de Fase: <h2 class="sop-title-2">FASE X: NOMBRE DE FASE EN MAYÚSCULAS</h2> (13pt, bold, #000000, border-bottom)
   * Sub-bloque: <h3 class="sop-title-3">X. Nombre de Sección</h3> (11pt, bold, #404040)
   * Párrafo: <p class="sop-text">Texto justificado explicativo.</p> (11pt, #1A1A1A)
