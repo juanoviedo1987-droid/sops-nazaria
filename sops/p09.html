@@ -12,21 +12,37 @@
             background-color: transparent;
         }
         
-        /* Contenedor con márgenes ampliados para no invadir los menús */
         .wrapper-promos {
             position: fixed;
-            top: 110px;      /* Bajamos la hoja para que no pise la barra superior */
-            left: 345px;     /* Desplazamos la hoja a la derecha para liberar el menú lateral */
-            right: 20px;      /* Margen de seguridad derecho */
-            bottom: 20px;     /* Margen de seguridad inferior */
             background-color: #ffffff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 1px solid #cccccc;
             border-radius: 4px;
-            overflow: auto;   /* Permite scroll de la tabla si el monitor es muy chico */
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            z-index: 10;
         }
 
-        /* Tabla al 100% de su tamaño nativo, sin alteraciones */
+        /* Vista Mobile (< 768px) */
+        @media (max-width: 767px) {
+            .wrapper-promos {
+                top: 64px;
+                left: 8px;
+                right: 8px;
+                bottom: 8px;
+            }
+        }
+
+        /* Vista Escritorio / Terminal Sucursal (>= 768px) */
+        @media (min-width: 768px) {
+            .wrapper-promos {
+                top: 110px;
+                left: 345px;
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+
         iframe {
             width: 100%;
             height: 100%;
