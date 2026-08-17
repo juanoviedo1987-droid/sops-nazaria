@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
     <title>Centro de Operaciones - Manual de SOPs Oficiales</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,55 +12,92 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-        /* Estructura de fuentes estricta del P-00 para la visualización del documento */
+        /* Estructura tipográfica P-00 con adaptación responsiva */
         .sop-container {
             font-family: 'Inter', sans-serif !important;
-            line-height: 1.25 !important;
+            line-height: 1.35 !important;
             color: #1A1A1A !important;
-            font-size: 11pt !important;
+            font-size: 10pt !important;
+        }
+        @media (min-width: 768px) {
+            .sop-container {
+                font-size: 11pt !important;
+                line-height: 1.25 !important;
+            }
         }
         .sop-title-1 {
             font-family: 'Inter', sans-serif !important;
-            font-size: 22pt !important;
+            font-size: 16pt !important;
             font-weight: 700 !important;
             color: #000000 !important;
             margin-top: 0px !important;
-            margin-bottom: 14pt !important;
-            line-height: 1.25 !important;
+            margin-bottom: 12pt !important;
+            line-height: 1.2 !important;
             letter-spacing: -0.02em !important;
+        }
+        @media (min-width: 768px) {
+            .sop-title-1 {
+                font-size: 22pt !important;
+                margin-bottom: 14pt !important;
+                line-height: 1.25 !important;
+            }
         }
         .sop-title-2 {
             font-family: 'Inter', sans-serif !important;
-            font-size: 13pt !important;
+            font-size: 11.5pt !important;
             font-weight: 700 !important;
             color: #000000 !important;
             text-transform: uppercase !important;
-            margin-top: 26pt !important;
-            margin-bottom: 12pt !important;
+            margin-top: 20pt !important;
+            margin-bottom: 10pt !important;
             line-height: 1.25 !important;
             letter-spacing: 0.05em !important;
             border-bottom: 2px solid #1A1A1A;
             padding-bottom: 4px;
         }
+        @media (min-width: 768px) {
+            .sop-title-2 {
+                font-size: 13pt !important;
+                margin-top: 26pt !important;
+                margin-bottom: 12pt !important;
+            }
+        }
         .sop-title-3 {
             font-family: 'Inter', sans-serif !important;
-            font-size: 11pt !important;
+            font-size: 10.5pt !important;
             font-weight: 700 !important;
             color: #404040 !important;
-            margin-top: 18pt !important;
+            margin-top: 14pt !important;
             margin-bottom: 6pt !important;
             line-height: 1.25 !important;
         }
+        @media (min-width: 768px) {
+            .sop-title-3 {
+                font-size: 11pt !important;
+                margin-top: 18pt !important;
+            }
+        }
         .sop-text {
             margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-            text-align: justify !important;
+            margin-bottom: 10pt !important;
+            text-align: left !important;
+        }
+        @media (min-width: 768px) {
+            .sop-text {
+                margin-bottom: 12pt !important;
+                text-align: justify !important;
+            }
         }
         .sop-list {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
-            padding-left: 15pt !important;
+            padding-left: 0px !important;
             list-style-type: none !important;
+        }
+        @media (min-width: 768px) {
+            .sop-list {
+                padding-left: 15pt !important;
+            }
         }
         .sop-list-item {
             margin-bottom: 6pt !important;
@@ -68,23 +106,26 @@
         .sop-divider {
             border: none !important;
             border-top: 1px solid #E5E5E5 !important;
-            margin-top: 24pt !important;
-            margin-bottom: 24pt !important;
+            margin-top: 18pt !important;
+            margin-bottom: 18pt !important;
+        }
+        @media (min-width: 768px) {
+            .sop-divider {
+                margin-top: 24pt !important;
+                margin-bottom: 24pt !important;
+            }
         }
         .sop-blockquote {
-            margin-top: 0px !important;
-            margin-bottom: 12pt !important;
-            margin-left: 0px !important;
-            margin-right: 0px !important;
-            padding-left: 12pt !important;
-            border-left: 2px solid #A3A3A3 !important;
+            margin: 0 0 12pt 0 !important;
+            padding-left: 10pt !important;
+            border-left: 3px solid #A3A3A3 !important;
             font-style: italic !important;
             color: #525252 !important;
         }
         .sop-warning-list {
             margin-top: 0px !important;
             margin-bottom: 12pt !important;
-            padding-left: 15pt !important;
+            padding-left: 0px !important;
             list-style-type: none !important;
         }
         .sop-warning-item {
@@ -92,51 +133,91 @@
             color: #000000 !important;
             font-weight: 600 !important;
             background-color: #F5F5F5;
-            padding: 10px 14px;
+            padding: 10px 12px;
             border-left: 3px solid #000000;
             border-radius: 4px;
+            font-size: 9.5pt;
+        }
+        @media (min-width: 768px) {
+            .sop-warning-item {
+                font-size: 10.5pt;
+                padding: 10px 14px;
+            }
+        }
+        /* Contención responsiva de tablas */
+        .sop-container table {
+            display: block;
+            width: 100% !important;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-collapse: collapse;
+            margin-top: 10pt;
+            margin-bottom: 14pt;
+        }
+        .sop-container th, .sop-container td {
+            min-width: 130px;
         }
     </style>
 </head>
-<body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col">
+<body class="bg-[#F4F4F4] font-['Inter'] text-neutral-900 min-h-screen flex flex-col antialiased">
 
-    <header class="bg-white border-b border-neutral-200 px-8 py-5 flex items-center justify-between shadow-sm">
-        <div class="flex items-center space-x-4">
-            <div class="bg-black text-white px-3 py-1.5 rounded font-bold tracking-widest text-xs">
+    <!-- Header Responsivo -->
+    <header class="bg-white border-b border-neutral-200 px-4 md:px-8 py-3.5 md:py-4 flex items-center justify-between shadow-sm sticky top-0 z-30">
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleMobileMenu()" class="md:hidden text-neutral-800 p-1.5 -ml-1.5 rounded hover:bg-neutral-100 focus:outline-none" aria-label="Abrir Menú">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <div class="bg-black text-white px-2.5 py-1 rounded font-bold tracking-widest text-[11px] md:text-xs">
                 NZ
             </div>
             <div>
-                <h1 class="text-base font-bold tracking-widest text-black uppercase">
-                    NAZARIA <span class="ml-2 text-[10px] font-bold bg-[#E6D5C3] text-neutral-800 px-2 py-0.5 rounded tracking-normal">OPERACIONES</span>
+                <h1 class="text-xs md:text-sm font-bold tracking-widest text-black uppercase flex items-center">
+                    NAZARIA <span class="ml-2 text-[9px] md:text-[10px] font-bold bg-[#E6D5C3] text-neutral-800 px-1.5 py-0.5 rounded tracking-normal">OPERACIONES</span>
                 </h1>
-                <p class="text-[11px] text-neutral-500 tracking-wide mt-0.5">Base de Conocimiento y Manuales Técnicos</p>
+                <p class="hidden md:block text-[11px] text-neutral-500 tracking-wide mt-0.5">Base de Conocimiento y Manuales Técnicos</p>
             </div>
         </div>
-        <div class="text-[11px] font-medium text-neutral-600 bg-white border border-neutral-200 px-3 py-1.5 rounded flex items-center shadow-sm">
-            <span class="w-1.5 h-1.5 rounded-full bg-neutral-900 mr-2"></span> Terminal Sucursal
+        <div class="text-[10px] md:text-[11px] font-medium text-neutral-600 bg-white border border-neutral-200 px-2.5 py-1 md:px-3 md:py-1.5 rounded flex items-center shadow-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 mr-1.5 md:mr-2 animate-pulse"></span> Terminal Sucursal
         </div>
     </header>
 
-    <div class="flex-1 flex overflow-hidden">
+    <!-- Backdrop Móvil -->
+    <div id="mobile-menu-backdrop" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity"></div>
+
+    <!-- Contenedor Principal -->
+    <div class="flex-1 flex overflow-hidden relative">
         
-        <aside class="w-80 bg-white border-r border-neutral-200 p-4 flex flex-col space-y-1.5 overflow-y-auto">
-            <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-3 mb-3 mt-1">Manuales de Proceso</div>
+        <!-- Sidebar: Drawer en móvil / Fijo en PC -->
+        <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-72 md:w-80 bg-white border-r border-neutral-200 p-4 flex flex-col space-y-1.5 overflow-y-auto transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out shadow-xl md:shadow-none">
+            <div class="flex items-center justify-between px-2 mb-2 md:hidden">
+                <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest">Manuales Operativos</span>
+                <button onclick="toggleMobileMenu()" class="text-neutral-500 p-1 font-bold text-sm">✕</button>
+            </div>
+            
+            <div class="hidden md:block text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-3 mb-3 mt-1">Manuales de Proceso</div>
             
             <div id="sop-menu-container" class="flex flex-col space-y-1.5">
-                </div>
+                <!-- Inyección dinámica desde menu.json -->
+            </div>
         </aside>
 
-        <main class="flex-1 bg-[#FAF9F6] p-8 flex justify-center overflow-y-auto">
-            <div id="sop-view-card" class="bg-white text-neutral-900 w-full max-w-[820px] min-h-[1123px] shadow-sm rounded border border-neutral-200 p-[60px] hidden relative">
+        <!-- Área de Lectura -->
+        <main class="flex-1 bg-[#FAF9F6] p-3 md:p-8 flex justify-center overflow-y-auto w-full">
+            <div id="sop-view-card" class="bg-white text-neutral-900 w-full max-w-[820px] min-h-full md:min-h-[1123px] shadow-sm rounded border border-neutral-200 p-4 md:p-[60px] hidden relative">
                 <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#E6D5C3]"></div>
-                <div id="sop-content" class="sop-container">
-                    </div>
+                <div id="sop-content" class="sop-container w-full">
+                    <!-- Fragmento SOP inyectado -->
+                </div>
             </div>
 
-            <div id="welcome-card" class="flex flex-col items-center justify-center text-center max-w-sm mx-auto space-y-3">
-                <div class="text-neutral-300 text-4xl">▪</div>
-                <h2 class="text-sm font-bold text-black tracking-wider uppercase">Portal Operativo Nazaria</h2>
-                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento operativo desde el panel lateral para consultar el estándar oficial vigente.</p>
+            <div id="welcome-card" class="flex flex-col items-center justify-center text-center max-w-sm mx-auto space-y-3 px-4">
+                <div class="text-neutral-300 text-3xl md:text-4xl">▪</div>
+                <h2 class="text-xs md:text-sm font-bold text-black tracking-wider uppercase">Portal Operativo Nazaria</h2>
+                <p class="text-xs text-neutral-500 leading-relaxed">Seleccioná un procedimiento desde el menú para consultar el estándar oficial vigente.</p>
+                <button onclick="toggleMobileMenu()" class="md:hidden mt-2 bg-neutral-900 text-white text-xs font-semibold px-4 py-2 rounded shadow-sm">
+                    Abrir Menú de Manuales
+                </button>
             </div>
 
             <div id="loader" class="hidden flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-2">
@@ -153,7 +234,20 @@
             loadDynamicMenu();
         };
 
-        // LÓGICA CORE: Leer manifiesto menu.json e inyectar botones en sidebar
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+        }
+
         async function loadDynamicMenu() {
             const container = document.getElementById('sop-menu-container');
             try {
@@ -161,17 +255,16 @@
                 if (!response.ok) throw new Error("Falta archivo menu.json central.");
                 
                 const menuItems = await response.json();
-                container.innerHTML = ""; // Limpiar contenedor
+                container.innerHTML = "";
 
                 menuItems.forEach(item => {
-                    // Separamos el código (P-01) del nombre para el formateo del badge
                     const titleParts = item.title.split(' · ');
                     const badgeText = titleParts[0] || item.id.toUpperCase();
                     const nameText = titleParts[1] || item.title;
 
                     container.innerHTML += `
-                        <button onclick="loadSOP('${item.id}')" id="btn-${item.id}" class="w-full text-left px-4 py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-3 transition font-medium">
-                            <span class="font-bold text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded shrink-0">${badgeText}</span>
+                        <button onclick="loadSOP('${item.id}')" id="btn-${item.id}" class="w-full text-left px-3.5 py-2.5 md:px-4 md:py-3 rounded border border-neutral-100 bg-neutral-50 text-neutral-700 hover:bg-[#E6D5C3]/30 hover:text-black flex items-center space-x-2.5 md:space-x-3 transition font-medium">
+                            <span class="font-bold text-[9px] md:text-[10px] text-neutral-900 bg-[#E6D5C3] px-1.5 py-0.5 rounded shrink-0">${badgeText}</span>
                             <span class="text-xs truncate tracking-wide">${nameText}</span>
                         </button>
                     `;
@@ -189,7 +282,14 @@
             const loader = document.getElementById('loader');
             const sopContent = document.getElementById('sop-content');
 
-            // Resetear estados visuales en la barra lateral dinámica
+            // Cierre automático del drawer móvil al seleccionar un manual
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            if (!sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+            }
+
             document.querySelectorAll('#sop-menu-container button').forEach(btn => {
                 btn.classList.remove('bg-black', 'text-white', 'border-black');
                 btn.classList.add('bg-neutral-50', 'text-neutral-700');
@@ -214,6 +314,8 @@
                 
                 loader.classList.add('hidden');
                 sopViewCard.classList.remove('hidden');
+                
+                document.querySelector('main').scrollTop = 0;
             } catch (error) {
                 loader.classList.add('hidden');
                 sopContent.innerHTML = `
